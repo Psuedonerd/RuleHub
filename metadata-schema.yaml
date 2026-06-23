@@ -25,7 +25,7 @@ date:
 
 tags: string[]
 #category: enum(signaling, regulation, metabolism, gene-expression, epidemiology, immunology, tutorial, validation, showcase, synthetic-biology, ecology, physics, computer-science, other, compartments, energy, feature-demos, nfsim, processes, wacky, cs, biology, genetics, ml, signal-processing, mechanistic-modeling, biophysics)
-biol_category: 
+biol_categories: 
   - enum(signaling, regulation, metabolism, gene-expression, epidemiology, immunology, synthetic-biology, ecology, physics, other, biology, genetics, signal-processing, mechanistic-modeling, biophysics)
 
 comp_categories: 
