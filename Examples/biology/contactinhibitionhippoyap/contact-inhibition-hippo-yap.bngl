@@ -30,6 +30,7 @@ begin parameters
     YAP_tot 500
     TEAD_tot 150
     NF2_tot 100
+    Contact_total 1000
     k_contact_pulse 1.0      # Density-dependent activation triggernal rate
 end parameters
 
@@ -42,7 +43,7 @@ begin molecule types
 end molecule types
 
 begin seed species
-    Contact(s~low) 1000
+    Contact(s~low) Contact_total
     MST(s~U) MST_tot
     LATS(s~U) LATS_tot
     YAP(b,s~U,loc~cyt) YAP_tot
