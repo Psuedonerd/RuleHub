@@ -11,8 +11,8 @@ tags: ["contact", "inhibition", "hippo", "yap", "mst", "lats", "tead"]
 date:
   last_tested: 2026-07-02
 
+category: "signaling"
 biol_categories: ["signaling"]
-
 comp_categories: ["other"]
 
 compatibility:
