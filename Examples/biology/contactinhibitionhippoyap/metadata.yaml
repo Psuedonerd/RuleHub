@@ -23,7 +23,7 @@ compatibility:
   vcell_compatible: true # put actions outside of model
   vcell_errors: 
   simulation_methods: ["ode", "ssa"]
-  nfsim_compatible: true  # CHANGED! WARNING: Species with more than 20 molecules will be labeled with the Quasi method.
+  nfsim_compatible: true # CHANGED! WARNING: Species with more than 20 molecules will be labeled with the Quasi method.
   molclustpy_compatible: true # if set species concentration to variable instead of 1000
   uses_compartments: false
   uses_energy: false
