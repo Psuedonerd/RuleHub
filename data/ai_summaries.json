@@ -1,0 +1,427 @@
+[
+  {
+    "model_id": "An_2009",
+    "title": "An 2009",
+    "bngl_path": "Published/An2009/An_2009.bngl",
+    "yaml_path": "Published/An2009/metadata.yaml",
+    "markdown_path": "data/An2009_aigenerated.md",
+    "summary": "This model represents tlr4 signaling using BNGL rules for the molecules and interactions encoded in `An_2009.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Barua_2007",
+    "title": "Barua 2007",
+    "bngl_path": "Published/Barua2007/Barua_2007.bngl",
+    "yaml_path": "Published/Barua2007/metadata.yaml",
+    "markdown_path": "data/Barua2007_aigenerated.md",
+    "summary": "This model represents model from haugh (2006) using BNGL rules for the molecules and interactions encoded in `Barua_2007.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Barua_2009",
+    "title": "Barua 2009",
+    "bngl_path": "Published/Barua2009/Barua_2009.bngl",
+    "yaml_path": "Published/Barua2009/metadata.yaml",
+    "markdown_path": "data/Barua2009_aigenerated.md",
+    "summary": "This model represents jak2-sh2b signaling using BNGL rules for the molecules and interactions encoded in `Barua_2009.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Barua_2013",
+    "title": "Barua 2013",
+    "bngl_path": "Published/Barua2013/Barua_2013.bngl",
+    "yaml_path": "Published/Barua2013/metadata.yaml",
+    "markdown_path": "data/Barua2013_aigenerated.md",
+    "summary": "This model represents beta-catenin destruction using BNGL rules for the molecules and interactions encoded in `Barua_2013.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "BaruaBCR_2012",
+    "title": "Barua 2012",
+    "bngl_path": "Published/BaruaBCR2012/BaruaBCR_2012.bngl",
+    "yaml_path": "Published/BaruaBCR2012/metadata.yaml",
+    "markdown_path": "data/BaruaBCR2012_aigenerated.md",
+    "summary": "This model represents bcr signaling using BNGL rules for the molecules and interactions encoded in `BaruaBCR_2012.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "BaruaFceRI_2012",
+    "title": "BaruaFceRI 2012",
+    "bngl_path": "Published/BaruaFceRI2012/BaruaFceRI_2012.bngl",
+    "yaml_path": "Published/BaruaFceRI2012/metadata.yaml",
+    "markdown_path": "data/BaruaFceRI2012_aigenerated.md",
+    "summary": "This model represents fc\u00e3\u0192\u00e5\u00bd\u00e3\u201a\u00e2\u00b5ri signaling using BNGL rules for the molecules and interactions encoded in `BaruaFceRI_2012.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Blinov_2006",
+    "title": "Blinov 2006",
+    "bngl_path": "Published/Blinov2006/Blinov_2006.bngl",
+    "yaml_path": "Published/Blinov2006/metadata.yaml",
+    "markdown_path": "data/Blinov2006_aigenerated.md",
+    "summary": "This model represents phosphotyrosine signaling using BNGL rules for the molecules and interactions encoded in `Blinov_2006.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Blinov_egfr",
+    "title": "Blinov egfr",
+    "bngl_path": "Published/Blinovegfr/Blinov_egfr.bngl",
+    "yaml_path": "Published/Blinovegfr/metadata.yaml",
+    "markdown_path": "data/Blinovegfr_aigenerated.md",
+    "summary": "This model represents egfr signaling model using BNGL rules for the molecules and interactions encoded in `Blinov_egfr.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Blinov_ran",
+    "title": "Blinov ran",
+    "bngl_path": "Published/Blinovran/Blinov_ran.bngl",
+    "yaml_path": "Published/Blinovran/metadata.yaml",
+    "markdown_path": "data/Blinovran_aigenerated.md",
+    "summary": "This model represents ran gtpase cycle using BNGL rules for the molecules and interactions encoded in `Blinov_ran.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Chattaraj_2021",
+    "title": "Chattaraj 2021",
+    "bngl_path": "Published/Chattaraj2021/Chattaraj_2021.bngl",
+    "yaml_path": "Published/Chattaraj2021/metadata.yaml",
+    "markdown_path": "data/Chattaraj2021_aigenerated.md",
+    "summary": "This model represents nfkb oscillations using BNGL rules for the molecules and interactions encoded in `Chattaraj_2021.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Cheemalavagu_JAK_STAT",
+    "title": "Cheemalavagu 2024",
+    "bngl_path": "Published/CheemalavaguJAKSTAT/Cheemalavagu_JAK_STAT.bngl",
+    "yaml_path": "Published/CheemalavaguJAKSTAT/metadata.yaml",
+    "markdown_path": "data/CheemalavaguJAKSTAT_aigenerated.md",
+    "summary": "This model represents jak-stat signaling using BNGL rules for the molecules and interactions encoded in `Cheemalavagu_JAK_STAT.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "ChylekFceRI_2014",
+    "title": "Chylek 2014 (FceRI)",
+    "bngl_path": "Published/ChylekFceRI2014/ChylekFceRI_2014.bngl",
+    "yaml_path": "Published/ChylekFceRI2014/metadata.yaml",
+    "markdown_path": "data/ChylekFceRI2014_aigenerated.md",
+    "summary": "This model represents fceri signaling using BNGL rules for the molecules and interactions encoded in `ChylekFceRI_2014.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "ChylekTCR_2014",
+    "title": "Chylek 2014 (TCR)",
+    "bngl_path": "Published/ChylekTCR2014/ChylekTCR_2014.bngl",
+    "yaml_path": "Published/ChylekTCR2014/metadata.yaml",
+    "markdown_path": "data/ChylekTCR2014_aigenerated.md",
+    "summary": "This model represents tcr signaling using BNGL rules for the molecules and interactions encoded in `ChylekTCR_2014.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Dembo_1978",
+    "title": "Dembo 1978",
+    "bngl_path": "Published/Dembo1978/blbr_dembo1978.bngl",
+    "yaml_path": "Published/Dembo1978/metadata.yaml",
+    "markdown_path": "data/Dembo1978_aigenerated.md",
+    "summary": "This model represents blbr dembo 1978 using BNGL rules for the molecules and interactions encoded in `blbr_dembo1978.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Dreisigmeyer_2008",
+    "title": "Dreisigmeyer 2008",
+    "bngl_path": "Published/Dreisigmeyer2008/lac_operon_dreisigmeyer2008.bngl",
+    "yaml_path": "Published/Dreisigmeyer2008/metadata.yaml",
+    "markdown_path": "data/Dreisigmeyer2008_aigenerated.md",
+    "summary": "This model represents lac operon using BNGL rules for the molecules and interactions encoded in `lac_operon_dreisigmeyer2008.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Dushek_2011",
+    "title": "Dushek 2011",
+    "bngl_path": "Published/Dushek2011/Dushek_2011.bngl",
+    "yaml_path": "Published/Dushek2011/metadata.yaml",
+    "markdown_path": "data/Dushek2011_aigenerated.md",
+    "summary": "This model represents tcr signaling using BNGL rules for the molecules and interactions encoded in `Dushek_2011.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Dushek_2014",
+    "title": "Dushek 2014",
+    "bngl_path": "Published/Dushek2014/Dushek_2014.bngl",
+    "yaml_path": "Published/Dushek2014/metadata.yaml",
+    "markdown_path": "data/Dushek2014_aigenerated.md",
+    "summary": "This model represents tcr signaling dynamics using BNGL rules for the molecules and interactions encoded in `Dushek_2014.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Erdem_2021",
+    "title": "Erdem 2021",
+    "bngl_path": "Published/Erdem2021/Erdem_2021.bngl",
+    "yaml_path": "Published/Erdem2021/metadata.yaml",
+    "markdown_path": "data/Erdem2021_aigenerated.md",
+    "summary": "This model represents insr/igf1r signaling using BNGL rules for the molecules and interactions encoded in `Erdem_2021.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Gardner_2000",
+    "title": "Gardner 2000",
+    "bngl_path": "Published/Gardner2000/genetic_switch_gardner2000.bngl",
+    "yaml_path": "Published/Gardner2000/metadata.yaml",
+    "markdown_path": "data/Gardner2000_aigenerated.md",
+    "summary": "This model represents genetic toggle switch using BNGL rules for the molecules and interactions encoded in `genetic_switch_gardner2000.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Goldstein_1980",
+    "title": "Goldstein 1980",
+    "bngl_path": "Published/Goldstein1980/blbr_heterogeneity_goldstein1980.bngl",
+    "yaml_path": "Published/Goldstein1980/metadata.yaml",
+    "markdown_path": "data/Goldstein1980_aigenerated.md",
+    "summary": "This model represents blbr heterogeneity using BNGL rules for the molecules and interactions encoded in `blbr_heterogeneity_goldstein1980.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Harmon_2017",
+    "title": "Harmon 2017",
+    "bngl_path": "Published/Harmon2017/antigen_pulses_harmon2017.bngl",
+    "yaml_path": "Published/Harmon2017/metadata.yaml",
+    "markdown_path": "data/Harmon2017_aigenerated.md",
+    "summary": "This model represents antigen pulses using BNGL rules for the molecules and interactions encoded in `antigen_pulses_harmon2017.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Hat_2016",
+    "title": "Hat 2016",
+    "bngl_path": "Published/Hat2016/Hat_2016.bngl",
+    "yaml_path": "Published/Hat2016/metadata.yaml",
+    "markdown_path": "data/Hat2016_aigenerated.md",
+    "summary": "This model represents nuclear transport using BNGL rules for the molecules and interactions encoded in `Hat_2016.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Hlavacek_1999",
+    "title": "Hlavacek 1999",
+    "bngl_path": "Published/Hlavacek1999/steric_effects_hlavacek1999.bngl",
+    "yaml_path": "Published/Hlavacek1999/metadata.yaml",
+    "markdown_path": "data/Hlavacek1999_aigenerated.md",
+    "summary": "This model represents steric effects using BNGL rules for the molecules and interactions encoded in `steric_effects_hlavacek1999.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Hlavacek_2001",
+    "title": "Hlavacek 2001",
+    "bngl_path": "Published/Hlavacek2001/kinetic_proofreading_hlavacek2001.bngl",
+    "yaml_path": "Published/Hlavacek2001/metadata.yaml",
+    "markdown_path": "data/Hlavacek2001_aigenerated.md",
+    "summary": "This model represents kinetic proofreading using BNGL rules for the molecules and interactions encoded in `kinetic_proofreading_hlavacek2001.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  },
+  {
+    "model_id": "Hlavacek2018Egg_egg",
+    "title": "Hlavacek2018Egg",
+    "bngl_path": "Published/Hlavacek2018Egg/egg.bngl",
+    "yaml_path": "Published/Hlavacek2018Egg/metadata.yaml",
+    "markdown_path": "data/Hlavacek2018Egg_aigenerated.md",
+    "summary": "This model represents end of permute change log using BNGL rules for the molecules and interactions encoded in `egg.bngl`.",
+    "deconstruction": {
+      "biological_meaning_section": "See section 2 of markdown_path",
+      "molecules_sites_states_section": "See section 3 of markdown_path",
+      "initial_conditions_section": "See section 4 of markdown_path",
+      "reaction_rules_section": "See section 5 of markdown_path",
+      "observables_section": "See section 6 of markdown_path",
+      "metadata_section": "See section 7 of markdown_path",
+      "caveats_section": "See section 8 of markdown_path"
+    }
+  }
+]
