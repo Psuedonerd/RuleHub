@@ -2,230 +2,211 @@
 
 ## Purpose
 
-Use this skill to generate a plain-English, biologically meaningful Markdown summary of an existing RuleHub BNGL model and its YAML metadata. The target reader is a biologist, curator, student, or domain scientist who may understand the biological system but does not know BNGL syntax or rule-based modeling.
+Use this skill to write a polished, biologist-facing Markdown explanation of an existing RuleHub model. The reader is a biologist, curator, student, or domain scientist who wants to understand what the model *shows biologically*, not how BNGL syntax works.
 
-The summary must explain what the model is trying to represent, what the major molecules are, what their binding sites or internal states mean, and what each reaction rule says in ordinary biological language.
-
-This skill is for explanation only, and necessitates easily understandable yet comprehensive explanations free of jargon and syntax. It does not judge whether the model is biologically correct, verify simulation results, or add unsupported mechanistic claims.
+The output must be a readable explanatory article. It should explain the biological story, the major players, the key modeled events, what the model measures, and the expected behavior of this specific model in plots. It must avoid exposing the reader to implementation details unless those details are needed for website integration outside the prose.
 
 ## Required Inputs
 
-Use all available repository files for the model, especially:
+Before writing, read the model files in this order:
 
-1. The model `.bngl` file.
-2. The model `metadata.yaml` or `.yaml` file.
-3. Any local `README.md`, comments in the BNGL file, citations, PubMed IDs, source URLs, visualization links, simulation links, or category metadata.
+1. The model `metadata.yaml` or `.yaml` file.
+2. The model `.bngl` file.
+3. Any nearby `README.md` or other local documentation.
+4. Comments inside the BNGL file, especially title, description, reference, pathway notes, reaction-family comments, and observable/readout comments.
 
-If multiple BNGL or YAML files are present, identify which files you used and state any ambiguity.
+Use local repository files only. Do not rely on raw GitHub URLs.
 
-## Core Obligations
+If more than one BNGL file is present for a model, choose the file that metadata identifies when possible. If the choice is ambiguous, resolve it before writing or record the chosen file only in machine-readable JSON, not in the biologist-facing prose.
 
-The generated explanation must do all of the following:
+## Core Writing Principle
 
-- Explain the biological purpose of the model in plain English.
-- Explain the main molecules in plain English, not only by listing BNGL symbols.
-- Explain sites, bonds, compartments, and internal states in plain English whenever they appear.
-- Explain every important reaction rule as a biological event, not as raw code.
-- Translate BNGL bond notation into words. For example:
-  - `!0`, `!1`, and similar labels mean that the marked sites are connected by the same bond.
-  - `A(a!0).B(b!0)` means molecule `A` is bound at site `a` to molecule `B` at site `b`.
-  - `A(a) + B(b) -> A(a!0).B(b!0)` means molecule A binds molecule B.
-  - `A(a!0).B(b!0) -> A(a) + B(b)` means the complex dissociates.
-  - `A(a) + B(b) <-> A(a!0).B(b!0) kf, kr` means the binding is reversible, with the forward association rate given by `kf` and the reverse dissociation rate given by `kr`.
-- Mention rate parameters in words when they are attached to reaction rules.
-- Explain observables as measurements: what is counted or tracked during simulation.
-- Explain likely simulation behavior only as a cautious interpretation based on the model structure and observables.
-- Clearly flag uncertainty, missing metadata, unclear biological identities, or rule meanings that cannot be inferred from the files. However, do not inject uncertainty into explanations if the behavior is certain or mentioning of uncertainty would cloud overall meaning.
+Write what the model shows, not what the code says.
 
-## What Not To Do
+Good summary prose sounds like:
 
-Do not:
+> This model shows how LPS is assembled with CD14 and MD2 before activating TLR4, how adaptor arms route the signal to TAK1 and IKK, and how A20 and IkB feedback restrain NF-kB-driven inflammatory output.
 
-- Output only a syntactic paraphrase of BNGL code.
-- Leave reaction rules unexplained because they look repetitive or technical.
-- Assume readers know what BNGL terms such as seed species, observables, molecule types, components, internal states, or bonds mean.
-- Invent biological roles, pathways, cell types, organisms, experimental results, or literature context that are not present in the model files or metadata.
-- Claim that a simulation will definitely show a result unless that result is explicitly encoded or documented.
-- Over-focus on file logistics at the expense of explaining the model biology.
-- Dump raw BNGL blocks unless a short quoted fragment is necessary to disambiguate a rule.
+Bad summary prose sounds like:
 
-## BNGL Interpretation Guide
+> The local BNGL file has seed species, observables, and reaction rules where `TLR4(TRAM)` binds `TRIF`.
 
-When reading the BNGL file, interpret the following constructs before writing the explanation.
+Never make the biologist wade through raw BNGL syntax, file logistics, implementation notes, or long rule lists.
 
-### Molecule types
+## Strict Prohibitions for Markdown Summaries
 
-Molecule type declarations define the kinds of molecular objects in the model and the sites or states they can have.
+Do **not** include any of the following in the Markdown prose:
 
-Explain each major molecule as follows:
+- Raw BNGL patterns, such as molecule-site syntax, bond labels, state syntax, arrows, or rate expressions.
+- Code fences containing model code.
+- Long lists of every reaction rule.
+- Phrases such as “local model,” “local metadata,” “BNGL file,” “YAML file,” “seed species,” “observables,” or “reaction rules.”
+- File paths, unless the user explicitly asks for file-path documentation inside the Markdown. Paths belong in JSON, not the reader-facing summary.
+- Generic filler such as “the model encodes molecular species, initial conditions, observables, and rules.”
+- Unsupported biological claims, organisms, cell types, or experimental conclusions not implied by metadata, comments, molecule names, or local documentation.
 
-- State the BNGL name.
-- Give the likely biological meaning if metadata, comments, or naming make it clear.
-- Describe each important site in plain English.
-- Describe internal states in words. For example, `Y~U~P` may mean a tyrosine site can be unphosphorylated (`U`) or phosphorylated (`P`) if the file or naming supports that interpretation.
-- If a name or state is ambiguous, say so rather than guessing.
+The Markdown may use important molecule names, pathway names, protein names, ligand names, and biological state names. These names should be plain text, not raw syntax dumps.
 
-### Seed species
+## Required Markdown Structure
 
-Seed species define the model's initial molecular population or starting condition.
+Use this structure exactly for each generated Markdown summary:
 
-Explain seed species as the starting mixture, such as free receptors, ligands, enzymes, substrates, complexes, or molecules in specific modification states. Include initial amounts when they help the reader understand what the model starts with.
+```markdown
+# Model Explanation: <title>
 
-### Bonds and complexes
+## One-sentence summary
 
-BNGL uses matching bond labels to show connected sites. Explain this explicitly when complexes appear.
+## What the model shows
 
-Use language like:
+## Biological story
 
-- "The `!0` labels indicate that these two sites are connected by the same bond."
-- "This pattern represents A bound through its `a` site to B through its `b` site."
-- "A missing bond label means the site is free in this pattern."
-- "A site with `!?` or wildcard-style notation can match a bound site without specifying the exact partner, if such notation appears."
+## Main biological players
 
-### Reaction rules
+## Mechanism in plain English
 
-Reaction rules describe classes of biochemical events. For each important rule or rule family, explain:
+## Key modeled events
 
-1. The rule name, if present.
-2. The reactants in biological words.
-3. The products in biological words.
-4. Whether the rule is binding, unbinding, reversible binding, phosphorylation, dephosphorylation, synthesis, degradation, transport, conformational/state change, catalysis, complex assembly, or another event type.
-5. Which sites, states, or bonds change.
-6. Which rate parameter controls the event.
-7. Whether the rule applies to a specific molecule state or a family of matching molecular patterns.
+## What the model measures
 
-Preferred style for binding rules:
+## Expected behavior in plots
 
-- "Molecule A binds molecule B: A uses site `a`, B uses site `b`, and the shared `!0` bond label indicates that those two sites become connected. The forward association rate is `k1`; the reverse dissociation rate is `k2` if the rule is reversible."
+## Caveats
+```
 
-Preferred style for modification rules:
+### Section-by-section requirements
 
-- "Enzyme E changes substrate S at site `y` from state `U` to state `P`, which likely represents phosphorylation if supported by the names or comments. This event occurs with rate `kp`."
+#### `# Model Explanation: <title>`
 
-If a model contains many highly repetitive rules, group obvious rule families, but still explain the biological event represented by each family and list the rule names or patterns included in that family.
+Use the clean model title from metadata when available. If metadata is sparse, use a readable title inferred from the directory or BNGL title comment.
 
-### Observables
+#### `## One-sentence summary`
 
-Observables define what the simulation records.
+Write one specific sentence naming the biological process and the central modeled behavior. Avoid “uses BNGL,” “encodes,” or “contains.”
 
-For each observable, explain:
+Good:
 
-- The observable name.
-- Whether it counts molecules, species, complexes, states, or patterns.
-- The biological quantity it approximates, such as free ligand, bound receptor, phosphorylated protein, active complex, degraded product, or total molecule amount.
-- Any caveat about pattern matching if the observable may include multiple complexes or states.
+> Beta-catenin control by the Axin/APC/GSK3/CK1 destruction complex.
 
-### Actions and simulations
+Bad:
 
-If the BNGL file contains actions such as network generation or simulation commands, explain them briefly:
+> This model represents beta-catenin using BNGL rules.
 
-- State whether the model appears intended for deterministic, stochastic, network-free, or other simulation modes when this is clear from the actions.
-- State what outputs would likely be plotted based on the observables.
-- Do not overinterpret numerical trajectories without actual simulation results.
+#### `## What the model shows`
+
+Write one paragraph explaining the model’s biological purpose. State the central mechanism and why the model is useful. This should be specific enough that a biologist can tell this model apart from another model in the same pathway.
+
+#### `## Biological story`
+
+Write a short conceptual paragraph that connects the model to a biological narrative: stimulus, assembly, modification, feedback, degradation, transport, gene expression, phenotype, or other response. Avoid implementation details.
+
+#### `## Main biological players`
+
+List the major molecules, complexes, variables, or pathway modules in readable biological language. Do not list every minor species. Do not include sites in BNGL syntax. It is acceptable to name important domains or residues in prose when biologically meaningful, such as SH2 domains, ITAMs, phosphorylation sites, or receptor arms.
+
+#### `## Mechanism in plain English`
+
+Explain the causal mechanism in one detailed paragraph. Use concrete verbs: binds, recruits, phosphorylates, dephosphorylates, activates, inhibits, releases, degrades, imports, exports, transcribes, translates, recycles, or dilutes.
+
+This section should say what happens and why it matters. It must not be a raw rule translation.
+
+#### `## Key modeled events`
+
+Include exactly three to five bullets. Each bullet should describe one important modeled event or event family in plain English.
+
+Rules for these bullets:
+
+- Select only the most biologically important events.
+- Prefer event families over exhaustive lists.
+- Mention direction and consequence when clear.
+- Mention important molecules by name.
+- Do not include raw syntax, arrows, rate constants, or parameter names unless the parameter name is biologically meaningful to the reader.
+
+Good:
+
+- Beta-catenin binds APC and Axin, placing it into the destruction-complex environment.
+- CK1 and GSK3 phosphorylate beta-catenin in sequence, converting it into a form that is removed more rapidly.
+- When beta-catenin is degraded, APC and Axin partners are released so the scaffold can participate in another cycle.
+
+Bad:
+
+- `bCat(ARM34) + AXIN(b) <-> bCat(ARM34!1).AXIN(b!1)`.
+
+#### `## What the model measures`
+
+Describe the plotted or tracked biological quantities. Use “readouts” or “measurements,” not “observables.” Explain what a biologist would see: active kinase, phosphorylated substrate, receptor complex, transcriptional output, degraded product, clustered polymer, pathway activity, and so on.
+
+#### `## Expected behavior in plots`
+
+Write model-specific plot guidance. Do not use reusable boilerplate about rising or falling curves. Say which particular readouts should rise, fall, peak, lag, oppose each other, or remain abstract for this model, and why. Avoid promising a specific trajectory unless the model comments or mechanism support it.
+
+#### `## Caveats`
+
+State limitations briefly. Examples:
+
+- The summary explains the encoded mechanism; it does not validate experimental correctness.
+- Some molecule names are abstract, so identities are not invented.
+- The model is a compact demonstration rather than a complete pathway model.
+
+Do not use this section to discuss local files or implementation logistics.
+
+## JSON Index Requirements
+
+When the user asks for a JSON index, write a clean machine-readable file such as `data/ai_summaries.json`.
+
+Each entry should include:
+
+```json
+{
+  "model_id": "...",
+  "title": "...",
+  "bngl_path": "...",
+  "yaml_path": "...",
+  "markdown_path": "...",
+  "summary": "...",
+  "key_events": ["...", "...", "..."]
+}
+```
+
+JSON may include file paths because it is for site integration. Markdown summaries should not include those paths unless explicitly requested.
+
+The JSON `summary` should match the Markdown one-sentence summary. The JSON `key_events` should match the bullets in `## Key modeled events` or be a clean subset of them.
 
 ## Workflow
 
-1. Read the YAML metadata before the BNGL file.
-2. Record the title, model name, category, source/reference, PubMed ID, author/provenance, compatibility fields, and links if present.
-3. Read comments in the BNGL file because they often define abbreviations, biological context, or rule intent.
-4. Parse the BNGL blocks in this order:
-   - `parameters`
-   - `molecule types`
-   - `seed species`
-   - `observables`
-   - `reaction rules`
-   - `functions`, compartments, energy patterns, population maps, or actions if present
-5. Build a small glossary that maps BNGL symbols to biological names when possible.
-6. Translate reaction rules into verbal biological events using the BNGL interpretation guide above.
-7. Write the explanation in the required Markdown format.
-8. Re-check the final answer against the BNGL file to ensure that important molecules, rules, observables, and caveats were not omitted.
+1. Read metadata first and record the clean title, id, category, source hints, and short description.
+2. Read the BNGL comments before interpreting mechanisms; comments often contain the best biological description.
+3. Identify the main biological players from molecule declarations, comments, and metadata tags.
+4. Identify the central mechanism: binding/assembly, activation, modification, feedback, degradation, transport, transcription, or other biological process.
+5. Identify three to five key modeled events. These should be selective and biologically meaningful, not exhaustive.
+6. Identify the model readouts and translate them into biological measurements.
+7. Write the Markdown in the required structure.
+8. Review the Markdown and remove raw syntax, file-path prose, implementation jargon, and generic filler.
+9. If producing JSON, verify every referenced Markdown path exists and every entry has the required fields.
 
-## Output Format
+## Same-directory Pairing Rule
 
-Return one Markdown document suitable for saving as an automated RuleHub model summary. Most likely, the author name and year will be known, so name the file {Author Name}_{Year Created}_aigenerated.md. If prompted by the user, add to a JSON file, fixing the requisite information in said file.
+When tabulating or selecting models, pair a `.bngl` file with a YAML file only when the `.bngl` and `metadata.yaml` are in the same directory. Do not count inherited ancestor metadata pairs. If a directory has one `metadata.yaml` and multiple `.bngl` files in that same directory, each `.bngl` may be treated as a same-directory BNGL/YAML pair. Nested subdirectory `.bngl` files require their own same-directory `metadata.yaml` to count.
 
-Use exactly this top-level structure:
+## Anti-Boilerplate Requirements
 
-```markdown
-# Model Explanation: <model title or BNGL file name>
+Every generated Markdown file must be specific from top to bottom. Never copy a generic paragraph across models. In particular:
 
-## 1. One-sentence summary
+- `## Biological story` must name the specific model or pathway and describe its unique narrative.
+- `## Expected behavior in plots` must name the model-specific readouts or behaviors to compare.
+- `## Caveats` must identify the specific scope limitation of that model.
+- Repeated stock phrases are allowed only for headings, not for section bodies.
+- If two summaries have identical section-body text outside headings, rewrite them.
 
-## 2. Biological meaning
+## Quality Checklist
 
-## 3. Main molecules, sites, and states
+Before finalizing, verify all of the following:
 
-## 4. Initial conditions and model setup
-
-## 5. Reaction rules in plain English
-
-## 6. Observables and expected simulation output
-
-## 7. Metadata, source, and compatibility
-
-## 8. Caveats or missing information
-```
-
-## Section Requirements
-
-### 1. One-sentence summary
-
-Give one clear sentence describing the model's biological focus and main process.
-
-### 2. Biological meaning
-
-Explain what biological system or mechanism the model represents. Use the metadata, comments, and molecule names. If the biological context is sparse, say what can be inferred and what cannot.
-
-### 3. Main molecules, sites, and states
-
-Use bullets or a table. For each major molecule, include:
-
-- BNGL name.
-- Plain-English identity or likely role.
-- Important sites/components.
-- Important internal states.
-- How the molecule participates in bonds or reactions.
-
-Define BNGL notation here in beginner-friendly terms when it first appears. Include a short explanation that matching `!0`, `!1`, etc. labels mark sites that are connected by a bond.
-
-### 4. Initial conditions and model setup
-
-Summarize the seed species and starting amounts in plain English. Explain whether molecules start free, bound, modified, unmodified, active, inactive, inside a compartment, or otherwise configured, if this is encoded.
-
-### 5. Reaction rules in plain English
-
-This is the most important section. Explain the model's reaction rules as biological events.
-
-Use one bullet per rule or per clearly defined rule family. Each bullet should include:
-
-- Rule name, if present.
-- Plain-English event description.
-- Sites/states/bonds that change.
-- Rate parameter names and what they control.
-- Reversibility, if present.
-
-Example wording:
-
-- "`bind_AB`: Molecule A binds molecule B. A uses site `a`, B uses site `b`, and the shared `!0` label means those two sites are connected in the complex. This interaction is reversible: `k_on` controls formation of the complex, while `k_off` controls dissociation back into free A and free B."
-
-### 6. Observables and expected simulation output
-
-Explain every observable in plain English. Then briefly describe what simulation plots would show, based only on the observables and rules.
-
-### 7. Metadata, source, and compatibility
-
-Summarize title, category, source/reference, PubMed ID, author/provenance, compatibility, and relevant links when present. State when fields are missing.
-
-### 8. Caveats or missing information
-
-List limitations, ambiguities, missing metadata, unclear molecule identities, unexplained parameters, or assumptions made during interpretation.
-
-## Style Requirements
-
-- Write for biologists, not BNGL experts.
-- Use short paragraphs and concrete verbs such as binds, releases, phosphorylates, dephosphorylates, activates, inactivates, synthesizes, degrades, transports, or changes state.
-- Keep BNGL names visible in backticks so readers can connect the explanation to the source model.
-- Define technical terms briefly the first time they appear.
-- Prefer "likely represents" or "appears to represent" when inferring from names.
-- Be specific about rates: say which parameter controls which direction or event whenever the rule provides that information.
-- Be complete but concise enough for automated summaries across many RuleHub models.
+- The summary is specific to this model, not reusable generic text.
+- The reader can understand what the model shows without knowing BNGL.
+- The mechanism section contains biological verbs and causal flow.
+- The key modeled events include a few important modeled events without becoming a full rule dump.
+- The readouts section explains what plotted quantities mean biologically.
+- The biological story, expected plot behavior, and caveats are unique to the model and not copied boilerplate.
+- The Markdown contains no raw BNGL syntax, arrows, bond labels, file paths, or local-file logistics.
+- The Markdown avoids the words “observables,” “seed species,” and “reaction rules.”
+- The JSON is valid and points to existing Markdown files.
