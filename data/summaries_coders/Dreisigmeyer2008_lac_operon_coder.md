@@ -7,116 +7,110 @@
 - **BNGL path:** `Published/Dreisigmeyer2008/lac_operon_dreisigmeyer2008.bngl`
 - **YAML path:** `Published/Dreisigmeyer2008/metadata.yaml`
 - **Metadata description:** Lac operon
-- **Scope:** A concentration-based lac operon ODE model with three explicit dynamic species: intracellular lactose, allolactose, and beta-galactosidase. The rules encode lactose import, lactose/allolactose metabolism, beta-gal synthesis from a Hill function of allolactose, and growth dilution.
+- **Scope:** This is a concentration-based ODE implementation of lac operon lactose induction. It has three explicit dynamic species: internal lactose `L`, allolactose `A`, and beta-galactosidase `Z`. The BNGL rules are intentionally site-free source/sink rules; the biological specificity lives in the algebraic functions that compute lactose import, lactose/allolactose metabolism, allolactose-driven beta-gal expression, and growth dilution.
 
 ## 2. BNGL block inventory
 
 | Block | Present? | Count / role |
 | --- | --- | --- |
-| Parameters | Yes | 18 parameter entries. |
-| Compartments | No | 0 compartment entries. |
-| Anchors | No | 0 anchor entries. |
-| Molecule types | Yes | 3 molecule type entries. |
-| Seed/species | Yes | 3 initial species entries. |
-| Observables | Yes | 3 observable entries. |
-| Functions | Yes | 5 function entries. |
-| Reaction rules | Yes | 8 reaction rules. |
-| Actions | Yes | 5 active action or inline execution commands. |
+| Parameters | Yes | 18 parameters covering units/conversion constants, external lactose, growth dilution, transport constants, metabolism constants, and Hill-expression constants. |
+| Compartments | No | No BNGL compartment block; concentrations are implicit ODE state variables. |
+| Anchors | No | No anchors. |
+| Molecule types | Yes | 3 site-free molecule types: `L`, `A`, `Z`. |
+| Seed/species | Yes | 3 initial concentration-like species: `L=0`, `A=0`, `Z=c_basal`. |
+| Observables | Yes | 3 concentration readouts: `Obs_Tot_L`, `Obs_Tot_A`, `Obs_Tot_Z`. |
+| Functions | Yes | 5 functions; these are the actual mechanistic rate laws. |
+| Reaction rules | Yes | 8 source/sink ODE rules. |
+| Actions | Yes | Network generation, concentration saving, time-course ODE simulation, and lactose-scan ODE simulation. |
 
 ## 3. Parameters, functions, and rate laws
 
-The parameter table is complete for this small model and preserves source comments when available.
+The model uses BNGL rules as ODE terms. There are no molecule sites, bonds, or internal states, so rate-law interpretation depends on the functions and observables.
 
-| Parameter | Value/expression | Role / source comment |
+| Parameter | Value/expression | Technical role |
 | --- | --- | --- |
-| `NA` | `6.02214076e23` | @note: \|; Concentration units: uM. Time units: min.; Original paper (Table 1) uses nM; the source Antimony model; converted to uM (nM / 1000, mM * 1000).; Avogadro constant (for potential population-based conversion); /mol |
-| `V_ref` | `1e-15` | Reference volume: E. coli mean cell volume; (Kubitschek and Friske, 1986; Ref. [30] in; Dreisigmeyer et al., 2008); L/cell |
-| `f` | `1.0` | Subvolume scaling factor (single cell); dimensionless |
-| `l_ext` | `1000.0` | External lactose (constant boundary condition; 1.0 mM = 1000 uM); uM |
-| `growth_rate` | `0.0231` | Growth dilution rate (gamma in paper; ~30 min doubling time); /min |
-| `alpha` | `600.0` | Permease transport parameters; Import turnover number; Eq. (1a) in Dreisigmeyer et al. (2008); /min |
-| `phi` | `0.5` | Ratio of export-to-import turnover numbers; dimensionless |
-| `rho` | `0.1` | Ratio of import-to-export Michaelis constants; dimensionless |
-| `K_i` | `500.0` | Permease Michaelis constant (5e5 nM = 500 uM); uM |
-| `beta` | `2.85e4` | Beta-gal lactose metabolism parameters; Lactose turnover number; /min |
-| `nu` | `0.468` | Lactose -> allolactose branching fraction; dimensionless |
-| `K_m_l` | `2530.0` | Beta-gal lactose Michaelis constant (2.53 mM = 2530 uM); uM |
-| `delta` | `2.30e4` | Beta-gal allolactose metabolism parameters; Allolactose turnover number; /min |
-| `K_m_a` | `1200.0` | Beta-gal allolactose Michaelis constant (1.2 mM = 1200 uM); uM |
-| `eps` | `34.285` | Beta-gal expression parameters; Fully induced beta-gal level (34286 nM = 34.285 uM); uM |
-| `c_basal` | `0.0343` | Basal beta-gal level (c in paper; 34.3 nM = 0.0343 uM); uM |
-| `K_z` | `105.0` | Half-maximal allolactose induction level (1.05e5 nM = 105 uM); uM |
-| `n_Hill` | `2.0` | Hill coefficient for lac induction; dimensionless |
+| `NA` | `6.02214076e23` | Avogadro constant kept for possible population conversion; not used by the active concentration ODE rules. |
+| `V_ref` | `1e-15` | Reference E. coli volume for possible concentration/population conversion. |
+| `f` | `1.0` | Subvolume scale factor; present but not used in active rules. |
+| `l_ext` | `1000.0` | Constant extracellular lactose concentration used by `transport_L()`. |
+| `growth_rate` | `0.0231` | First-order dilution rate applied separately to `L`, `A`, and `Z`; also scales `syn_Z()`. |
+| `alpha` | `600.0` | Import turnover factor in the permease-dependent lactose transport function. |
+| `phi` | `0.5` | Export/import asymmetry factor in `transport_L()`. |
+| `rho` | `0.1` | Michaelis asymmetry factor in `transport_L()`. |
+| `K_i` | `500.0` | Permease Michaelis constant in the transport denominator. |
+| `beta` | `2.85e4` | Lactose metabolism turnover constant in `metab_L()` and `prod_A()`. |
+| `nu` | `0.468` | Branching fraction from lactose metabolism into allolactose production. |
+| `K_m_l` | `2530.0` | Lactose Michaelis constant in the shared competitive-inhibition denominator. |
+| `delta` | `2.30e4` | Allolactose metabolism turnover constant in `metab_A()`. |
+| `K_m_a` | `1200.0` | Allolactose Michaelis constant in the shared competitive-inhibition denominator. |
+| `eps` | `34.285` | Fully induced beta-gal level in `syn_Z()`. |
+| `c_basal` | `0.0343` | Initial and basal beta-gal level. |
+| `K_z` | `105.0` | Half-maximal allolactose level in the Hill induction term. |
+| `n_Hill` | `2.0` | Hill coefficient for allolactose-dependent beta-gal induction. |
 
 **Functions and derived rates**
 
-| Function | Technical interpretation |
-| --- | --- |
-| `transport_L() = alpha * Obs_Tot_Z * (l_ext - phi * rho * Obs_Tot_L) / (K_i + l_ext + rho * Obs_Tot_L)` | Permease-dependent lactose transport (net import);; Eq. (1a), first term in Dreisigmeyer et al. (2008) |
-| `metab_L() = (beta / K_m_l) * Obs_Tot_Z / (1 + Obs_Tot_A / K_m_a + Obs_Tot_L / K_m_l)` | Effective first-order rate constant for beta-gal-catalyzed; lactose degradation; Eq. (1a), second term in; Dreisigmeyer et al. (2008). Competitive inhibition: shared; denominator (1 + a/K_m_a + l/K_m_l). BNG multiplies by [L]. |
-| `prod_A() = nu * (beta / K_m_l) * Obs_Tot_Z * Obs_Tot_L / (1 + Obs_Tot_A / K_m_a + Obs_Tot_L / K_m_l)` | Allolactose production (branching fraction of lactose; degradation); Eq. (1b), first term in Dreisigmeyer et al. (2008) |
-| `metab_A() = (delta / K_m_a) * Obs_Tot_Z / (1 + Obs_Tot_A / K_m_a + Obs_Tot_L / K_m_l)` | Effective first-order rate constant for beta-gal-catalyzed; allolactose degradation; Eq. (1b), second term in; Dreisigmeyer et al. (2008). BNG multiplies by [A]. |
-| `syn_Z() = growth_rate * (c_basal + eps * Obs_Tot_A^n_Hill / (K_z^n_Hill + Obs_Tot_A^n_Hill))` | Beta-gal synthesis: basal + Hill-induced;; Eq. (1c) in Dreisigmeyer et al. (2008) |
+| Function | Inputs used | Technical interpretation |
+| --- | --- | --- |
+| `transport_L()` | `Obs_Tot_Z`, `l_ext`, `Obs_Tot_L`, `alpha`, `phi`, `rho`, `K_i` | Net lactose import source term. It increases `L` and is proportional to beta-gal/permease proxy `Z`; the numerator subtracts an export-like term from external lactose. |
+| `metab_L()` | `Obs_Tot_Z`, `Obs_Tot_A`, `Obs_Tot_L`, `beta`, `K_m_l`, `K_m_a` | Effective first-order lactose-removal coefficient. BNGL multiplies this function by the matched `L()` amount in rule 2. |
+| `prod_A()` | `Obs_Tot_Z`, `Obs_Tot_L`, `Obs_Tot_A`, `nu`, `beta`, `K_m_l`, `K_m_a` | Allolactose source term produced from lactose metabolism; unlike `metab_L()`, it already includes `Obs_Tot_L` in the expression because the rule source is `0`. |
+| `metab_A()` | `Obs_Tot_Z`, `Obs_Tot_A`, `Obs_Tot_L`, `delta`, `K_m_a`, `K_m_l` | Effective first-order allolactose-removal coefficient. BNGL multiplies it by matched `A()`. |
+| `syn_Z()` | `Obs_Tot_A`, `growth_rate`, `c_basal`, `eps`, `K_z`, `n_Hill` | Beta-gal synthesis source term: basal expression plus Hill induction by allolactose, scaled by growth/dilution rate. |
 
 ## 4. Molecule types, sites, and states
 
 | Molecule type | Site count | Sites/components | Internal states | Anchor/allowed compartments | Binding/modification roles | Notes |
 | --- | ---: | --- | --- | --- | --- | --- |
-| `L` | 0 | none | none declared | none | no explicit binding/modification site role beyond whole-molecule abundance | Internal lactose (l in Dreisigmeyer et al., 2008) |
-| `A` | 0 | none | none declared | none | no explicit binding/modification site role beyond whole-molecule abundance | Allolactose (a in Dreisigmeyer et al., 2008) |
-| `Z` | 0 | none | none declared | none | no explicit binding/modification site role beyond whole-molecule abundance | Beta-galactosidase (z in Dreisigmeyer et al., 2008) |
+| `L` | 0 | none | none | none | Whole-species ODE state for intracellular lactose. | No site-level interactions; all regulation is in rate functions. |
+| `A` | 0 | none | none | none | Whole-species ODE state for allolactose. | Drives `syn_Z()` through `Obs_Tot_A`. |
+| `Z` | 0 | none | none | none | Whole-species ODE state for beta-galactosidase/permease proxy. | Appears in transport and metabolism functions through `Obs_Tot_Z`. |
 
 ## 5. Compartments, anchors, initial species, and setup
 
 - Compartments: none declared.
-
 - Anchors: none declared.
+- Initial setup: `L()` and `A()` start at zero, while `Z()` starts at `c_basal`, allowing lactose import and allolactose feedback to develop from an initially basal induced state.
 
 | Initial species/pattern | Initial amount | Setup role |
 | --- | --- | --- |
-| `L()` | `0` | uM |
-| `A()` | `0` | uM |
-| `Z()` | `c_basal` | uM |
+| `L()` | `0` | No internal lactose initially. |
+| `A()` | `0` | No allolactose initially. |
+| `Z()` | `c_basal` | Basal beta-gal/permease proxy level. |
 
 ## 6. Complete reaction-rule inventory
 
-The source contains **8** reaction rules. Every concrete rule is listed below.
+**Rule-family orientation:** This model has no binding sites or internal states. Every rule is a source/sink ODE term for one of the three concentration variables. The site-level statement for each rule is therefore explicitly “none”; the meaningful implementation detail is whether the rule is a source term, a first-order sink term, or growth dilution.
 
-| # | Rule label/name | Direction | Participants and sites/components | Rate/expression | Modeled change | Rule pattern | Technical meaning |
-| ---: | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `Unlabeled` | one-way | L | `transport_L()` | source/synthesis or algebraic source term | `0 -> L()` | Permease-dependent lactose import. Produces L while retaining or consuming an abstract source. Rate/expression: transport_L(). |
-| 2 | `Unlabeled` | one-way | L | `metab_L()` | sink/degradation/removal | `L() -> 0` | Beta-gal-catalyzed lactose degradation. Removes L from the dynamic pool through the zero/sink side of the rule. Rate/expression: metab_L(). |
-| 3 | `Unlabeled` | one-way | L | `growth_rate` | sink/degradation/removal | `L() -> 0` | Growth dilution of internal lactose. Removes L from the dynamic pool through the zero/sink side of the rule. Rate/expression: growth_rate. |
-| 4 | `Unlabeled` | one-way | A | `prod_A()` | source/synthesis or algebraic source term | `0 -> A()` | Allolactose production from lactose metabolism. Produces A while retaining or consuming an abstract source. Rate/expression: prod_A(). |
-| 5 | `Unlabeled` | one-way | A | `metab_A()` | sink/degradation/removal | `A() -> 0` | Beta-gal-catalyzed allolactose degradation. Removes A from the dynamic pool through the zero/sink side of the rule. Rate/expression: metab_A(). |
-| 6 | `Unlabeled` | one-way | A | `growth_rate` | sink/degradation/removal | `A() -> 0` | Growth dilution of allolactose. Removes A from the dynamic pool through the zero/sink side of the rule. Rate/expression: growth_rate. |
-| 7 | `Unlabeled` | one-way | Z | `syn_Z()` | source/synthesis or algebraic source term | `0 -> Z()` | Beta-gal synthesis (basal + allolactose-induced Hill function). Produces Z while retaining or consuming an abstract source. Rate/expression: syn_Z(). |
-| 8 | `Unlabeled` | one-way | Z | `growth_rate` | sink/degradation/removal | `Z() -> 0` | Growth dilution of beta-galactosidase. Removes Z from the dynamic pool through the zero/sink side of the rule. Rate/expression: growth_rate. |
+| # | Rule label/name | Direction | Participants and sites/components | Rate/expression | Exact modeled change | Technical meaning |
+| ---: | --- | --- | --- | --- | --- | --- |
+| 1 | `Unlabeled` | one-way | Product: `L`; no sites/components | `transport_L()` | Source `0 → L()`; no sites or states. | Adds internal lactose according to the permease-dependent transport function. The term depends on `Z`, external lactose, and current internal lactose. |
+| 2 | `Unlabeled` | one-way | Reactant: `L`; no sites/components | `metab_L()` | Sink `L() → 0`; no sites or states. | Removes internal lactose by beta-gal-catalyzed metabolism. Because the rule matches `L()`, the function acts as an effective first-order coefficient for lactose. |
+| 3 | `Unlabeled` | one-way | Reactant: `L`; no sites/components | `growth_rate` | Sink `L() → 0`; no sites or states. | Dilutes internal lactose by cell growth independently of enzymatic metabolism. |
+| 4 | `Unlabeled` | one-way | Product: `A`; no sites/components | `prod_A()` | Source `0 → A()`; no sites or states. | Produces allolactose from lactose metabolism; the lactose dependence is inside `prod_A()` rather than in the reactant pattern. |
+| 5 | `Unlabeled` | one-way | Reactant: `A`; no sites/components | `metab_A()` | Sink `A() → 0`; no sites or states. | Removes allolactose by beta-gal-catalyzed metabolism with competitive inhibition by lactose/allolactose encoded in the function. |
+| 6 | `Unlabeled` | one-way | Reactant: `A`; no sites/components | `growth_rate` | Sink `A() → 0`; no sites or states. | Dilutes allolactose through growth. |
+| 7 | `Unlabeled` | one-way | Product: `Z`; no sites/components | `syn_Z()` | Source `0 → Z()`; no sites or states. | Synthesizes beta-galactosidase/permease proxy from a basal-plus-Hill function of allolactose. |
+| 8 | `Unlabeled` | one-way | Reactant: `Z`; no sites/components | `growth_rate` | Sink `Z() → 0`; no sites or states. | Dilutes beta-galactosidase by growth, balancing the allolactose-induced synthesis term. |
 
 ## 7. Observables and technical readouts
 
 | Observable | Type | Pattern / target | Technical interpretation |
 | --- | --- | --- | --- |
-| `Obs_Tot_L` | `Molecules` | `L()` | Intracellular concentrations (uM) |
-| `Obs_Tot_A` | `Molecules` | `A()` | counts molecule-pattern matches |
-| `Obs_Tot_Z` | `Molecules` | `Z()` | counts molecule-pattern matches |
+| `Obs_Tot_L` | `Molecules` | `L()` | Current intracellular lactose concentration-like state; used by `transport_L()`, `metab_L()`, and `prod_A()`. |
+| `Obs_Tot_A` | `Molecules` | `A()` | Current allolactose state; used in competitive metabolism and the Hill expression for `Z` synthesis. |
+| `Obs_Tot_Z` | `Molecules` | `Z()` | Current beta-gal/permease proxy; controls lactose import and metabolism rates. |
 
 ## 8. Actions and simulation workflow
 
-1. `generate_network({overwrite=>1})` — 3 species, 8 reactions
-
-2. `saveConcentrations()` — active execution command in the actions block
-
-3. `resetConcentrations()` — @note: \|; Two protocols: (1) time-course relaxation, (2) induction; curve scan. Both are active.; Time-course relaxation to steady state; @protocol: \|; Integrate from uninduced initial conditions (L=0, A=0,; Z=c_basal) with constant external lactose l_ext = 1000 uM.; The system relaxes to a partially induced steady state; (Z ~ 0.33 uM, ~10x basal) over ~200 min.
-
-4. `simulate({method=>"ode",suffix=>"ode", t_start=>0,t_end=>500,n_steps=>500})` — active execution command in the actions block
-
-5. `parameter_scan({method=>"ode",parameter=>"l_ext", par_min=>0.01,par_max=>1e6,n_scan_pts=>100, log_scale=>1,t_start=>0,t_end=>500,n_steps=>200, suffix=>"scan"})` — Induction curve: parameter scan over external lactose; @protocol: \|; Scan l_ext logarithmically from 0.01 to 1e6 uM. Each; scan point runs to t = 500 min (steady state). The; resulting Z-vs-l_ext curve is monostable — no S-shaped; bistable region — consistent with the paper's conclusion.; @figure: Fig. 8 (top, gamma = 0.0231) in Dreisigmeyer et al. (2008)
+1. `generate_network({overwrite=>1})` creates the three-species/eight-reaction ODE network.
+2. `saveConcentrations()` requests concentration-style output.
+3. `resetConcentrations()` restores the basal initial condition before simulation.
+4. `simulate({method=>"ode", suffix=>"ode", t_start=>0, t_end=>500, n_steps=>500})` integrates the lactose induction time course.
+5. `parameter_scan({method=>"ode", parameter=>"l_ext", ...})` scans external lactose over a log range to produce an induction curve.
 
 ## 9. Technical caveats and ambiguities
 
-- The source comments explicitly say the rate laws are concentration-based and ODE-only; SSA/NFsim would require population-rate conversion.
-
-- There are no compartments or anchors, so all spatial interpretation is implicit.
-
-- The model uses source/sink rules rather than binding-site combinatorics; most behavior is carried by functions and observables.
+- The source comments explicitly state that these are concentration-based ODE rate expressions; SSA/NFsim would require population-based conversion.
+- The BNGL molecule declarations are site-free, so a coder should not look for binding-site or phosphorylation-site mechanisms here.
+- `Z` is named beta-galactosidase in comments, but it also functions as the transport/metabolism activity proxy in the equations.

@@ -601,5 +601,89 @@
       "functions"
     ],
     "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Jung_2017",
+    "title": "Jung 2017",
+    "bngl_path": "Published/Jung2017/Jung_2017.bngl",
+    "yaml_path": "Published/Jung2017/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Jung2017_M1R_signaling_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A compartmental M1 muscarinic receptor signaling model in which extracellular oxotremorine binds plasma-membrane M1R, receptor phosphorylation controls arrestin recruitment, arrestin scaffolds MEK/ERK/PP2A, and ERK phosphorylation is tracked through pERK and probe readouts.",
+    "molecule_type_count": 13,
+    "reaction_rule_count": 19,
+    "observable_count": 20,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "functions"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Kocieniewski_2012",
+    "title": "Kocieniewski 2012",
+    "bngl_path": "Published/Kocieniewski2012/Kocieniewski_2012.bngl",
+    "yaml_path": "Published/Kocieniewski2012/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Kocieniewski2012_MAPK_scaffold_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A scaffolded MAPK cascade model where MAP3K activation, scaffold binding, scaffold-localized phosphorylation of MAP2K and MAPK, and global dephosphorylation determine how signaling complexes form on Scaff.",
+    "molecule_type_count": 4,
+    "reaction_rule_count": 20,
+    "observable_count": 2,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "direct rule rates"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Chattaraj_2021",
+    "title": "Chattaraj 2021",
+    "bngl_path": "Published/Chattaraj2021/Chattaraj_2021.bngl",
+    "yaml_path": "Published/Chattaraj2021/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Chattaraj2021_condensate_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A multivalent binding/condensation model for Nephrin, Nck, and NWASP: three Nephrin phosphotyrosines bind Nck SH2, while three Nck SH3 sites bind six NWASP proline-rich motifs to generate heterotypic clusters.",
+    "molecule_type_count": 3,
+    "reaction_rule_count": 21,
+    "observable_count": 11,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "direct rule rates"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Ligon_2014",
+    "title": "Ligon 2014",
+    "bngl_path": "Published/Ligon2014/Ligon_2014.bngl",
+    "yaml_path": "Published/Ligon2014/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Ligon2014_lipoplex_delivery_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A lipoplex delivery model that tracks external lipoplex attachment to pits, conversion of pits to endosomes, lysis/unpacking into internal lipoplex cargo, mRNA production, GFP translation, washout, degradation, and a timer species for wash control.",
+    "molecule_type_count": 8,
+    "reaction_rule_count": 33,
+    "observable_count": 7,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "functions"
+    ],
+    "rule_inventory_in_markdown": true
   }
 ]

@@ -7,122 +7,111 @@
 - **BNGL path:** `Published/JaruszewiczBlonska2023/Jaruszewicz-Blonska_2023.bngl`
 - **YAML path:** `Published/JaruszewiczBlonska2023/metadata.yaml`
 - **Metadata description:** T-cell discrimination
-- **Scope:** A canonical NF-kappaB signaling ODE model with active/neutral IKK, IkBa mRNA/protein, A20, and nuclear NFkB. The rules encode TNF-controlled IKK activation, turnover, NFkB-driven transcription/translation, A20 feedback, NFkB import/export, and IkBa-mediated removal.
+- **Scope:** The BNGL file implements a compact canonical NF-kappaB ODE model. `IKK` has a real internal state site `st~n~a`; the other species (`IkBa`, `IkBa_mRNA`, `A20`, `NFkB`) are site-free pools. TNF input is represented by parameter `TR`, which gates IKK activation and A20-mediated IKK removal.
 
 ## 2. BNGL block inventory
 
 | Block | Present? | Count / role |
 | --- | --- | --- |
-| Parameters | Yes | 14 parameter entries. |
-| Compartments | No | 0 compartment entries. |
-| Anchors | No | 0 anchor entries. |
-| Molecule types | Yes | 5 molecule type entries. |
-| Seed/species | Yes | 6 initial species entries. |
-| Observables | Yes | 6 observable entries. |
-| Functions | Yes | 3 function entries. |
-| Reaction rules | Yes | 14 reaction rules. |
-| Actions | Yes | 4 active action or inline execution commands. |
+| Parameters | Yes | 14 fitted/control parameters, including `TR` as TNF off/on switch. |
+| Compartments | No | No formal BNGL compartments. |
+| Anchors | No | No anchors. |
+| Molecule types | Yes | 5 molecule types; only `IKK` has a site/state. |
+| Seed/species | Yes | 6 initial species: neutral IKK starts at 1; all other pools start at 0. |
+| Observables | Yes | 6 species observables for active/neutral IKK, IkBa mRNA/protein, A20, and NFkB. |
+| Functions | Yes | 3 rate functions for NFkB import/export and IkBa transport/removal. |
+| Reaction rules | Yes | 14 ODE-style rules. |
+| Actions | Yes | Network generation, `TR=0`, long steady-state ODE run, and concentration saving. |
 
 ## 3. Parameters, functions, and rate laws
 
-The parameter table is complete for this small model and preserves source comments when available.
-
-| Parameter | Value/expression | Role / source comment |
+| Parameter | Value/expression | Technical role |
 | --- | --- | --- |
-| `k_deg` | `0.000107` | kinetic or model-control parameter |
-| `k_1` | `0.00195` | kinetic or model-control parameter |
-| `k_3` | `0.00145` | kinetic or model-control parameter |
-| `k_2` | `0.0357` | kinetic or model-control parameter |
-| `a_3` | `0.0946` | kinetic or model-control parameter |
-| `delta` | `0.1083` | kinetic or model-control parameter |
-| `epsilon` | `0.0428` | kinetic or model-control parameter |
-| `c_deg` | `0.000106` | kinetic or model-control parameter |
-| `c_4a` | `0.00313` | kinetic or model-control parameter |
-| `a_2` | `0.0763` | kinetic or model-control parameter |
-| `c_5a` | `0.0000578` | kinetic or model-control parameter |
-| `i_1a` | `0.000595` | kinetic or model-control parameter |
-| `c_3a` | `0.000372` | kinetic or model-control parameter |
-| `TR` | `0` | TNF on(1)/off(0) |
+| `k_1` | `0.00195` | TNF-gated activation rate for `IKK.st n→a`. |
+| `k_deg` | `0.000107` | Basal IKK production/degradation rate. |
+| `k_3` | `0.00145` | Extra loss term for active IKK. |
+| `k_2` | `0.0357` | TNF-gated A20-mediated removal rate for active IKK. |
+| `c_deg` | `0.000106` | A20 synthesis/degradation rate in this implementation. |
+| `c_3a` | `0.000372` | IkBa mRNA transcription/degradation rate. |
+| `c_4a` | `0.00313` | IkBa protein translation rate from IkBa mRNA. |
+| `c_5a` | `0.0000578` | IkBa degradation rate. |
+| `a_3`, `delta`, `epsilon`, `i_1a`, `a_2` | fitted values | Parameters used inside NFkB import/export and IkBa transport functions. |
+| `TR` | `0` | TNF input switch; active actions set it to 0 before steady-state simulation. |
 
 **Functions and derived rates**
 
 | Function | Technical interpretation |
 | --- | --- |
-| `k_NFkBimport() a_3*delta*(1-NFkB_n)/(IkBa+ delta)` | derived rate/readout expression used by rules, observables, or simulation output |
-| `k_NFkBexport() i_1a/(NFkB_n+epsilon)` | derived rate/readout expression used by rules, observables, or simulation output |
-| `k_IkBatransport() a_2+(a_3*(1-NFkB_n))/((IkBa+delta))` | derived rate/readout expression used by rules, observables, or simulation output |
+| `k_NFkBimport() = a_3*delta*(1-NFkB_n)/(IkBa+delta)` | Produces/imports `NFkB()` from active IKK; decreases as observable `NFkB_n` approaches 1 and depends inversely on `IkBa`. |
+| `k_NFkBexport() = i_1a/(NFkB_n+epsilon)` | Removes the `NFkB()+IkBa()` pair; depends on current nuclear NFkB observable. |
+| `k_IkBatransport() = a_2+(a_3*(1-NFkB_n))/(IkBa+delta)` | Removes `IkBa()` in the presence of active IKK; combines basal and NFkB/IkBa-dependent terms. |
 
 ## 4. Molecule types, sites, and states
 
 | Molecule type | Site count | Sites/components | Internal states | Anchor/allowed compartments | Binding/modification roles | Notes |
 | --- | ---: | --- | --- | --- | --- | --- |
-| `IKK` | 1 | st~n~a | st: n, a | none | no explicit binding/modification site role beyond whole-molecule abundance | neutral/active form of IKK kinase |
-| `IkBa` | 0 | none | none declared | none | no explicit binding/modification site role beyond whole-molecule abundance | cytoplasmic, IkB |
-| `IkBa_mRNA` | 0 | none | none declared | none | no explicit binding/modification site role beyond whole-molecule abundance | IkBa transcript |
-| `A20` | 0 | none | none declared | none | no explicit binding/modification site role beyond whole-molecule abundance | cytoplasmic A20 |
-| `NFkB` | 0 | none | none declared | none | no explicit binding/modification site role beyond whole-molecule abundance | nuclear NFkB |
+| `IKK` | 1 | `st` | `st~n~a` | none | `st` is the neutral/active switch. | This is the only declared site/state in the model. |
+| `IkBa` | 0 | none | none | none | Whole-pool inhibitor species. | Comments label it cytoplasmic, but no compartment syntax is used. |
+| `IkBa_mRNA` | 0 | none | none | none | Whole-pool transcript species. | Produced by NFkB and translated to IkBa. |
+| `A20` | 0 | none | none | none | Whole-pool feedback species. | Removes active IKK in rule 11 while being preserved. |
+| `NFkB` | 0 | none | none | none | Whole-pool nuclear NFkB readout. | Comments call it nuclear, but this is not a BNGL compartment. |
 
 ## 5. Compartments, anchors, initial species, and setup
 
 - Compartments: none declared.
-
 - Anchors: none declared.
+- Initial setup: neutral IKK starts present; active IKK, IkBa, IkBa mRNA, A20, and NFkB start at zero.
 
 | Initial species/pattern | Initial amount | Setup role |
 | --- | --- | --- |
-| `IKK(st~n)` | `1` | neutral/active form of IKK kinase |
-| `IKK(st~a)` | `0` | neutral/active form of IKK kinase |
-| `IkBa()` | `0` | cytoplasmic, IkB |
-| `IkBa_mRNA()` | `0` | IkBa transcript |
-| `A20()` | `0` | cytoplasmic A20 |
-| `NFkB()` | `0` | nuclear NFkB |
+| `IKK(st~n)` | `1` | Initial neutral IKK pool. |
+| `IKK(st~a)` | `0` | No active IKK initially. |
+| `IkBa()` | `0` | No inhibitor protein initially. |
+| `IkBa_mRNA()` | `0` | No transcript initially. |
+| `A20()` | `0` | No feedback species initially. |
+| `NFkB()` | `0` | No nuclear NFkB pool initially. |
 
 ## 6. Complete reaction-rule inventory
 
-The source contains **14** reaction rules. Every concrete rule is listed below.
+**Rule-family orientation:** Rule 1 is the only site-state conversion (`IKK.st n→a`). The remaining rules are source/sink or catalytic carry-through ODE terms for site-free pools. Rules with a species on both sides, such as `NFkB() -> NFkB() + A20()`, preserve the catalyst/readout species while producing another pool.
 
-| # | Rule label/name | Direction | Participants and sites/components | Rate/expression | Modeled change | Rule pattern | Technical meaning |
-| ---: | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `Unlabeled` | one-way | IKK | `k_1*TR` | internal-state conversion/modification | `IKK(st~n) -> IKK(st~a)` | TNFR1 activation and signal transduction cascade. Updates internal state(s) on IKK: IKK.st n→a. Rate/expression: k_1*TR. |
-| 2 | `Unlabeled` | one-way | IKK | `k_deg` | source/synthesis or algebraic source term | `0 -> IKK(st~n)` | Produces IKK while retaining or consuming an abstract source. Rate/expression: k_deg. |
-| 3 | `Unlabeled` | one-way | IKK | `k_deg+k_3` | sink/degradation/removal | `IKK(st~a) -> 0` | Removes IKK from the dynamic pool through the zero/sink side of the rule. Rate/expression: k_deg+k_3. |
-| 4 | `Unlabeled` | one-way | IKK | `k_deg` | sink/degradation/removal | `IKK(st~n) -> 0` | Removes IKK from the dynamic pool through the zero/sink side of the rule. Rate/expression: k_deg. |
-| 5 | `Unlabeled` | one-way | A20, NFkB | `c_deg` | stoichiometric pattern rewrite | `NFkB() -> NFkB() + A20()` | A20 synthesis and degradation, IkB transcription, translation, mRNA and protein degradation. Produces A20 while retaining or consuming NFkB. Rate/expression: c_deg. |
-| 6 | `Unlabeled` | one-way | A20 | `c_deg` | sink/degradation/removal | `A20() -> 0` | Removes A20 from the dynamic pool through the zero/sink side of the rule. Rate/expression: c_deg. |
-| 7 | `Unlabeled` | one-way | IkBa_mRNA, NFkB | `c_3a` | stoichiometric pattern rewrite | `NFkB() -> NFkB() + IkBa_mRNA()` | Produces IkBa_mRNA while retaining or consuming NFkB. Rate/expression: c_3a. |
-| 8 | `Unlabeled` | one-way | IkBa_mRNA | `c_3a` | sink/degradation/removal | `IkBa_mRNA() -> 0` | Removes IkBa_mRNA from the dynamic pool through the zero/sink side of the rule. Rate/expression: c_3a. |
-| 9 | `Unlabeled` | one-way | IkBa, IkBa_mRNA | `c_4a` | stoichiometric pattern rewrite | `IkBa_mRNA() -> IkBa_mRNA() + IkBa()` | Produces IkBa while retaining or consuming IkBa_mRNA. Rate/expression: c_4a. |
-| 10 | `Unlabeled` | one-way | IkBa | `c_5a` | sink/degradation/removal | `IkBa() -> 0` | Removes IkBa from the dynamic pool through the zero/sink side of the rule. Rate/expression: c_5a. |
-| 11 | `Unlabeled` | one-way | A20, IKK | `k_2*TR` | stoichiometric pattern rewrite | `A20() + IKK(st~a) -> A20()` | Protein interactions. Consumes IKK while preserving A20. Rate/expression: k_2*TR. |
-| 12 | `Unlabeled` | one-way | IKK, NFkB | `k_NFkBimport()` | stoichiometric pattern rewrite | `IKK(st~a) -> IKK(st~a) + NFkB()` | Produces NFkB while retaining or consuming IKK. Rate/expression: k_NFkBimport(). |
-| 13 | `Unlabeled` | one-way | IkBa, NFkB | `k_NFkBexport()` | sink/degradation/removal | `NFkB() + IkBa() -> 0` | Removes IkBa, NFkB from the dynamic pool through the zero/sink side of the rule. Rate/expression: k_NFkBexport(). |
-| 14 | `Unlabeled` | one-way | IKK, IkBa | `k_IkBatransport()` | stoichiometric pattern rewrite | `IKK(st~a)+IkBa() -> IKK(st~a)` | Consumes IkBa while preserving IKK. Rate/expression: k_IkBatransport(). |
+| # | Rule label/name | Direction | Participants and sites/components | Rate/expression | Exact modeled change | Technical meaning |
+| ---: | --- | --- | --- | --- | --- | --- |
+| 1 | `Unlabeled` | one-way | `IKK.st` | `k_1*TR` | `IKK.st n→a`. | TNF-gated IKK activation; if `TR=0`, this activation term is zero. |
+| 2 | `Unlabeled` | one-way | product `IKK.st~n` | `k_deg` | Source `0 → IKK(st~n)`. | Basal replenishment of neutral IKK. |
+| 3 | `Unlabeled` | one-way | `IKK.st~a` | `k_deg+k_3` | Sink `IKK(st~a) → 0`. | Removes active IKK by basal plus active-specific degradation. |
+| 4 | `Unlabeled` | one-way | `IKK.st~n` | `k_deg` | Sink `IKK(st~n) → 0`. | Basal neutral IKK degradation. |
+| 5 | `Unlabeled` | one-way | `NFkB` preserved, `A20` produced | `c_deg` | `NFkB() → NFkB() + A20()`. | NFkB-driven A20 synthesis; `NFkB` is catalytic/preserved in the rule pattern. |
+| 6 | `Unlabeled` | one-way | `A20` | `c_deg` | Sink `A20() → 0`. | A20 degradation. |
+| 7 | `Unlabeled` | one-way | `NFkB` preserved, `IkBa_mRNA` produced | `c_3a` | `NFkB() → NFkB() + IkBa_mRNA()`. | NFkB-driven IkBa transcript production. |
+| 8 | `Unlabeled` | one-way | `IkBa_mRNA` | `c_3a` | Sink `IkBa_mRNA() → 0`. | IkBa transcript degradation. |
+| 9 | `Unlabeled` | one-way | `IkBa_mRNA` preserved, `IkBa` produced | `c_4a` | `IkBa_mRNA() → IkBa_mRNA() + IkBa()`. | Translation of IkBa protein from its mRNA. |
+| 10 | `Unlabeled` | one-way | `IkBa` | `c_5a` | Sink `IkBa() → 0`. | IkBa protein degradation. |
+| 11 | `Unlabeled` | one-way | `A20` preserved, `IKK.st~a` consumed | `k_2*TR` | `A20() + IKK(st~a) → A20()`. | A20-mediated active IKK removal; gated by TNF switch `TR`. |
+| 12 | `Unlabeled` | one-way | `IKK.st~a` preserved, `NFkB` produced | `k_NFkBimport()` | `IKK(st~a) → IKK(st~a) + NFkB()`. | Active IKK drives NFkB production/import using a rate dependent on `NFkB_n` and `IkBa`. |
+| 13 | `Unlabeled` | one-way | `NFkB` + `IkBa` | `k_NFkBexport()` | Sink `NFkB() + IkBa() → 0`. | IkBa-associated NFkB export/removal; both pools are removed by this pattern. |
+| 14 | `Unlabeled` | one-way | `IKK.st~a` preserved, `IkBa` consumed | `k_IkBatransport()` | `IKK(st~a)+IkBa() → IKK(st~a)`. | Active IKK-associated IkBa removal/transport using the model’s combined basal/NFkB-dependent function. |
 
 ## 7. Observables and technical readouts
 
 | Observable | Type | Pattern / target | Technical interpretation |
 | --- | --- | --- | --- |
-| `IKK_a` | `Species` | `IKK(st~a)` | neutral/active form of IKK kinase |
-| `tIkBa` | `Species` | `IkBa_mRNA()` | IkBa transcript |
-| `A20` | `Species` | `A20()` | cytoplasmic A20 |
-| `NFkB_n` | `Species` | `NFkB()` | nuclear NFkB |
-| `IkBa` | `Species` | `IkBa()` | cytoplasmic, IkB |
-| `IKK_n` | `Species` | `IKK(st~n)` | neutral/active form of IKK kinase |
+| `IKK_a` | `Species` | `IKK(st~a)` | Active IKK pool. |
+| `tIkBa` | `Species` | `IkBa_mRNA()` | IkBa transcript pool. |
+| `A20` | `Species` | `A20()` | A20 feedback species. |
+| `NFkB_n` | `Species` | `NFkB()` | Nuclear NFkB pool used by functions. |
+| `IkBa` | `Species` | `IkBa()` | IkBa inhibitor protein pool used by functions. |
+| `IKK_n` | `Species` | `IKK(st~n)` | Neutral IKK pool. |
 
 ## 8. Actions and simulation workflow
 
-1. `generate_network({overwrite=>1});` — active execution command in the actions block
-
-2. `setParameter("TR",0);` — - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -; ########################################################; ##### combination experiment for WT cells #############; #######################################################
-
-3. `simulate_ode({suffix=>"continuous",t_end=>30*24*3600,n_steps=>200,atol=>1e-16,rtol=>1e-16, sparse=>1, sparse=>1, steady_state=>1});` — active execution command in the actions block
-
-4. `saveConcentrations()` — active execution command in the actions block
+1. `generate_network({overwrite=>1});` builds the reaction network.
+2. `setParameter("TR",0);` explicitly keeps TNF input off for the active simulation.
+3. `simulate_ode({suffix=>"continuous", t_end=>30*24*3600, ... steady_state=>1});` runs a long ODE simulation to steady state.
+4. `saveConcentrations()` writes concentration outputs.
 
 ## 9. Technical caveats and ambiguities
 
-- The YAML description says T-cell discrimination, but the BNGL title/comments describe canonical NF-kappaB signaling; the summary follows the BNGL content and flags the mismatch.
-
-- No compartments are declared even though comments label some species nuclear or cytoplasmic; localization is encoded only in molecule names/comments and rate laws.
-
-- Many pulse protocols are present but auto-disabled as comments; the active workflow is the continuous/steady-state ODE command after TR is set to 0.
+- The YAML description says T-cell discrimination, but the BNGL file text describes canonical NF-kappaB signaling; this summary follows the BNGL file.
+- Comments label NFkB as nuclear and IkBa/A20 as cytoplasmic, but there are no BNGL compartments or anchors.
+- Many pulse protocols are commented/auto-disabled; the active workflow is the continuous steady-state run with `TR=0`.
