@@ -517,5 +517,89 @@
       "observables"
     ],
     "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Dreisigmeyer_2008",
+    "title": "Dreisigmeyer 2008",
+    "bngl_path": "Published/Dreisigmeyer2008/lac_operon_dreisigmeyer2008.bngl",
+    "yaml_path": "Published/Dreisigmeyer2008/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Dreisigmeyer2008_lac_operon_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A concentration-based lac operon ODE model with three explicit dynamic species: intracellular lactose, allolactose, and beta-galactosidase.",
+    "molecule_type_count": 3,
+    "reaction_rule_count": 8,
+    "observable_count": 3,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "functions"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Hlavacek_2001",
+    "title": "Hlavacek 2001",
+    "bngl_path": "Published/Hlavacek2001/kinetic_proofreading_hlavacek2001.bngl",
+    "yaml_path": "Published/Hlavacek2001/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Hlavacek2001_kinetic_proofreading_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A compact kinetic-proofreading receptor signaling model: bivalent ligand captures receptors, forms receptor dimers, advances through five ligand-centered modification states, and resets modification to zero when ligand-receptor bonds dissociate.",
+    "molecule_type_count": 2,
+    "reaction_rule_count": 13,
+    "observable_count": 10,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "functions"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "McMillan_2021",
+    "title": "McMillan 2021",
+    "bngl_path": "Published/McMillan2021/McMillan_2021.bngl",
+    "yaml_path": "Published/McMillan2021/metadata.yaml",
+    "markdown_path": "data/summaries_coders/McMillan2021_TNF_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A small TNF-receptor binding model in which trivalent TNF has three binding sites and recruits up to three receptor molecules through the receptor a site.",
+    "molecule_type_count": 2,
+    "reaction_rule_count": 12,
+    "observable_count": 5,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "direct rule rates"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Jaruszewicz-Blonska_2023",
+    "title": "Jaruszewicz 2023",
+    "bngl_path": "Published/JaruszewiczBlonska2023/Jaruszewicz-Blonska_2023.bngl",
+    "yaml_path": "Published/JaruszewiczBlonska2023/metadata.yaml",
+    "markdown_path": "data/summaries_coders/JaruszewiczBlonska2023_NFkB_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A canonical NF-kappaB signaling ODE model with active/neutral IKK, IkBa mRNA/protein, A20, and nuclear NFkB.",
+    "molecule_type_count": 5,
+    "reaction_rule_count": 14,
+    "observable_count": 6,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "functions"
+    ],
+    "rule_inventory_in_markdown": true
   }
 ]
