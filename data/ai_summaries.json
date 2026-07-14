@@ -474,5 +474,48 @@
       "NFsim action"
     ],
     "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Dolan_2015",
+    "title": "Dolan 2015",
+    "bngl_path": "Published/Dolan2015/Dolan_2015.bngl",
+    "yaml_path": "Published/Dolan2015/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Dolan2015_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A combined DNA-damage, p53/MDM2/p21 stress-response, oxidative damage, non-homologous end joining (NHEJ), PARP/Ligase repair, ATM/H2AX focus, and senescence-switching model.",
+    "molecule_type_count": 74,
+    "reaction_rule_count": 2339,
+    "observable_count": 176,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "functions",
+      "large explicit rule families",
+      "observables"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Zhang_2023",
+    "title": "Zhang 2023",
+    "bngl_path": "Published/Zhang2023/Zhang_2023.bngl",
+    "yaml_path": "Published/Zhang2023/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Zhang2023_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A large VEGF signaling model centered on VEGF165a, VEGFR2, VEGFR1, NRP1, CD47/TSP1, PI3K/AKT, PLCγ/IP3/DAG/calcium, eNOS, PKC/CIB1/SphK/S1P, Ras/Raf/MEK/ERK, and Axl/Src cross-talk.",
+    "molecule_type_count": 38,
+    "reaction_rule_count": 232,
+    "observable_count": 129,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "large explicit rule families",
+      "observables"
+    ],
+    "rule_inventory_in_markdown": true
   }
 ]
