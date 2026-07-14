@@ -1,6 +1,6 @@
 ---
 name: explain-rulehub-model-coders
-description: Generate technical RuleHub BNGL/YAML model explanations for experienced coders, modelers, and curators. Use when asked to create or review coder-facing summaries with complete molecule type/site/state inventories, every BNGL reaction rule, parameters, functions, observables, compartments, actions, source paths, or JSON index entries for RuleHub models.
+description: Generate technical RuleHub BNGL/YAML model explanations for experienced coders, modelers, and curators. Use when asked to create or review coder-facing summaries with complete molecule type/site/state inventories, every BNGL reaction rule, parameters, functions, observables, compartments, anchors, actions, source paths, or JSON index entries for RuleHub models.
 ---
 
 # Explain RuleHub Model for Coders
@@ -35,16 +35,17 @@ When selecting or tabulating models, pair a `.bngl` file with a YAML file only w
 
 Use the BNGL grammar as a parsing checklist. Identify these constructs before writing:
 
-- Model delimiters and blocks: `begin model`, `end model`, `begin parameters`, `begin compartments`, `begin molecule types`, `begin species` or `begin seed species`, `begin observables`, `begin functions`, `begin reaction rules`, and `begin actions`.
+- Model delimiters and blocks: `begin model`, `end model`, `begin parameters`, `begin compartments`, `begin anchors`, `begin molecule types`, `begin species` or `begin seed species`, `begin observables`, `begin functions`, `begin reaction rules`, and `begin actions`.
 - Molecule patterns: molecule name, component/site list, internal states marked by state alternatives, binding markers, and optional compartments.
+- Anchors: when a `begin anchors` block is present, record each molecule-to-compartment constraint such as `RCC1(nuc)` or `EGF(M,EC)`. Treat anchors as localization constraints on molecule types, not as reaction rules or binding sites.
 - Components/sites: count every declared component in each molecule type; record repeated sites separately when the declaration repeats a component name.
 - Internal states: record every state alternative for each site, including unmodified/modified, active/inactive, nucleotide-bound, or abstract states when declared.
 - Bonds: interpret explicit bond labels, unspecified bonds, and “bound to something” patterns as binding constraints, not as molecule names.
-- Reaction rules: distinguish unidirectional and reversible rules, rule labels, reactant patterns, product patterns, rate expressions, functions used as rates, and state/bond/component changes.
+- Reaction rules: distinguish unidirectional and reversible rules, rule labels, reactant patterns, product patterns, rate expressions, functions used as rates, and state/bond/component changes. For compartmental rules involving anchored molecules, explain whether product locations are constrained by the anchor declarations.
 - Observables: distinguish molecule-count and species-count readouts, and explain each pattern being counted.
 - Functions and actions: record algebraic functions, generated networks, simulations, scans, parameter changes, and output commands.
 
-If a model uses extended constructs such as compartments, population maps, energy patterns, local functions, or conditional/structured syntax, add a parser note explaining how those constructs affect interpretation.
+If a model uses extended constructs such as compartments, anchors, population maps, energy patterns, local functions, or conditional/structured syntax, add a parser note explaining how those constructs affect interpretation.
 
 ## Required Markdown Structure
 
@@ -61,7 +62,7 @@ Use this structure exactly unless the user requests a different format:
 
 ## 4. Molecule types, sites, and states
 
-## 5. Initial species, compartments, and setup
+## 5. Compartments, anchors, initial species, and setup
 
 ## 6. Complete reaction-rule inventory
 
@@ -78,7 +79,7 @@ Include the title, model id if available, biological or tutorial purpose, and th
 
 ### 2. BNGL block inventory
 
-List which BNGL blocks are present and what each block contributes. Include counts for parameters, molecule types, initial species, observables, functions, reaction rules, and actions when practical.
+List which BNGL blocks are present and what each block contributes. Include counts for parameters, compartments, anchors, molecule types, initial species, observables, functions, reaction rules, and actions when practical. If anchors are present, summarize their molecule-to-compartment constraints in this inventory.
 
 ### 3. Parameters, functions, and rate laws
 
@@ -95,8 +96,8 @@ This section must be exhaustive for molecule types. Include every declared molec
 
 Use a table with these columns when possible:
 
-| Molecule type | Site count | Sites/components | Internal states | Binding/modification roles | Notes |
-| --- | ---: | --- | --- | --- | --- |
+| Molecule type | Site count | Sites/components | Internal states | Anchor/allowed compartments | Binding/modification roles | Notes |
+| --- | ---: | --- | --- | --- | --- | --- |
 
 Rules for this section:
 
@@ -104,15 +105,17 @@ Rules for this section:
 - List every site name.
 - List every declared internal state for each site.
 - Identify apparent binding sites, modification sites, catalytic sites, localization sites, or abstract flags based only on the current model.
+- If a molecule appears in the anchors block, include its anchor/allowed compartment(s) in the molecule table and use those constraints when explaining compartmental rules.
 - If molecule types are absent and the model relies on species declarations only, say so and infer the effective players from species/rule patterns with a caution.
 
-### 5. Initial species, compartments, and setup
+### 5. Compartments, anchors, initial species, and setup
 
-Summarize initial species and setup in coder-friendly language.
+Summarize spatial setup before initial species.
 
-- Include initial species names/patterns when needed to understand starting state.
-- Explain initial abundance classes: ligand/receptor pools, enzymes, substrates, scaffolds, compartments, abstract tutorial species, or zero-initialized outputs.
 - Include compartment definitions and compartment placement if present.
+- If an anchors block is present, list every anchored molecule and its allowed or constrained compartment(s). Explain that anchors constrain the localization of species or complexes containing that molecule.
+- Include initial species names/patterns when needed to understand starting state.
+- Explain initial abundance classes: ligand/receptor pools, enzymes, substrates, scaffolds, anchored membrane or nuclear molecules, compartments, abstract tutorial species, or zero-initialized outputs.
 - Keep this concise; do not paste long species blocks verbatim.
 
 ### 6. Complete reaction-rule inventory
@@ -158,6 +161,7 @@ Make caveats specific to this model. Examples:
 - Readouts that count pattern matches rather than unique complexes.
 - Rate constants that appear tutorial-like or arbitrary.
 - Large combinatorial rule families where generated species are not enumerated in the source.
+- VCell-augmented compartment/anchor constructs that may not be supported by every standalone BioNetGen or NFsim workflow.
 
 Do not use generic caveats that could apply to every BNGL model.
 
@@ -177,6 +181,8 @@ When producing or appending to a JSON index, use coder-friendly fields such as:
   "molecule_type_count": 0,
   "reaction_rule_count": 0,
   "observable_count": 0,
+  "uses_anchors": false,
+  "anchor_count": 0,
   "key_constructs": ["..."],
   "rule_inventory_in_markdown": true
 }
@@ -195,7 +201,7 @@ Before finalizing, verify all of the following:
 - Every reaction rule in the BNGL reaction-rule block appears in the complete rule inventory.
 - Every rule explanation states the participants, sites/components affected, direction, rate, and modeled change.
 - Every observable/readout appears and is explained.
-- Every function, compartment, and action is addressed if present.
+- Every function, compartment, anchor, and action is addressed if present.
 - Ambiguous names are flagged rather than guessed.
 - No section body is reusable boilerplate from another model.
-- Counts in the Markdown match the BNGL blocks.
+- Counts in the Markdown match the BNGL blocks, including anchor count when an anchors block is present.

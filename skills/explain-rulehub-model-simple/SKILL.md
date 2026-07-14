@@ -13,7 +13,7 @@ Before writing, read the model files in this order:
 1. The model `metadata.yaml` or `.yaml` file.
 2. The model `.bngl` file.
 3. Any nearby `README.md` or other local documentation.
-4. Comments inside the BNGL file, especially title, description, reference, pathway notes, reaction-family comments, and observable/readout comments.
+4. Comments inside the BNGL file, especially title, description, reference, pathway notes, reaction-family comments, localization/anchor notes, and observable/readout comments.
 
 Use local repository files only. Do not rely on raw GitHub URLs.
 
@@ -175,7 +175,7 @@ The JSON `summary` should match the Markdown one-sentence summary. The JSON `key
 
 1. Read metadata first and record the clean title, id, category, source hints, and short description.
 2. Read the BNGL comments before interpreting mechanisms; comments often contain the best biological description.
-3. Identify the main biological players from molecule declarations, comments, and metadata tags.
+3. Identify the main biological players from molecule declarations, comments, metadata tags, and any anchors block. If anchors are present, translate them into plain localization statements such as “RCC1 is treated as nuclear-localized” or “EGFR is constrained to the membrane”; do not expose raw anchor syntax in the Markdown.
 4. Identify the central mechanism: binding/assembly, activation, modification, feedback, degradation, transport, transcription, or other biological process.
 5. Identify three to five key modeled events. These should be selective and biologically meaningful, not exhaustive.
 6. Identify the model readouts and translate them into biological measurements.
@@ -206,6 +206,7 @@ Before finalizing, verify all of the following:
 - The mechanism section contains biological verbs and causal flow.
 - The key modeled events include a few important modeled events without becoming a full rule dump.
 - The readouts section explains what plotted quantities mean biologically.
+- If the model uses anchors, the biological localization consequence is explained in prose without raw anchor syntax.
 - The biological story, expected plot behavior, and caveats are unique to the model and not copied boilerplate.
 - The Markdown contains no raw BNGL syntax, arrows, bond labels, file paths, or local-file logistics.
 - The Markdown avoids the words “observables,” “seed species,” and “reaction rules.”
