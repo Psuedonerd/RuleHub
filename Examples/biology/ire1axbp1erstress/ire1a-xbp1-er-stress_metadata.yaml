@@ -30,7 +30,7 @@ compatibility:
   uses_compartments: false
   nfsim_compatible: true 
 
-Features:
+features:
   uses_generate_network: true
   default_sim_command: "ode" 
   uses_totalrate: false

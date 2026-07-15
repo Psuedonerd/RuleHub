@@ -20,13 +20,13 @@ compatibility:
   bnglviz_compatible: true
   bng2_compatible: true 
   bngp_compatible: true
-  vcell_compatible: true #put actions outside of model
-  vcell_errors: 
+  vcell_compatible: true 
+  vcell_errors: "put actions outside of model"
   simulation_methods: ["ode", "ssa","nf"]
   nfsim_compatible: true  
   molclustpy_compatible: true
 
-Features:
+features:
   uses_generate_network: true
   default_sim_command: "ode" 
   uses_energy: false

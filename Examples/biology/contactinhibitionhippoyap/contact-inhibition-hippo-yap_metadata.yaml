@@ -19,18 +19,19 @@ compatibility:
   rr_compatible: true
   bnglviz_compatible: true
   bng2_compatible: true 
-  bngp_compatible: true # does not run with nf option
-  vcell_compatible: true # put actions outside of model
+  bngp_compatible: true 
+  vcell_compatible: true 
   vcell_errors: 
   simulation_methods: ["ode", "ssa"]
-  nfsim_compatible: true  # CHANGED! WARNING: Species with more than 20 molecules will be labeled with the Quasi method.
-  molclustpy_compatible: true # if set species concentration to variable instead of 1000
+  nfsim_compatible: true 
+  molclustpy_compatible: true 
   uses_compartments: false
   uses_energy: false
   uses_functions: true
+  comments: "VCell: put actions outside of model NFsim:  # CHANGED! WARNING: Species with more than 20 molecules will be labeled with the Quasi method. MCP: if set species concentration to variable instead of 1000"
 
 
-Features:
+features:
   uses_generate_network: true
   default_sim_command: "ode" 
   uses_energy: false

@@ -24,11 +24,12 @@ compatibility:
   vcell_compatible: false
   vcell_errors: "Encountered -> at line 35"
   simulation_methods: ["ode", "ssa","nf"]
-  molclustpy_compatible: true #different simulation results from NFsim and MCP
+  molclustpy_compatible: true 
   uses_energy: false
   uses_functions: true
   uses_compartments: false
-  nfsim_compatible: true 
+  nfsim_compatible: true
+  comments: "different simulation results from NFsim and MCP"
 
 Features:
   uses_generate_network: true

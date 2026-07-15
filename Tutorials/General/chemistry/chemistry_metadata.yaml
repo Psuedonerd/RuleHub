@@ -1,17 +1,17 @@
-id: "autophagy-regulation"
-name: "autophagy-regulation"
-description: "Autophagy regulation: mTOR and AMPK competition on the ULK1 switch."
+id: "chemistry"
+name: "chemistry"
+description: "Basic chemical reactions"
 
 contributors:
   - name: "Achyudhan"
   - name: "Nabil Mardhy"
 
-tags: ["autophagy", "regulation", "mtor", "ampk", "ulk1", "lc3", "p62"]
+tags: ["published", "tutorials", "chemistry", "a", "b", "c", "d", "e"]
 
 date:
   last_tested: 2026-06-30
 
-biol_categories: ["signaling"]
+biol_categories: ["tutorial"]
 
 comp_categories: ["other"]
 
@@ -20,13 +20,12 @@ compatibility:
   bnglviz_compatible: true
   bng2_compatible: false
   vcell_compatible: false
-  vcell_errors: "Encountered } at line 38"
+  vcell_errors: " encountered exclude_reactants"
   simulation_methods: ["ode", "ssa",]
   nfsim_compatible: false         
-  molclustpy_compatible: false 
-  comments: "IndexError: list index out of range"
+  molclustpy_compatible: false
 
-features:
+Features:
   uses_generate_network: true
   default_sim_command: "ode" 
   uses_energy: false
@@ -37,13 +36,13 @@ features:
   uses_anchors: false
   uses_multiple_identical_sites: false
   uses_deletes_molecules: false
-  uses_exclude_include_reactants: false
+  uses_exclude_include_reactants: true
 
 source:
-  origin: "ai-generated"
+  origin: "tutorial"
   original_format: "bngl"
   original_repository: "bionetgen-web-simulator"
-  source_path: "example-models/autophagy-regulation.bngl"
+  source_path: "published-models/tutorials/chemistry.bngl"
  
 playground:
   visible: false

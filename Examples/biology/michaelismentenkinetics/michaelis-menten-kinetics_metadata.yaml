@@ -1,34 +1,34 @@
-id: "lac-operon-regulation"
-name: "lac operon regulation"
-description: "Kinetic Parameters"
+id: "michaelis-menten-kinetics"
+name: "michaelis menten kinetics"
+description: "Kinetic Constants"
 
 contributors:
   - name: "Achyudhan"
   - name: "Nabil Mardhy"
 
-tags: ["lac", "operon", "regulation", "laci", "promoter", "mrna", "betagal", "lactose", "allolactose"]
+tags: ["michaelis", "menten", "kinetics", "e", "s", "p", "generate_network", "simulate", "writesbml"]
+
 date:
-  last_tested: 2026-07-07
+  last_tested: 2026-07-09
 
 category: "signaling"
-
-biol_categories: ["regulation"]
-
+biol_categories: ["kinetics"]
 comp_categories: ["other"]
 
 compatibility:
   rr_compatible: true
   bnglviz_compatible: true
   bng2_compatible: true
-  bngp_compatible: true 
-  vcell_compatible: false
-  vcell_errors: "Encountered 0 at line 53"
-  simulation_methods: ["ode", "ssa","nf"]
-  molclustpy_compatible: false 
+  bngp_compatible: true
+  vcell_compatible: true
+  vcell_errors:
+  simulation_methods: ["ode", "ssa"]
+  uses_energy: false
   uses_functions: true
   uses_compartments: false
-  nfsim_compatible: true
-  comments: "#IndexError: list index out of range"
+  nfsim_compatible: false
+  molclustpy_compatible: false
+  comments: "MCP IndexError: list index out of range  bngp Simulation failed: NFsim simulation failed: NFsim completed but output file not found   nfsim  You created a reaction (Catalysis) that deletes a molecule, but you did not use the DeleteMolecules keyword."
 
 features:
   uses_generate_network: true
@@ -41,14 +41,14 @@ features:
   uses_deletes_molecules: false
   uses_exclude_include_reactants: false
   uses_energy: false
-  uses_functions: true
+  uses_functions: false
   uses_compartments: false
 
 source:
   origin: "ai-generated"
   original_format: "bngl"
   original_repository: "bionetgen-web-simulator"
-  source_path: "example-models/lac-operon-regulation.bngl"
+  source_path: "example-models/michaelis-menten-kinetics.bngl"
  
 playground:
   visible: false

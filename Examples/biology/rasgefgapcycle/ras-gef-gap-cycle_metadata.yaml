@@ -1,34 +1,32 @@
-id: "lac-operon-regulation"
-name: "lac operon regulation"
-description: "Kinetic Parameters"
+id: "ras-gef-gap-cycle"
+name: "ras gef gap cycle"
+description: "Ras-GEF-GAP cycle with explicit nucleotide exchange."
 
 contributors:
   - name: "Achyudhan"
   - name: "Nabil Mardhy"
 
-tags: ["lac", "operon", "regulation", "laci", "promoter", "mrna", "betagal", "lactose", "allolactose"]
+tags: ["ras", "gef", "gap", "cycle", "sos", "rasgap", "v_gef", "v_gap"]
 date:
-  last_tested: 2026-07-07
+  last_tested: 2026-07-13
 
 category: "signaling"
-
-biol_categories: ["regulation"]
-
+biol_categories: ["cycle"]
 comp_categories: ["other"]
 
 compatibility:
   rr_compatible: true
   bnglviz_compatible: true
   bng2_compatible: true
-  bngp_compatible: true 
-  vcell_compatible: false
-  vcell_errors: "Encountered 0 at line 53"
-  simulation_methods: ["ode", "ssa","nf"]
-  molclustpy_compatible: false 
+  vcell_compatible: true
+  vcell_errors: 
+  simulation_methods: ["ode", "ssa", "nf"]
+  uses_energy: false
   uses_functions: true
   uses_compartments: false
   nfsim_compatible: true
-  comments: "#IndexError: list index out of range"
+  molclustpy_compatible: true
+  comments: "vcell put actions out of model"
 
 features:
   uses_generate_network: true
@@ -40,19 +38,20 @@ features:
   uses_multiple_identical_sites: false
   uses_deletes_molecules: false
   uses_exclude_include_reactants: false
-  uses_energy: false
   uses_functions: true
   uses_compartments: false
+  uses_energy: false
+  
 
 source:
   origin: "ai-generated"
   original_format: "bngl"
   original_repository: "bionetgen-web-simulator"
-  source_path: "example-models/lac-operon-regulation.bngl"
+  source_path: "example-models/ras-gef-gap-cycle.bngl"
  
 playground:
   visible: false
-  gallery_categories: ["metabolism","test-models"]
+  gallery_categories: ["cancer","test-models"]
   featured: false
   difficulty: "advanced"
  

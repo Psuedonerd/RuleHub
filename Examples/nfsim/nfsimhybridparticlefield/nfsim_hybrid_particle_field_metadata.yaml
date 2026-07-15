@@ -1,34 +1,35 @@
-id: "dna-damage-repair"
-name: "dna damage repair"
-description: "DNA damage sensing and repair pathway (ATM-CHK2-p53 axis)"
+id: "nfsim_hybrid_particle_field"
+name: "nfsim hybrid particle field"
+description: "Model: nfsim_hybrid_particle_field.bngl"
 
 contributors:
   - name: "Achyudhan"
   - name: "Nabil Mardhy"
 
-tags: ["dna", "damage", "repair", "mrn", "atm", "chk2", "repaircomplex"]
+tags: ["nfsim", "hybrid", "particle", "field"]
 
 date:
   last_tested: 2026-07-02
 
-biol_categories: ["signaling"]
+biol_categories: ["other"]
 
-comp_categories: ["other"]
+comp_categories: ["nfsim"]
 
 compatibility:
   rr_compatible: true
   bnglviz_compatible: true
   bng2_compatible: true 
   bngp_compatible: true
-  vcell_compatible: true 
-  vcell_errors: "put actions outside of model"
-  simulation_methods: ["ode", "ssa","nf"]
-  nfsim_compatible: true  
+  vcell_compatible: false
+  vcell_errors: "ComponentStateDefinition 0 doesn't exist!"  
+  simulation_methods: ["ode", "ssa", "nf"]
+  nfsim_compatible: true 
   molclustpy_compatible: true
+  comments: "false in original metadata.yaml but runs with bng2 and bngp"
 
 features:
   uses_generate_network: true
-  default_sim_command: "ode" 
+  default_sim_command: "nf" 
   uses_energy: false
   uses_functions: false
   uses_totalrate: false
@@ -43,11 +44,12 @@ source:
   origin: "ai-generated"
   original_format: "bngl"
   original_repository: "bionetgen-web-simulator"
-  source_path: "example-models/dna-damage-repair.bngl"
+  source_path: "example-models/nfsim_hybrid_particle_field.bngl"
  
 playground:
   visible: false
-  gallery_categories: ["cancer","test-models"]
+  gallery_categories: ["test-models"]
   featured: false
   difficulty: "advanced"
  
+

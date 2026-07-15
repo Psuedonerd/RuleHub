@@ -22,10 +22,11 @@ compatibility:
   vcell_compatible: true
   vcell_errors: 
   simulation_methods: ["ode", "ssa"]
-  nfsim_compatible: true    #after continue=>1 is removed  
-  molclustpy_compatible: false   #list index out of range
+  nfsim_compatible: true    
+  molclustpy_compatible: false   
+  comments: "list index out of range, after continue=>1 is removed "
 
-Features:
+features:
   uses_generate_network: true
   default_sim_command: "ode" 
   uses_energy: false

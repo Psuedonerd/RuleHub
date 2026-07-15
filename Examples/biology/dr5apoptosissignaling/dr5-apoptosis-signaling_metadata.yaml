@@ -23,8 +23,9 @@ compatibility:
   vcell_compatible: false
   vcell_errors: "Encountered -> at line 78"
   simulation_methods: ["ode", "ssa"]
-  nfsim_compatible: true  #false in original metadata.yaml but runs with bng2
-  molclustpy_compatible: false #IndexError: list index out of range
+  nfsim_compatible: true 
+  molclustpy_compatible: false 
+  comments: "false in original metadata.yaml but runs with bng2; MCP: IndexError: list index out of range"
 
 Features:
   uses_generate_network: true

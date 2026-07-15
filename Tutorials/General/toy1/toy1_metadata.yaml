@@ -1,32 +1,31 @@
-id: "autophagy-regulation"
-name: "autophagy-regulation"
-description: "Autophagy regulation: mTOR and AMPK competition on the ULK1 switch."
+id: "toy1"
+name: "toy1"
+description: "Basic signaling toy"
 
 contributors:
   - name: "Achyudhan"
   - name: "Nabil Mardhy"
 
-tags: ["autophagy", "regulation", "mtor", "ampk", "ulk1", "lc3", "p62"]
+tags: ["published", "tutorials", "toy1", "l", "r", "a", "generate_network", "writesbml", "simulate_ode"]
 
 date:
   last_tested: 2026-06-30
 
-biol_categories: ["signaling"]
+biol_categories: ["tutorial"]
 
 comp_categories: ["other"]
 
 compatibility:
   rr_compatible: true
   bnglviz_compatible: true
-  bng2_compatible: false
+  bng2_compatible: true #False in original metadata.yaml, have to change "molecules" to "molecule types" in toy1.bngl to make it compatible with bng2
   vcell_compatible: false
-  vcell_errors: "Encountered } at line 38"
+  vcell_errors: " Encountered ! - at line 76, column 21 "
   simulation_methods: ["ode", "ssa",]
   nfsim_compatible: false         
   molclustpy_compatible: false 
-  comments: "IndexError: list index out of range"
 
-features:
+Features:
   uses_generate_network: true
   default_sim_command: "ode" 
   uses_energy: false
@@ -40,10 +39,10 @@ features:
   uses_exclude_include_reactants: false
 
 source:
-  origin: "ai-generated"
+  origin: "tutorial"
   original_format: "bngl"
   original_repository: "bionetgen-web-simulator"
-  source_path: "example-models/autophagy-regulation.bngl"
+  source_path: "published-models/tutorials/toy1.bngl"
  
 playground:
   visible: false

@@ -1,34 +1,33 @@
-id: "lac-operon-regulation"
-name: "lac operon regulation"
-description: "Kinetic Parameters"
+id: "no-cgmp-signaling"
+name: "no cgmp signaling"
+description: "Nitric Oxide (NO) / cGMP signaling pathway."
 
 contributors:
   - name: "Achyudhan"
   - name: "Nabil Mardhy"
 
-tags: ["lac", "operon", "regulation", "laci", "promoter", "mrna", "betagal", "lactose", "allolactose"]
+tags: ["no", "cgmp", "signaling", "sgc", "pkg"]
+
 date:
-  last_tested: 2026-07-07
+  last_tested: 2026-07-11
 
 category: "signaling"
-
-biol_categories: ["regulation"]
-
+biol_categories: ["signaling"]
 comp_categories: ["other"]
 
 compatibility:
   rr_compatible: true
   bnglviz_compatible: true
   bng2_compatible: true
-  bngp_compatible: true 
   vcell_compatible: false
-  vcell_errors: "Encountered 0 at line 53"
-  simulation_methods: ["ode", "ssa","nf"]
-  molclustpy_compatible: false 
+  vcell_errors: "Encountered -> at line 65"
+  simulation_methods: ["ode", "ssa"]
+  uses_energy: false
   uses_functions: true
   uses_compartments: false
   nfsim_compatible: true
-  comments: "#IndexError: list index out of range"
+  molclustpy_compatible: false
+  comments: "does not run in bngp, runs in bng2, MCP IndexError list index out of range"
 
 features:
   uses_generate_network: true
@@ -40,19 +39,20 @@ features:
   uses_multiple_identical_sites: false
   uses_deletes_molecules: false
   uses_exclude_include_reactants: false
-  uses_energy: false
   uses_functions: true
   uses_compartments: false
+  uses_energy: false
+  
 
 source:
   origin: "ai-generated"
   original_format: "bngl"
   original_repository: "bionetgen-web-simulator"
-  source_path: "example-models/lac-operon-regulation.bngl"
+  source_path: "example-models/nfkb-feedback.bngl"
  
 playground:
   visible: false
-  gallery_categories: ["metabolism","test-models"]
+  gallery_categories: "example-models/no-cgmp-signaling.bngl"
   featured: false
   difficulty: "advanced"
  

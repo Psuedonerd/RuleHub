@@ -23,10 +23,11 @@ compatibility:
   vcell_compatible: false
   vcell_errors: "Encountered ! at line 77"
   simulation_methods: ["ode", "ssa"]
-  nfsim_compatible: false  #....
-  molclustpy_compatible: false #UnboundLocalError: cannot access local variable 'stdout_str' where it is not associated with a value
+  nfsim_compatible: false  
+  molclustpy_compatible: false 
+  comments: "#UnboundLocalError: cannot access local variable 'stdout_str' where it is not associated with a value"
 
-Features:
+features:
   uses_generate_network: true
   default_sim_command: "ode" 
   uses_energy: false

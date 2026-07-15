@@ -23,10 +23,11 @@ compatibility:
   vcell_compatible: false
   vcell_errors: "Encountered TotalRate at line 71 "
   simulation_methods: ["ode", "ssa"]
-  nfsim_compatible: true #false in original metadata.yaml, but runs with nf on bng2       
-  molclustpy_compatible: true #Put action block after end model
+  nfsim_compatible: true      
+  molclustpy_compatible: true 
+  comments: "Put action block after end model; #false in original metadata.yaml, but runs with nf on bng2  "
 
-Features:
+features:
   uses_generate_network: true
   default_sim_command: "ode" 
   uses_energy: false

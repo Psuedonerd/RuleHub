@@ -23,10 +23,11 @@ compatibility:
   vcell_compatible: false
   vcell_errors: "Encountered 0 at line 85"
   simulation_methods: ["ode", "ssa"]
-  nfsim_compatible: true #false in original metadata.yaml, but runs with nf on bng2  WARNING: Species with more than 20 molecules will be labeled with the Quasi method.     
-  molclustpy_compatible: false #IndexError: list index out of range
+  nfsim_compatible: true     
+  molclustpy_compatible: false 
+  comments: "IndexError: list index out of range #false in original metadata.yaml, but runs with nf on bng2  WARNING: Species with more than 20 molecules will be labeled with the Quasi method. "
 
-Features:
+features:
   uses_generate_network: true
   default_sim_command: "ode" 
   uses_energy: false

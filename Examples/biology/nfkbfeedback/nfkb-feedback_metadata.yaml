@@ -1,58 +1,58 @@
-id: "lac-operon-regulation"
-name: "lac operon regulation"
-description: "Kinetic Parameters"
+id: "nfkb-feedback"
+name: "nfkb feedback"
+description: "TNFalpha-induced NF-kB signaling with IkappaB-alpha feedback."
 
 contributors:
   - name: "Achyudhan"
   - name: "Nabil Mardhy"
 
-tags: ["lac", "operon", "regulation", "laci", "promoter", "mrna", "betagal", "lactose", "allolactose"]
+tags: ["nfkb", "feedback", "ikb", "ikk", "a20"]
+
 date:
-  last_tested: 2026-07-07
+  last_tested: 2026-07-11
 
 category: "signaling"
-
-biol_categories: ["regulation"]
-
+biol_categories: ["feedback"]
 comp_categories: ["other"]
 
 compatibility:
   rr_compatible: true
   bnglviz_compatible: true
   bng2_compatible: true
-  bngp_compatible: true 
   vcell_compatible: false
-  vcell_errors: "Encountered 0 at line 53"
-  simulation_methods: ["ode", "ssa","nf"]
-  molclustpy_compatible: false 
+  vcell_errors: "Encountered TotalRate at line 64"
+  simulation_methods: ["ode", "ssa"]
+  uses_energy: false
   uses_functions: true
   uses_compartments: false
-  nfsim_compatible: true
-  comments: "#IndexError: list index out of range"
+  nfsim_compatible: false
+  molclustpy_compatible: false
+  comments: "MCP cannot access local variable stdout_str where it is not associated with a value    nfsim ERROR!  You created a reaction (_R2) that deletes a molecule, but you did not use the DeleteMolecules keyword."
 
 features:
   uses_generate_network: true
   default_sim_command: "ode" 
-  uses_totalrate: false
+  uses_totalrate: true
   uses_moveconnected: false
   uses_trash_molecules: false
   uses_anchors: false
   uses_multiple_identical_sites: false
   uses_deletes_molecules: false
   uses_exclude_include_reactants: false
-  uses_energy: false
   uses_functions: true
   uses_compartments: false
+  uses_energy: false
+  
 
 source:
   origin: "ai-generated"
   original_format: "bngl"
   original_repository: "bionetgen-web-simulator"
-  source_path: "example-models/lac-operon-regulation.bngl"
+  source_path: "example-models/nfkb-feedback.bngl"
  
 playground:
   visible: false
-  gallery_categories: ["metabolism","test-models"]
+  gallery_categories: ["test-models"]
   featured: false
   difficulty: "advanced"
  

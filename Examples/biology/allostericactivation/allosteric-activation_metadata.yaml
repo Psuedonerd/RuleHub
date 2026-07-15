@@ -23,9 +23,10 @@ compatibility:
   vcell_errors: 
   simulation_methods: [ "ode", "ssa", "nf", "vcell" ]
   nfsim_compatible: true
-  molclustpy_compatible: false    # cannot access local variable 'stdout_str' where it is not associated with a value
+  molclustpy_compatible: false    
+  comments: " cannot access local variable 'stdout_str' where it is not associated with a value"
 
-Features:
+features:
   uses_generate_network: true
   default_sim_command: "ode" 
   uses_energy: false

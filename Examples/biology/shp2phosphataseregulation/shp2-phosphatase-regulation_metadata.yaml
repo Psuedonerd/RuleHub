@@ -1,35 +1,32 @@
-id: "jnk-mapk-signaling"
-name: "jnk mapk signaling"
-description: "JNK MAPK Signaling: Scaffold-mediated activation and feedback."
+id: "shp2-phosphatase-regulation"
+name: "shp2 phosphatase regulation"
+description: "SHP2 phosphatase regulation via autoinhibition and SH2 binding."
 
 contributors:
   - name: "Achyudhan"
   - name: "Nabil Mardhy"
 
-tags: ["jnk", "mapk", "signaling", "mkk7", "jip1", "v_dephos"]
+tags: ["shp2", "phosphatase", "regulation", "rtk", "substrate", "v_dephos"]
 date:
-  last_tested: 2026-07-07
+  last_tested: 2026-07-13
 
 category: "signaling"
-
 biol_categories: ["signaling"]
-
 comp_categories: ["other"]
 
 compatibility:
   rr_compatible: true
   bnglviz_compatible: true
   bng2_compatible: true
-  bngp_compatible: true 
-  vcell_compatible: true 
-  vcell_errors: "RuntimeException-Application 'NFSim app' has no generated Math, Failed to generate new Math: not mass action: flattened Kf for reactionRule(r5) is not numeric, exp = '(3.0 * Total_pJNK / (250.0 + Total_pJNK))' MappingException-not mass action: flattened Kf for reactionRule(r5) is not numeric, exp = '(3.0 * Total_pJNK / (250.0 + Total_pJNK))'"
+  vcell_compatible: true
+  vcell_errors: 
   simulation_methods: ["ode", "ssa"]
-  molclustpy_compatible: false 
   uses_energy: false
   uses_functions: true
   uses_compartments: false
-  nfsim_compatible: true 
-  comments: "false in orignal metadata.yaml file, but runs with bng2; mcp: cannot access local variable 'stdout_str' where it is not associated with a value"
+  nfsim_compatible: true
+  molclustpy_compatible: true
+  comments: "nfsim false in original but runs with bng2  vcell simulation doesn't run has an error,    RuntimeException-Application BioNetGen app has no generated Math, Failed to generate new Math Local parameter Active_Substrat math namescope name is Active_Substrate and conflicts with existing global parameter named Active_Substrate. "
 
 features:
   uses_generate_network: true
@@ -41,15 +38,16 @@ features:
   uses_multiple_identical_sites: false
   uses_deletes_molecules: false
   uses_exclude_include_reactants: false
-  uses_energy: false
   uses_functions: true
   uses_compartments: false
+  uses_energy: false
+  
 
 source:
   origin: "ai-generated"
   original_format: "bngl"
   original_repository: "bionetgen-web-simulator"
-  source_path: "example-models/jak-stat-cytokine-signaling.bngl"
+  source_path: "example-models/rho-gtpase-actin-cytoskeleton.bngl"
  
 playground:
   visible: false

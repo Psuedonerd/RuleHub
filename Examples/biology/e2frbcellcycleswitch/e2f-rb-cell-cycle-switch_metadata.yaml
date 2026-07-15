@@ -22,10 +22,11 @@ compatibility:
   vcell_compatible: false 
   vcell_errors: "Encountered -> at line 73"
   simulation_methods: ["ode", "ssa"]
-  nfsim_compatible: false # "NFsim does not support 'continue' option. at line 101"
-  molclustpy_compatible: false #IndexError: list index out of range
+  nfsim_compatible: false 
+  molclustpy_compatible: false 
+  comments: "NFsim does not support 'continue' option. at line 101; IndexError: list index out of range"
 
-Features:
+features:
   uses_generate_network: true
   default_sim_command: "ode" 
   uses_energy: false

@@ -1,36 +1,36 @@
-id: "dna-damage-repair"
-name: "dna damage repair"
-description: "DNA damage sensing and repair pathway (ATM-CHK2-p53 axis)"
+id: "toy2"
+name: "toy2"
+description: "Enzymatic reaction toy"
 
 contributors:
   - name: "Achyudhan"
   - name: "Nabil Mardhy"
 
-tags: ["dna", "damage", "repair", "mrn", "atm", "chk2", "repaircomplex"]
+tags: ["published", "tutorials", "toy2", "l", "r", "a", "k"]
 
 date:
-  last_tested: 2026-07-02
+  last_tested: 2026-06-30
 
-biol_categories: ["signaling"]
+biol_categories: ["tutorial"]
 
 comp_categories: ["other"]
 
 compatibility:
   rr_compatible: true
   bnglviz_compatible: true
-  bng2_compatible: true 
+  bng2_compatible: false 
   bngp_compatible: true
-  vcell_compatible: true 
-  vcell_errors: "put actions outside of model"
-  simulation_methods: ["ode", "ssa","nf"]
-  nfsim_compatible: true  
-  molclustpy_compatible: true
+  vcell_compatible: false
+  vcell_errors: "Encountered kmL at line 65"
+  simulation_methods: ["ode", "ssa",]
+  nfsim_compatible: false  #       
+  molclustpy_compatible: false 
 
 features:
   uses_generate_network: true
   default_sim_command: "ode" 
   uses_energy: false
-  uses_functions: false
+  uses_functions: false 
   uses_totalrate: false
   uses_moveconnected: false
   uses_trash_molecules: false
@@ -40,14 +40,14 @@ features:
   uses_exclude_include_reactants: false
 
 source:
-  origin: "ai-generated"
+  origin: "tutorial"
   original_format: "bngl"
   original_repository: "bionetgen-web-simulator"
-  source_path: "example-models/dna-damage-repair.bngl"
+  source_path: "published-models/tutorials/toy2.bngl"
  
 playground:
   visible: false
-  gallery_categories: ["cancer","test-models"]
+  gallery_categories: ["tutorials"]
   featured: false
   difficulty: "advanced"
  
