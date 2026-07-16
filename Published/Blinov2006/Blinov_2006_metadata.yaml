@@ -1,19 +1,17 @@
-id: "An_2009"
-name: "An 2009"
-description: "TLR4 signaling"
-
+id: "Blinov_2006"
+name: "Blinov 2006"
+description: "Phosphotyrosine signaling"
 contributors:
-  - name: "Achyudhan"
   - name: "Nabil Mardhy"
 
 citation:
-  year: "2009"
-  pmid: "18835283"  
-  reference: "An & Faeder, 2009"
+  year: "2006"
+  pmid: "16233948"  
+  reference: "Blinov et al., 2006"
 
-tags: ["published", "immunology", "an", "2009", "cd14", "md2", "tlr4", "tram", "trif", "sarm", "traf4", "irak1"]
+tags: ["published", "immunology", "baruabcr", "2012", "bcr", "lyn", "fyn", "csk", "pag", "syk"]
 date:
-  last_tested: 2026-07-14
+  last_tested: 2026-07-16
 
 category: "immunology"
 biol_categories: ["immunology"]
@@ -23,16 +21,17 @@ compatibility:
   rr_compatible: true
   bnglviz_compatible: true
   bng2_compatible: true
+  bngp_compatible: true
   vcell_compatible: false
-  vcell_errors: "Encountered ! at line 183"
+  vcell_errors: "Encountered = at line 67"
   simulation_methods: ["ode", "ssa"]
   uses_energy: false
   uses_functions: false
   uses_compartments: false
-  nfsim_compatible: false
+  nfsim_compatible: true
   molclustpy_compatible: false
-  mpd_compatible: false
-  comments: "nfsim did not run successfully at line 242 I can only handle a site that has 0 or 1 bonds in pattern: O13_P1 You gave me 2 instead for component Activation      MCP There was an issue parsing BNGL file NoneAction argument atol not recognized! Check to make sure action is correctly formatted     bngp Simulation failed NFsim simulation failed NFsim completed but output file /model.gdat not found"
+  mpd_compatible: true
+  comments: "nfsim false in original but runs with bngp2 if lower numbers of molecules     MCP cannot access local variable stdout_str where it is not associated with a value (after removing sparse)"
 
 features:
   uses_generate_network: true
@@ -53,13 +52,13 @@ source:
   origin: "published"
   original_format: "bngl"
   original_repository: "bionetgen-web-simulator"
-  source_path: "published-models/immune-signaling/An_2009.bngl"
- 
+  source_path: "published-models/complex-models/Blinov_2006.bngl"
+
 playground:
   visible: true
-  gallery_categories: ["immunology"]
+  gallery_categories: ["cell-cycle"]
   featured: false
   difficulty: "intermediate"
- 
+
 
 
