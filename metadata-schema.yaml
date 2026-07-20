@@ -16,7 +16,7 @@ citation:
   doi: string     # DOI only, no link
   pmid: string    # PubMed ID only, no link
   url: string      # either journal link or preprint link or website link
-  reference: string  # regular citation string, e.g. "Author et al., Journal, Year, Volume, Pages"
+  reference: string  # website or a regular citation string, e.g. "Author et al., Journal, Year, Volume, Pages"
 
 date:
   created: YYYY-MM-DD
@@ -43,6 +43,7 @@ compatibility:
   simulation_methods:
     - enum(ode, ssa, nf, pla, hybrid, molclustpy, vcell)
   nfsim_compatible: boolean
+  mpd_compatible: boolean
   excluded: boolean
 
 features:
