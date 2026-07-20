@@ -37,7 +37,7 @@ This report re-audits the same 20 same-directory `Published/` BNGL/YAML pairs fr
 - `uses_deletes_molecules`: `true` when an uncommented `DeleteMolecules` modifier/action is detected.
 - `uses_exclude_include_reactants`: `true` when an uncommented `exclude_reactants` or `include_reactants` modifier is detected.
 - `uses_generate_network`: `true` when an uncommented `generate_network(...)` action is detected.
-- `default_sim_command`: First uncommented simulation command found in priority order: `simulate_ode`, `simulate_ssa`, `simulate_nf`, `simulate`; if no simulation is present but `generate_network(...)` is present, propose `generate_network`; otherwise propose `null`.
+- `default_sim_command`: First uncommented simulation command found in priority order: `simulate_ode`, `simulate_ssa`, `simulate_nf`, `simulate`.
 
 ## Batch summary
 
