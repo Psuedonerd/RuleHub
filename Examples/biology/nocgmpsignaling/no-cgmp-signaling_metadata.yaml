@@ -1,0 +1,60 @@
+id: "no-cgmp-signaling"
+name: "no cgmp signaling"
+description: "Nitric Oxide (NO) / cGMP signaling pathway."
+
+contributors:
+  - name: "Achyudhan"
+  - name: "Nabil Mardhy"
+
+tags: ["no", "cgmp", "signaling", "sgc", "pkg"]
+
+date:
+  last_tested: 2026-07-11
+
+category: "signaling"
+biol_categories: ["signaling"]
+comp_categories: ["other"]
+
+compatibility:
+  rr_compatible: true
+  bnglviz_compatible: true
+  bng2_compatible: true
+  vcell_compatible: false
+  vcell_errors: "Encountered -> at line 65"
+  simulation_methods: ["ode", "ssa"]
+  uses_energy: false
+  uses_functions: true
+  uses_compartments: false
+  nfsim_compatible: true
+  molclustpy_compatible: false
+  comments: "does not run in bngp, runs in bng2, MCP IndexError list index out of range"
+
+features:
+  uses_generate_network: true
+  default_sim_command: "ode" 
+  uses_totalrate: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: false
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_functions: true
+  uses_compartments: false
+  uses_energy: false
+  
+
+source:
+  origin: "ai-generated"
+  original_format: "bngl"
+  original_repository: "bionetgen-web-simulator"
+  source_path: "example-models/nfkb-feedback.bngl"
+ 
+playground:
+  visible: false
+  gallery_categories: "example-models/no-cgmp-signaling.bngl"
+  featured: false
+  difficulty: "advanced"
+ 
+
+

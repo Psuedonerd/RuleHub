@@ -1,0 +1,64 @@
+id: "Dushek_2014"
+name: "Dushek 2014"
+description: "TCR signaling dynamics"
+contributors:
+  - name: "Nabil Mardhy"
+
+citation:
+  year: "2014"
+  pmid: "25099816"  
+  reference: "Dushek et al., 2014"
+
+tags: ["published", "dushek", "2014", "e", "f", "b"]
+date:
+  last_tested: 2026-07-16
+
+category: "signaling"
+biol_categories: ["signaling"]
+comp_categories: ["other"]
+
+compatibility:
+  rr_compatible: true
+  bnglviz_compatible: true
+  bng2_compatible: true
+  bngp_compatible: true
+  vcell_compatible: false
+  vcell_errors: "Encountered == at line 51"
+  simulation_methods: ["ode", "ssa","nf"]
+  uses_energy: false
+  uses_functions: false
+  uses_compartments: false
+  nfsim_compatible: true
+  molclustpy_compatible: false
+  mpd_compatible: true
+  comments: "nfsim runs if remove begin and end actions and also lowering numbers of molecules     MCP There was an issue parsing BNGL file NoneAction argument atol not recognized Check to make sure action is correctly formatted"
+
+features:
+  uses_generate_network: true
+  default_sim_command: "ode" 
+  uses_totalrate: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: false
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_functions: false
+  uses_compartments: false
+  uses_energy: false
+  
+
+source:
+  origin: "published"
+  original_format: "bngl"
+  original_repository: "bionetgen-web-simulator"
+  source_path: "published-models/complex-models/Dushek_2014.bngl"
+
+playground:
+  visible: false
+  gallery_categories: ["immunology"]
+  featured: false
+  difficulty: "advanced"
+
+
+
