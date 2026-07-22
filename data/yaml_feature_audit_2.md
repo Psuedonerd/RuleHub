@@ -19,17 +19,15 @@ This report re-audits the same 20 same-directory `Published/` BNGL/YAML pairs fr
 
 ### Compartment grammar definitions
 
-- `uses_vcell_compartments`: `true` when an active BNGL pattern uses VCell-style compartment-prefix syntax: `@Compartment:Molecule(...)`. This grammar places the whole molecule pattern in the named compartment.
-- `uses_cbngl_compartments`: `true` when an active BNGL pattern uses CBNGL-style molecule-suffixed compartment syntax: `Molecule(...)@Compartment`. This grammar attaches the compartment after the molecule pattern and can appear on individual molecule patterns inside a complex.
 - A `begin compartments` block is reported as block evidence, but it does not by itself determine either compartment-grammar boolean.
 - A model may be marked true for both compartment booleans if both syntax forms are actively present.
 
 ## Field definitions
 
-- `uses_cbngl_compartments`: `true` when uncommented CBNGL-style `Molecule(...)@Compartment` syntax is detected.
-- `uses_vcell_compartments`: `true` when uncommented VCell-style `@Compartment:Molecule(...)` syntax is detected.
+- `uses_cbngl_compartments`: `true` when uncommented CBNGL-style `Molecule(...)@Compartment` syntax is detected. This grammar places the whole molecule pattern in the named compartment.
+- `uses_vcell_compartments`: `true` when uncommented VCell-style `@Compartment:Molecule(...)` syntax is detected. This grammar attaches the compartment after the molecule pattern and can appear on individual molecule patterns inside a complex.
 - `uses_energy`: `true` when an energy-pattern block is present, even if empty; active entries are counted separately.
-- `uses_functions`: `true` when a `begin functions` block is present, even if empty; active entries are counted separately.
+- `uses_functions`: `true` when a `begin functions` block is present and there are uncommented lines within this block; active entries are counted separately.
 - `uses_moveconnected`: `true` when an uncommented `moveConnected` call is detected.
 - `uses_trash_molecules`: `true` when the BNGL uses a `Trash(...)` molecule/pattern as an explicit sink species.
 - `uses_anchors`: `true` when a `begin anchors` block is present, even if empty; active entries are counted separately.
@@ -37,7 +35,7 @@ This report re-audits the same 20 same-directory `Published/` BNGL/YAML pairs fr
 - `uses_deletes_molecules`: `true` when an uncommented `DeleteMolecules` modifier/action is detected.
 - `uses_exclude_include_reactants`: `true` when an uncommented `exclude_reactants` or `include_reactants` modifier is detected.
 - `uses_generate_network`: `true` when an uncommented `generate_network(...)` action is detected.
-- `default_sim_command`: First uncommented simulation command found in priority order: `simulate_ode`, `simulate_ssa`, `simulate_nf`, `simulate`; if no simulation is present but `generate_network(...)` is present, propose `generate_network`; otherwise propose `null`.
+- `default_sim_command`: First uncommented simulation command found in priority order: `simulate_ode`, `simulate_ssa`, `simulate_nf`, `simulate`.
 
 ## Batch summary
 
