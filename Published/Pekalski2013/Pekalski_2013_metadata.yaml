@@ -1,0 +1,64 @@
+id: "Pekalski_2013"
+name: "Pekalski 2013"
+description: "Spontaneous signaling"
+contributors:
+  - name: "Nabil Mardhy"
+
+citation:
+  year: "2013"
+  pmid: "24324544"  
+  reference: "Pekalski et al., 2013"
+
+tags: ["published", "pekalski", "2013", "tnfr", "ikk", "ikkk", "ikba", "ikba_mrna", "a20", "a20_mrna", "nfkb"]
+date:
+  last_tested: 2026-07-16
+
+category: "regulation"
+biol_categories: ["regulation"]
+comp_categories: ["other"]
+
+compatibility:
+  rr_compatible: true
+  bnglviz_compatible: true
+  bng2_compatible: true
+  bngp_compatible: false
+  vcell_compatible: false
+  vcell_errors: "Encountered c_sec at line 187"
+  simulation_methods: ["ode", "ssa"]
+  uses_energy: false
+  uses_functions: true
+  uses_compartments: false
+  nfsim_compatible: true
+  molclustpy_compatible: false
+  mpd_compatible: true
+  comments: "nfsim false in original but runs with bng2   MCP list index out of range"
+
+features:
+  uses_generate_network: true
+  default_sim_command: "ode" 
+  uses_totalrate: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: false
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_functions: true
+  uses_compartments: false
+  uses_energy: false
+  
+source:
+  origin: "published"
+  original_format: "bngl"
+  original_repository: "bionetgen-web-simulator"
+  source_path: "published-models/cell-regulation/Pekalski_2013.bngl"
+
+playground:
+  visible: true
+  gallery_category: "regulation"
+  featured: false
+  difficulty: "intermediate"
+
+
+
+
