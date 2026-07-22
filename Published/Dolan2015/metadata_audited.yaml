@@ -1,0 +1,32 @@
+id: "Dolan_2015"
+name: "Dolan 2015"
+description: "Insulin signaling"
+tags: ["published", "literature", "signaling", "dolan", "2015", "time", "t", "p", "e", "ir", "d", "p53_mrna", "p53"]
+category: "other"
+compatibility:
+  bng2_compatible: false
+  simulation_methods: ["ode"]
+  uses_compartments: false
+  nfsim_compatible: false
+  uses_cbngl_compartments: false
+  uses_vcell_compartments: false
+  uses_energy: false
+  uses_functions: true
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: false
+  uses_deletes_molecules: true
+  uses_exclude_include_reactants: false
+  uses_generate_network: false
+  default_sim_command: simulate_nf
+source:
+  origin: "published"
+  original_format: "bngl"
+  original_repository: "bionetgen-web-simulator"
+  source_path: "published-models/literature/Dolan_2015.bngl"
+playground:
+  visible: false
+  gallery_categories: ["metabolism"]
+  featured: false
+  difficulty: "advanced"

@@ -1,0 +1,32 @@
+id: "Blinov_ran"
+name: "Blinov ran"
+description: "Ran GTPase cycle"
+tags: ["published", "nfsim", "blinov", "ran", "c", "rcc1", "simulate_nf"]
+category: "regulation"
+compatibility:
+  bng2_compatible: false
+  simulation_methods: ["nf"]
+  uses_compartments: true
+  nfsim_compatible: true
+  uses_cbngl_compartments: false
+  uses_vcell_compartments: true
+  uses_energy: false
+  uses_functions: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: true
+  uses_multiple_identical_sites: false
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_generate_network: false
+  default_sim_command: simulate_nf
+source:
+  origin: "published"
+  original_format: "bngl"
+  original_repository: "bionetgen-web-simulator"
+  source_path: "published-models/cell-regulation/Blinov_ran.bngl"
+playground:
+  visible: false
+  gallery_categories: ["cell-cycle"]
+  featured: false
+  difficulty: "advanced"
