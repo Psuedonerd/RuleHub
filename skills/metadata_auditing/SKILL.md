@@ -90,7 +90,7 @@ Before detection:
 
 ### Compartments
 
-Compartment compatibility is determined by grammar, not by the mere presence of `begin compartments`.
+Compartment compatibility is determined by BNGL grammar.
 
 - `uses_vcell_compartments`: `true` when active BNGL patterns use VCell-style compartment-prefix syntax:
 
