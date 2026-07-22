@@ -12,8 +12,6 @@ Use this skill to audit RuleHub BNGL/YAML model metadata against the local BNGL 
 1. A concise Markdown audit summary under `data/`.
 2. Audited YAML copies inside each audited model folder.
 
-This skill is not for writing biological or coder model explanations. It is for checking metadata feature fields against BNGL syntax and recording proposed/current values clearly.
-
 ## Required Inputs and Pairing Rule
 
 Read local repository files only. Never rely on GitHub raw URLs or inherited ancestor metadata.
