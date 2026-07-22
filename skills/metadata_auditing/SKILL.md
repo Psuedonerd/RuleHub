@@ -20,7 +20,6 @@ A valid audit pair is a `.bngl` file and one target YAML file in the **same dire
 
 - Do not pair a BNGL file with YAML from a parent, child, or sibling directory.
 - If a directory has multiple same-directory `.bngl` files and one target YAML file, each `.bngl` may be audited as a separate BNGL/YAML pair if the user requests pair-level auditing.
-- If the user provides a batch, preserve the requested model order unless there is a clear reason to report otherwise.
 
 ## YAML Target Selection
 
