@@ -150,7 +150,7 @@ Apply this active-entry rule to:
 - `uses_deletes_molecules`: true when an uncommented `DeleteMolecules` modifier/action is detected.
 - `uses_exclude_include_reactants`: true when an uncommented `include_reactants` or `exclude_reactants` modifier is detected.
 - `uses_generate_network`: true when an uncommented `generate_network(...)` action is detected.
-- `default_sim_command`: choose the first active simulation command in this priority order: `simulate_ode`, `simulate_ssa`, `simulate_nf`, `simulate`. If no simulation command is present but `generate_network(...)` is active, use `generate_network`. If none are active, use `null`.
+- `default_sim_command`: choose the first active simulation command in this priority order: `simulate_ode`, `simulate_ssa`, `simulate_nf`, `simulate`.
 
 ## Markdown Audit Report Requirements
 
