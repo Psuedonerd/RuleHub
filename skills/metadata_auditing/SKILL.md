@@ -178,7 +178,6 @@ Write a short, polished introduction explaining:
 
 - the audit root or batch,
 - the same-directory pairing rule,
-- whether YAML files were modified or only proposed changes were recorded,
 - whether audited YAML copies were created.
 
 ### Detection definitions
