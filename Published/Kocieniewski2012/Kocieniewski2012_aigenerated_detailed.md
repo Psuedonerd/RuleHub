@@ -1,98 +1,69 @@
-# Detailed Model Explanation: Kocieniewski 2012
+# Detailed Model Explanation: Kocieniewski 2012 scaffolded MAPK cascade
 
-## 1. Model identity and scope
+## 1. Model overview
 
-- **Model id:** `Kocieniewski_2012`
-- **Title:** Kocieniewski 2012
-- **BNGL path:** `Published/Kocieniewski2012/Kocieniewski_2012.bngl`
-- **YAML path:** `Published/Kocieniewski2012/metadata.yaml`
-- **Metadata description:** The YAML says “Actin dynamics,” but the BNGL file is a scaffolded MAPK cascade.
-- **Scope:** This model encodes a minimal MAP3K/MAP2K/MAPK cascade organized by a scaffold. `Scaff` has three independent docking sites (`map3k`, `map2k`, `mapk`). The kinases bind through their `s` docking sites. `MAP3K.S` switches between inactive `I` and active `A`; `MAP2K.R1/R2` and `MAPK.R1/R2` switch between unphosphorylated `Y` and phosphorylated `Yp`. Scaffold-bound active MAP3K phosphorylates scaffold-bound MAP2K, and fully phosphorylated scaffold-bound MAP2K phosphorylates scaffold-bound MAPK.
+This model represents a three-layer MAP3K–MAP2K–MAPK cascade organized by a scaffold with one docking site for each kinase layer. Activation is passed only between kinases co-bound to the same scaffold, while constitutive deactivation and dephosphorylation act regardless of scaffold occupancy.
 
 ## 2. BNGL block inventory
 
-| Block | Present? | Count / role |
-| --- | --- | --- |
-| Parameters | Yes | 10 parameters: four initial totals and six kinetic/control rates. |
-| Compartments | No | No compartment block. |
-| Anchors | No | No anchors. |
-| Molecule types | Yes | 4 molecule types: `MAP3K`, `MAP2K`, `MAPK`, `Scaff`. |
-| Seed/species | Yes | 4 initial free species. |
-| Observables | Yes | 2 scaffold-complex observables. |
-| Functions | No | No functions block. |
-| Reaction rules | Yes | 20 rules. |
-| Actions | No | No action block or inline simulation command. |
+The model contains 10 parameters, 4 molecule types, 4 free seed species, 2 molecule-count observables, and 20 rules. It has no compartments, anchors, functions, or actions.
 
 ## 3. Parameters, functions, and rate laws
 
-| Parameter | Value/expression | Technical role |
-| --- | --- | --- |
-| `Atot` | `1e5` | Initial MAP3K count. |
-| `Btot` | `1e5` | Initial MAP2K count. |
-| `Ctot` | `5e5` | Initial MAPK count. |
-| `Stot` | `1e5` | Initial scaffold count. |
-| `a` | `1e-6` | Forward scaffold docking rate for MAP3K, MAP2K, and MAPK binding rules. |
-| `d1` | `0.1` | Reverse rate for reversible scaffold docking. |
-| `d2` | `100` | One-way scaffold release for inactive MAP3K and doubly phosphorylated MAPK. |
-| `pscaff` | `100` | Scaffold-local phosphorylation rate. |
-| `u` | `0.1` | Global deactivation/dephosphorylation rate. |
-| `S` | `1` | Basal MAP3K activation rate. |
+The model uses one common docking pair, one fast state-dependent release rate, one scaffold-local phosphorylation rate, and one global reversal rate. All kinetics are direct mass action; there are no algebraic or observable-dependent functions.
 
-No functions are declared; all rule rates are direct parameters.
+| Parameter group or names | Function in this model |
+| --- | --- |
+| `Atot`, `Btot`, `Ctot`, `Stot` | Initial totals for MAP3K, MAP2K, MAPK, and scaffold. MAPK starts fivefold more abundant than each other pool. |
+| `a`, `d1` | Shared association and dissociation rates for ordinary kinase docking to the matching scaffold site. |
+| `d2` | Fast one-way release of inactive MAP3K or doubly phosphorylated MAPK from scaffold, enforcing state-dependent unloading. |
+| `S` | Basal conversion rate from inactive to active MAP3K. |
+| `pscaff` | Phosphorylation rate for MAP2K or MAPK when the required upstream/downstream pair is co-docked. |
+| `u` | Shared MAP3K deactivation and MAP2K/MAPK site-dephosphorylation rate. |
+
+There are no functions.
 
 ## 4. Molecule types, sites, and states
 
-| Molecule type | Site count | Sites/components | Internal states | Anchor/allowed compartments | Binding/modification roles | Notes |
-| --- | ---: | --- | --- | --- | --- | --- |
-| `MAP3K` | 2 | `s`, `S` | `S`: `I`, `A` | none | `s` docks to `Scaff.map3k`; `S` is activation state. | Only active `S~A` drives MAP2K phosphorylation on scaffold. |
-| `MAP2K` | 3 | `s`, `R1`, `R2` | `R1`: `Y`, `Yp`; `R2`: `Y`, `Yp` | none | `s` docks to `Scaff.map2k`; `R1/R2` are phosphorylation sites. | Must have both `R1~Yp` and `R2~Yp` to phosphorylate MAPK in this file. |
-| `MAPK` | 3 | `s`, `R1`, `R2` | `R1`: `Y`, `Yp`; `R2`: `Y`, `Yp` | none | `s` docks to `Scaff.mapk`; `R1/R2` are phosphorylation sites. | Doubly phosphorylated scaffold-bound MAPK has a special one-way release rule. |
-| `Scaff` | 3 | `map3k`, `map2k`, `mapk` | none | none | Docking platform for one MAP3K, one MAP2K, and one MAPK. | Sites are distinct and typed by kinase layer. |
+| Molecule type(s) | Site count | Sites/components | Internal states | Anchor/allowed compartments | Explanation |
+| --- | ---: | --- | --- | --- | --- |
+| `MAP3K` | 2 | `s`, `S` | `S: I, A` | None | Upstream kinase; `s` docks to the scaffold and active `S~A` phosphorylates co-docked MAP2K. |
+| `MAP2K` | 3 | `s`, `R1`, `R2` | `R1: Y, Yp`; `R2: Y, Yp` | None | Middle kinase; both regulatory sites must be phosphorylated before it can modify co-docked MAPK. |
+| `MAPK` | 3 | `s`, `R1`, `R2` | `R1: Y, Yp`; `R2: Y, Yp` | None | Output kinase whose two phosphorylation sites are modified on scaffold and reversed globally. |
+| `Scaff` | 3 | `map3k`, `map2k`, `mapk` | None | None | Typed docking platform that can hold one kinase from each cascade layer simultaneously. |
 
 ## 5. Compartments, anchors, initial species, and setup
 
-No compartments or anchors are present. Initial species are all free: inactive `MAP3K(s,S~I)` at `Atot`, unphosphorylated `MAP2K(s,R1~Y,R2~Y)` at `Btot`, unphosphorylated `MAPK(s,R1~Y,R2~Y)` at `Ctot`, and empty `Scaff(map3k,map2k,mapk)` at `Stot`.
+The model is nonspatial and starts with empty scaffold plus free inactive MAP3K and fully unphosphorylated MAP2K/MAPK. Initial totals are 100,000 for MAP3K, MAP2K, and scaffold and 500,000 for MAPK; no active or scaffold-bound complexes are seeded.
 
-## 6. Complete reaction-rule inventory
+## 6. Reaction-rule inventory
 
-**Rule-family orientation.** Rules 2-11 are scaffold docking/release rules using kinase `s` sites and matching scaffold sites. Rules 12-15 are scaffold-local phosphorylation rules where an upstream active kinase remains scaffold-bound while the downstream kinase’s `R1` or `R2` state changes. Rules 16-20 globally reverse activation/phosphorylation without requiring scaffold binding. Because no source rule is labeled, the inventory uses stable source order rather than filling a redundant label column.
+**Rule-family orientation.** Rule 1 supplies basal upstream activation. Rules 2–11 load and unload kinases according to modification state, rules 12–15 pass phosphorylation down co-occupied scaffold slots, and rules 16–20 erase kinase activation or phosphorylation without requiring scaffold release.
 
-| # | Direction | Required molecular context | Rate/expression | Bond/state/species edit | Why the rule matters |
-| ---: | --- | --- | --- | --- | --- |
-| 1 | one-way | `MAP3K.S` | `S` | `MAP3K.S I→A`; `MAP3K.s` remains free. | Basally activates MAP3K before or independent of scaffold docking. |
-| 2 | reversible | `MAP3K.s` + `Scaff.map3k` | `a, d1` | Forms/releases `MAP3K.s!1`–`Scaff.map3k!1` for active `MAP3K.S~A`. | Docks active MAP3K onto the scaffold’s MAP3K slot. |
-| 3 | one-way | `MAP3K.s!1` + `Scaff.map3k!1` | `d2` | Releases `MAP3K.s!1`–`Scaff.map3k!1` for inactive `MAP3K.S~I`. | Forces inactive scaffold-bound MAP3K off the scaffold. |
-| 4 | reversible | `MAP2K.s` + `Scaff.map2k`; `MAP2K.R1~Y,R2~Y` | `a, d1` | Forms/releases `MAP2K.s!1`–`Scaff.map2k!1`. | Docks completely unphosphorylated MAP2K. |
-| 5 | reversible | `MAP2K.s` + `Scaff.map2k`; `MAP2K.R1~Yp,R2~Y` | `a, d1` | Forms/releases `MAP2K.s!1`–`Scaff.map2k!1`. | Docks MAP2K already phosphorylated at `R1` only. |
-| 6 | reversible | `MAP2K.s` + `Scaff.map2k`; `MAP2K.R1~Y,R2~Yp` | `a, d1` | Forms/releases `MAP2K.s!1`–`Scaff.map2k!1`. | Docks MAP2K already phosphorylated at `R2` only. |
-| 7 | reversible | `MAP2K.s` + `Scaff.map2k`; `MAP2K.R1~Yp,R2~Yp` | `a, d1` | Forms/releases `MAP2K.s!1`–`Scaff.map2k!1`. | Docks doubly phosphorylated MAP2K, which can support MAPK phosphorylation in rules 14-15. |
-| 8 | reversible | `MAPK.s` + `Scaff.mapk`; `MAPK.R1~Y,R2~Y` | `a, d1` | Forms/releases `MAPK.s!1`–`Scaff.mapk!1`. | Docks unphosphorylated MAPK. |
-| 9 | reversible | `MAPK.s` + `Scaff.mapk`; `MAPK.R1~Yp,R2~Y` | `a, d1` | Forms/releases `MAPK.s!1`–`Scaff.mapk!1`. | Docks MAPK phosphorylated at `R1` only. |
-| 10 | reversible | `MAPK.s` + `Scaff.mapk`; `MAPK.R1~Y,R2~Yp` | `a, d1` | Forms/releases `MAPK.s!1`–`Scaff.mapk!1`. | Docks MAPK phosphorylated at `R2` only. |
-| 11 | one-way | `MAPK.s!1` + `Scaff.mapk!1`; `MAPK.R1~Yp,R2~Yp` | `d2` | Releases doubly phosphorylated `MAPK.s!1`–`Scaff.mapk!1`. | Removes fully phosphorylated MAPK from the scaffold after signal completion. |
-| 12 | one-way | `MAP3K.S~A`, `MAP3K.s!1`–`Scaff.map3k!1`, `MAP2K.s!2`–`Scaff.map2k!2`, `MAP2K.R1~Y` | `pscaff` | `MAP2K.R1 Y→Yp`; all scaffold bonds remain. | Active scaffold-bound MAP3K phosphorylates scaffold-bound MAP2K site `R1`. |
-| 13 | one-way | Same scaffolded MAP3K/MAP2K complex, `MAP2K.R2~Y` | `pscaff` | `MAP2K.R2 Y→Yp`; all scaffold bonds remain. | Active scaffold-bound MAP3K phosphorylates MAP2K site `R2`. |
-| 14 | one-way | `MAP2K.R1~Yp,R2~Yp`, `MAP2K.s!2`–`Scaff.map2k!2`, `MAPK.s!1`–`Scaff.mapk!1`, `MAPK.R1~Y` | `pscaff` | `MAPK.R1 Y→Yp`; scaffold bonds remain. | Fully phosphorylated scaffold-bound MAP2K phosphorylates scaffold-bound MAPK site `R1`. |
-| 15 | one-way | Same scaffolded MAP2K/MAPK complex, `MAPK.R2~Y` | `pscaff` | `MAPK.R2 Y→Yp`; scaffold bonds remain. | Fully phosphorylated scaffold-bound MAP2K phosphorylates MAPK site `R2`. |
-| 16 | one-way | `MAP3K.S~A` | `u` | `MAP3K.S A→I`. | Global MAP3K deactivation; pattern does not require a scaffold bond. |
-| 17 | one-way | `MAP2K.R1~Yp` | `u` | `MAP2K.R1 Yp→Y`. | Global dephosphorylation of MAP2K site `R1`. |
-| 18 | one-way | `MAP2K.R2~Yp` | `u` | `MAP2K.R2 Yp→Y`. | Global dephosphorylation of MAP2K site `R2`. |
-| 19 | one-way | `MAPK.R1~Yp` | `u` | `MAPK.R1 Yp→Y`. | Global dephosphorylation of MAPK site `R1`. |
-| 20 | one-way | `MAPK.R2~Yp` | `u` | `MAPK.R2 Yp→Y`. | Global dephosphorylation of MAPK site `R2`. |
+| Rule number(s) | Direction | Involved molecules/sites | Exact modeled change and rate logic | Role within the model |
+| ---: | --- | --- | --- | --- |
+| 1 | One-way | Free MAP3K `S~I` | Changes `S: I → A` at rate `S`; the docking site remains free. | Creates the active upstream kinase that can enter the scaffolded cascade. |
+| 2–3 | Reversible in rule 2; one-way in rule 3 | MAP3K `s` and scaffold `map3k`; rule 2 requires `S~A`, rule 3 requires scaffold-bound `S~I` | Rule 2 docks/releases active MAP3K at `a`/`d1`; rule 3 releases inactive MAP3K at fast rate `d2`. | Retains active MAP3K through ordinary affinity but rapidly clears it after global deactivation. |
+| 4–7 | Reversible | MAP2K `s` and scaffold `map2k`; rules 4–7 cover `R1/R2` states `Y/Y`, `Yp/Y`, `Y/Yp`, and `Yp/Yp` | Every phosphorylation state docks with the same `a`/`d1`; no regulatory state changes during binding. | Lets MAP2K remain scaffold-accessible throughout its two-step phosphorylation cycle. |
+| 8–11 | Reversible in rules 8–10; one-way in rule 11 | MAPK `s` and scaffold `mapk`; rules 8–10 cover unmodified and singly phosphorylated forms, rule 11 the doubly phosphorylated form | The first three states dock at `a`/`d1`; doubly phosphorylated MAPK is released at `d2`. | Loads substrate MAPK for modification, then rapidly ejects the completed two-site product. |
+| 12–13 | One-way | Active scaffold-bound MAP3K and scaffold-bound MAP2K; MAP2K `R1~Y` or `R2~Y` | Changes MAP2K `R1` in rule 12 or `R2` in rule 13 from `Y → Yp` at `pscaff`, preserving both scaffold bonds. | Allows either order of the two MAP2K phosphorylation steps but only under scaffold colocalization. |
+| 14–15 | One-way | Doubly phosphorylated scaffold-bound MAP2K and scaffold-bound MAPK; MAPK `R1~Y` or `R2~Y` | Changes MAPK `R1` in rule 14 or `R2` in rule 15 from `Y → Yp` at `pscaff`, retaining the complex. | Passes activity to the output layer; completion of both sites then triggers rule 11 unloading. |
+| 16–20 | One-way | Active MAP3K, phospho-MAP2K `R1`/`R2`, or phospho-MAPK `R1`/`R2`, respectively | Rule 16 changes MAP3K `A → I`; rules 17–20 change the named site `Yp → Y`, all at `u` and with no binding constraint. | Provides uniform signal reversal for free and scaffold-bound kinases, allowing shutdown at every layer. |
 
 ## 7. Observables and technical readouts
 
-| Observable | Type | Pattern / target | Technical interpretation |
+| Observable(s) | Type | What is measured | Technical interpretation |
 | --- | --- | --- | --- |
-| `MAPKchainone` | `Molecules` | `MAPK(s!1,R1~Yp).Scaff(mapk!1,map2k!2).MAP2K(s!2,R1~Yp,R2~Yp)` | Counts scaffold complexes containing scaffold-bound MAPK phosphorylated at `R1` and scaffold-bound doubly phosphorylated MAP2K. |
-| `MAPKchaintwo` | `Molecules` | `MAP3K(s!1,S~A).Scaff(map3k!1,map2k!2).MAP2K(s!2,R1~Yp,R2~Yp)` | Counts scaffold complexes containing active scaffold-bound MAP3K and scaffold-bound doubly phosphorylated MAP2K. |
+| `MAPKchainone` | Molecule count | Scaffold carrying doubly phosphorylated MAP2K and MAPK phosphorylated at `R1` | Captures the lower-cascade complex after one MAPK modification; MAPK `R2` is unconstrained. |
+| `MAPKchaintwo` | Molecule count | Scaffold carrying active MAP3K and doubly phosphorylated MAP2K | Captures an upper-cascade signaling complex competent to have completed MAP2K activation. |
 
 ## 8. Actions and simulation workflow
 
-No action block or inline simulation command is declared. The BNGL file defines the network logic; the caller must choose generation and simulation settings externally.
+The file defines model logic only and includes no network-generation or simulation action. An external workflow must choose the simulator, duration, and output schedule.
 
 ## 9. Technical caveats and ambiguities
 
-- The YAML description does not match the BNGL cascade; this summary follows the BNGL file.
-- Rules 12-15 require scaffold colocalization through explicit bonds; they are not free-solution phosphorylation rules.
-- Rules 16-20 use partial patterns, so they can dephosphorylate matching molecules whether free or scaffold-bound unless other generated-context constraints apply.
+- Metadata describes “Actin dynamics,” but the BNGL is a scaffolded MAPK cascade.
+- Rules 16–20 use partial patterns, so reversal can occur while a kinase remains scaffold-bound.
+- The two observables report selected scaffold configurations rather than total active MAP2K or MAPK.
+- MAP2K and MAPK sites are abstract `R1`/`R2` states; local files do not identify physical residues.

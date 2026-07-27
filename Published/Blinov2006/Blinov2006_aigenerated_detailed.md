@@ -1,80 +1,82 @@
-# Detailed Model Explanation: Blinov 2006 phosphotyrosine signaling model
+# Detailed Model Explanation: Blinov 2006 EGFR phosphotyrosine signaling model
 
-## 1. Model identity and scope
+## 1. Model overview
 
-`Blinov_2006` implements EGF–EGFR binding and dimerization, two-site receptor phosphorylation, and assembly of Shc–Grb2–Sos signaling complexes. Sources: `Published/Blinov2006/Blinov_2006.bngl` and `Published/Blinov2006/Blinov_2006_metadata.yaml`.
+This model follows EGF-driven EGFR dimerization and phosphorylation at Y1068 and Y1148, then resolves two routes for recruiting the Sos effector. Sos can arrive directly through Grb2 bound to receptor Y1068 or indirectly through phosphorylated Shc bound at Y1148, with adaptor complexes also able to preassemble in cytosol.
 
 ## 2. BNGL block inventory
 
-Inside `begin model`/`end model`, the file has 48 parameters (including five derived detailed-balance diagnostics), 5 molecule types, 6 seed species, 23 rules, and 15 observables. Six executable commands follow the model. There are no compartments, anchors, or functions.
+The model contains 48 parameters, 5 molecule types, 6 seed species, 23 rules, 15 observables, and 6 active commands. It has no compartments, anchors, or functions; five derived parameters diagnose detailed-balance cycles but do not drive rules.
 
 ## 3. Parameters, functions, and rate laws
 
-The model uses paired association/dissociation constants. Grouping them by mechanism makes the alternative assembly paths easier to compare:
+Most interactions use paired microscopic association/dissociation constants, with separate pairs for different assembly orders even when the final complex is the same. Receptor and adaptor phosphorylation are one-way rules balanced by independent dephosphorylation.
 
-- **Initial molecular pools:** `egf_tot = 1.2e6`, `egfr_tot = 1.8e5`, `Grb2_tot = 1.0e5`, `Shc_tot = 2.7e5`, `Sos_tot = 1.3e4`, and preassembled `Grb2_Sos_tot = 4.9e4`.
-- **Receptor activation:** EGF–EGFR binding uses `kp1 = 1.667e-06`, `km1 = 0.06`; ligand-bound receptor dimerization uses `kp2 = 5.556e-06`, `km2 = 0.1`; receptor phosphorylation/dephosphorylation uses `kp3 = 0.5`, `km3 = 4.505`.
-- **Shc modification:** receptor-bound Shc phosphorylation/dephosphorylation uses `kp14 = 3`, `km14 = 0.03`; free ShcP dephosphorylation uses `km16 = 0.005`.
-- **Direct Y1068 route:** receptor–Grb2 uses `kp9 = 8.333e-07`, `km9 = 0.05`; receptor recruitment of prebound Grb2–Sos uses `kp11 = 1.25e-06`, `km11 = 0.03`; Sos addition to receptor-bound Grb2 uses `kp10 = 5.556e-06`, `km10 = 0.06`.
-- **Y1148/Shc route:** receptor–Shc uses `kp13 = 2.5e-05`, `km13 = 0.6`; receptor–ShcP uses `kp15 = 2.5e-07`, `km15 = 0.3`; Grb2 addition to receptor-bound ShcP uses `kp17 = 1.667e-06`, `km17 = 0.1`; preformed ShcP–Grb2 recruitment uses `kp18 = 2.5e-07`, `km18 = 0.3`.
-- **Sos-containing Shc complexes:** Sos addition to receptor-associated ShcP–Grb2 uses `kp19 = 5.556e-06`, `km19 = 0.0214`; preformed ShcP–Grb2–Sos recruitment uses `kp20 = 6.667e-08`, `km20 = 0.12`; preformed Grb2–Sos addition to receptor-bound ShcP uses `kp24 = 5e-06`, `km24 = 0.0429`.
-- **Cytosolic preassembly:** ShcP–Grb2 uses `kp21 = 1.667e-06`, `km21 = 0.01`; ShcP binding to Grb2–Sos uses `kp23 = 1.167e-05`, `km23 = 0.1`; Grb2–Sos uses `kp12 = 5.556e-08`, `km12 = 0.0015`; Sos addition to ShcP–Grb2 uses `kp22 = 1.667e-05`, `km22 = 0.064`.
-- **Detailed-balance diagnostics:** `loop1` through `loop5` are algebraic ratios of the relevant equilibrium constants. They are calculated for checking closed assembly cycles but are not used as rule rates.
+| Parameter group or names | Function in this model |
+| --- | --- |
+| `egf_tot`, `egfr_tot`, `Grb2_tot`, `Shc_tot`, `Sos_tot`, `Grb2_Sos_tot` | Initial free molecular pools plus a separately seeded Grb2–Sos pool. |
+| `kp1/km1`, `kp2/km2` | EGF–EGFR binding and dimerization of ligand-occupied receptors. |
+| `kp3`, `km3` | Phosphorylation of dimerized EGFR at either Y1068 or Y1148 and site-independent receptor dephosphorylation. |
+| `kp14`, `km14`, `km16` | Phosphorylation of receptor-bound Shc Y317, dephosphorylation while receptor-bound, and slower cytosolic ShcP dephosphorylation. |
+| `kp9/km9`, `kp11/km11`, `kp10/km10` | Direct Y1068 route: recruitment of free Grb2, recruitment of prebound Grb2–Sos, or addition of Sos after Grb2 is receptor-bound. |
+| `kp13/km13`, `kp15/km15` | Y1148 binding by unphosphorylated or Y317-phosphorylated Shc. |
+| `kp17/km17`, `kp18/km18`, `kp19/km19`, `kp20/km20`, `kp24/km24` | Alternative orders for assembling receptor–ShcP–Grb2 and receptor–ShcP–Grb2–Sos complexes. |
+| `kp21/km21`, `kp23/km23`, `kp12/km12`, `kp22/km22` | Cytosolic ShcP/Grb2/Sos preassembly before receptor recruitment. |
+| `loop1`–`loop5` | Ratios of equilibrium constants used to check closed thermodynamic cycles; no active rule uses them as rates. |
 
-There is no functions block.
+There are no functions.
 
 ## 4. Molecule types, sites, and states
 
-| Molecule type | Site count | Sites/components | Internal states | Anchor/allowed compartments | Binding/modification roles | Notes |
-| --- | ---: | --- | --- | --- | --- | --- |
-| `egf` | 1 | `r` | None | None | Binds `egfr.l` | Ligand |
-| `egfr` | 4 | `l`, `r`, `Y1068`, `Y1148` | `Y1068: Y,pY`; `Y1148: Y,pY` | None | `l` binds ligand; `r` dimerizes; phosphotyrosines recruit Grb2 or Shc | Receptor |
-| `Shc` | 2 | `PTB`, `Y317` | `Y317: Y,pY` | None | `PTB` binds `egfr.Y1148~pY`; `Y317~pY` binds `Grb2.SH2` | Adaptor |
-| `Grb2` | 2 | `SH2`, `SH3` | None | None | `SH2` binds phospho-EGFR or phospho-Shc; `SH3` binds Sos | Adaptor |
-| `Sos` | 1 | `dom` | None | None | Binds `Grb2.SH3` | Effector |
+| Molecule type(s) | Site count | Sites/components | Internal states | Anchor/allowed compartments | Explanation |
+| --- | ---: | --- | --- | --- | --- |
+| `egf` | 1 | `r` | None | None | Ligand that occupies EGFR `l`. |
+| `egfr` | 4 | `l`, `r`, `Y1068`, `Y1148` | `Y1068: Y, pY`; `Y1148: Y, pY` | None | Receptor whose `r` site dimerizes; Y1068 recruits Grb2 directly and Y1148 recruits Shc. |
+| `Shc` | 2 | `PTB`, `Y317` | `Y317: Y, pY` | None | Adaptor that binds receptor through PTB and, after Y317 phosphorylation, recruits Grb2 through its SH2 site. |
+| `Grb2` | 2 | `SH2`, `SH3` | None | None | Bifunctional adaptor: SH2 binds phospho-EGFR or phospho-Shc, while SH3 binds Sos. |
+| `Sos` | 1 | `dom` | None | None | Effector recruited exclusively through Grb2 SH3. |
 
 ## 5. Compartments, anchors, initial species, and setup
 
-There are no compartments or anchors. Free EGF, EGFR (`Y1068~Y,Y1148~Y`), Shc (`Y317~Y`), Grb2, and Sos are seeded from their totals; an additional Grb2–Sos bond `Grb2.SH3!1-Sos.dom!1` is seeded at `Grb2_Sos_tot`. The workflow subsequently removes EGF for equilibration and restores it for kinetics.
+The model is nonspatial. Free EGF, unphosphorylated EGFR, unphosphorylated Shc, free Grb2, and free Sos are seeded, together with a substantial preassembled Grb2–Sos pool. The active workflow first removes EGF to equilibrate adaptor binding, then restores the ligand before the kinetic phase.
 
-## 6. Complete reaction-rule inventory
+## 6. Reaction-rule inventory
 
-**Rule-family orientation.** Rules 1–8 create the two phosphotyrosine docking routes. Rules 9–18 assemble Sos at receptor either directly through Y1068–Grb2 or indirectly through Y1148–Shc–Grb2. Rules 19–23 allow the same adaptor complexes to preassemble and turn over in cytosol.
+**Rule-family orientation.** Rules 1–8 create receptor phosphotyrosines and phosphorylated Shc. Rules 9–18 assemble direct Y1068 and indirect Y1148 routes to Sos at receptor, while rules 19–23 form and turn over the same adaptor combinations away from receptor.
 
-| # | Direction | Participants and required context | Bond or state change | Rate(s) | Implementation consequence |
-| ---: | --- | --- | --- | --- | --- |
-| 1 | Reversible | EGF `r`; EGFR `l` | Create/remove the ligand–receptor bond | `kp1`; `km1` | Produces ligand-occupied receptor monomers. |
-| 2 | Reversible | two EGF-occupied EGFR molecules with free `r` sites | Create/remove the EGFR `r–r` dimer bond | `kp2`; `km2` | Dimerizes ligand-bound receptors, enabling the phosphorylation rules. |
-| 3 | One-way | EGFR in an `r`-linked dimer | `Y1068`: `Y→pY` | `kp3` | Creates the direct Grb2 docking site. |
-| 4 | One-way | EGFR in an `r`-linked dimer | `Y1148`: `Y→pY` | `kp3` | Creates the Shc PTB docking site. |
-| 5 | One-way | any EGFR with `Y1068~pY` | `Y1068`: `pY→Y` | `km3` | Erases the direct Grb2 recruitment site. |
-| 6 | One-way | any EGFR with `Y1148~pY` | `Y1148`: `pY→Y` | `km3` | Erases the Shc recruitment site. |
-| 7 | One-way | Shc bound by `PTB` to receptor `Y1148~pY` | `Shc.Y317`: `Y→pY`; receptor bond retained | `kp14` | Converts receptor-bound Shc into a Grb2-binding adaptor. |
-| 8 | One-way | receptor-bound phospho-Shc | `Shc.Y317`: `pY→Y` | `km14` | Removes the Grb2 docking site while Shc remains receptor-associated. |
-| 9 | Reversible | free Grb2; EGFR `Y1068~pY`; Grb2 `SH3` free | Create/remove `Y1068–SH2` | `kp9`; `km9` | Recruits empty Grb2 directly to phospho-EGFR. |
-| 10 | Reversible | Grb2 whose `SH3` is already occupied; EGFR `Y1068~pY` | Create/remove `Y1068–SH2` | `kp11`; `km11` | Recruits a preassembled Grb2–Sos unit directly to receptor. |
-| 11 | Reversible | Sos; receptor-bound Grb2 with free `SH3` | Create/remove `Grb2.SH3–Sos.dom` | `kp10`; `km10` | Completes the direct EGFR–Grb2–Sos signaling complex. |
-| 12 | Reversible | unphosphorylated Shc; EGFR `Y1148~pY` | Create/remove `Y1148–PTB` | `kp13`; `km13` | Recruits Shc before its Y317 phosphorylation. |
-| 13 | Reversible | Y317-phosphorylated Shc; EGFR `Y1148~pY` | Create/remove `Y1148–PTB` | `kp15`; `km15` | Recruits already phosphorylated Shc. |
-| 14 | Reversible | preformed ShcP–Grb2; EGFR `Y1148~pY` | Create/remove `Y1148–PTB`; preserve `Y317–SH2` | `kp18`; `km18` | Attaches the two-adaptor complex to receptor as a unit. |
-| 15 | Reversible | preformed ShcP–Grb2–Sos; EGFR `Y1148~pY` | Create/remove `Y1148–PTB`; preserve both adaptor bonds | `kp20`; `km20` | Attaches the complete indirect Sos-recruitment complex to receptor. |
-| 16 | Reversible | free Grb2; receptor-bound ShcP | Create/remove `Shc.Y317–Grb2.SH2` | `kp17`; `km17` | Builds the indirect receptor–Shc–Grb2 route stepwise. |
-| 17 | Reversible | preformed Grb2–Sos; receptor-bound ShcP | Create/remove `Shc.Y317–Grb2.SH2`; preserve `SH3–Sos` | `kp24`; `km24` | Adds a Grb2–Sos unit to receptor-bound ShcP. |
-| 18 | Reversible | Sos; receptor-associated ShcP–Grb2 with free `SH3` | Create/remove `SH3–Sos.dom` | `kp19`; `km19` | Completes indirect Sos recruitment after Grb2 is already bound. |
-| 19 | Reversible | cytosolic ShcP and free Grb2 | Create/remove `Y317–SH2` | `kp21`; `km21` | Forms a receptor-free ShcP–Grb2 complex. |
-| 20 | Reversible | cytosolic ShcP and Grb2 with occupied `SH3` | Create/remove `Y317–SH2` | `kp23`; `km23` | Forms receptor-free ShcP–Grb2–Sos from prebound Grb2–Sos. |
-| 21 | One-way | cytosolic ShcP with free `PTB` | `Y317`: `pY→Y` | `km16` | Deactivates Shc after it leaves receptor. |
-| 22 | Reversible | free Grb2 and Sos | Create/remove `SH3–dom` | `kp12`; `km12` | Maintains the cytosolic Grb2–Sos pool. |
-| 23 | Reversible | Sos and cytosolic ShcP–Grb2 | Create/remove `Grb2.SH3–Sos.dom` | `kp22`; `km22` | Completes receptor-free ShcP–Grb2–Sos by adding Sos last. |
+| Rule number(s) | Direction | Involved molecules/sites | Exact modeled change and rate logic | Role within the model |
+| ---: | --- | --- | --- | --- |
+| 1–2 | Reversible | EGF `r`, EGFR `l`, and then two ligand-occupied EGFR `r` sites | Rule 1 creates/releases the ligand bond at `kp1/km1`; rule 2 creates/releases the receptor dimer bond at `kp2/km2`. | Builds the ligand-bound dimer required for receptor transphosphorylation. |
+| 3–6 | One-way | Dimerized EGFR Y1068 or Y1148 (rules 3–4), and any phosphorylated receptor site (rules 5–6) | Rules 3/4 change Y1068/Y1148 `Y → pY` at `kp3`; rules 5/6 reverse the respective site at `km3`. | Independently opens and closes the direct Grb2 and Shc docking routes. |
+| 7–8 | One-way | Shc PTB-bound to receptor Y1148~pY | Rule 7 changes Shc Y317 `Y → pY` at `kp14`; rule 8 changes receptor-bound Y317 `pY → Y` at `km14`, preserving PTB binding. | Makes receptor-bound Shc competent for Grb2 recruitment and permits local reversal. |
+| 9–11 | Reversible | EGFR Y1068~pY, Grb2 SH2/SH3, and Sos | Rule 9 recruits Grb2 with free SH3 (`kp9/km9`); rule 10 recruits prebound Grb2–Sos (`kp11/km11`); rule 11 adds Sos to receptor-bound Grb2 (`kp10/km10`). | Provides two assembly orders for the direct receptor–Grb2–Sos route. |
+| 12–13 | Reversible | EGFR Y1148~pY and Shc PTB; Shc Y317 is unphosphorylated in rule 12 or phosphorylated in rule 13 | Creates/releases the receptor–PTB bond using `kp13/km13` or `kp15/km15`. | Allows Shc to arrive before or after Y317 phosphorylation. |
+| 14–15 | Reversible | Preformed ShcP–Grb2 or ShcP–Grb2–Sos and receptor Y1148~pY | Adds/removes the receptor–Shc PTB bond at `kp18/km18` or `kp20/km20`, retaining internal adaptor bonds. | Recruits partially or fully assembled indirect signaling complexes as units. |
+| 16–18 | Reversible | Receptor-bound ShcP, Grb2 SH2, and Sos/Grb2 SH3 | Rule 16 adds free Grb2 (`kp17/km17`); rule 17 adds prebound Grb2–Sos (`kp24/km24`); rule 18 adds Sos after Grb2 (`kp19/km19`). | Completes the indirect Y1148–Shc–Grb2–Sos route through every modeled assembly order. |
+| 19–20 | Reversible | Cytosolic ShcP Y317 and Grb2 SH2, with Grb2 SH3 free or already occupied | Forms ShcP–Grb2 at `kp21/km21` or ShcP–Grb2–Sos at `kp23/km23`. | Creates receptor-free adaptor pools available for rules 14–15. |
+| 21 | One-way | Cytosolic ShcP with free PTB | Changes Y317 `pY → Y` at `km16`. | Removes the Grb2 docking state after Shc leaves receptor. |
+| 22–23 | Reversible | Grb2 SH3 and Sos, either free (rule 22) or within ShcP–Grb2 (rule 23) | Creates/releases SH3–Sos at `kp12/km12` or `kp22/km22`. | Maintains free Grb2–Sos and completes cytosolic ShcP–Grb2–Sos by an alternative order. |
 
 ## 7. Observables and technical readouts
 
-Molecules `Dimers` counts EGFR–EGFR complexes. `Sos_act` sums Sos in either receptor-bound ShcP–Grb2–Sos or direct EGFR–Grb2–Sos patterns. `RP` sums `Y1068~pY` and `Y1148~pY` receptor patterns. `Shc_Grb` and `Shc_Grb_Sos` count phospho-Shc–Grb2 assemblies without requiring receptor; `R_Grb2`, `R_Shc`, `R_ShcP`, `R_G_S`, and `R_S_G_S` count the named receptor-associated complexes. `ShcP` counts phosphorylated Shc. `Efgr_total` (spelling retained), `Shc_total`, `Sos_total`, and `Grb2_total` count all molecules of each type.
+| Observable(s) | Type | What is measured | Technical interpretation |
+| --- | --- | --- | --- |
+| `Dimers` | Molecule count | EGFR–EGFR complexes | Receptor dimer abundance; pattern matches may scale with embeddings in larger complexes. |
+| `RP` | Molecule count | Sum of Y1068~pY and Y1148~pY receptor patterns | Total phosphotyrosine-site signal; a receptor phosphorylated at both sites can contribute twice. |
+| `R_Grb2`, `R_G_S` | Molecule count | Direct Y1068 complexes with Grb2 alone or Grb2–Sos | Occupancy of the direct Sos-recruitment branch. |
+| `R_Shc`, `R_ShcP` | Molecule count | Y1148-bound unphosphorylated or phosphorylated Shc | Progress through receptor recruitment and Shc activation. |
+| `Shc_Grb`, `Shc_Grb_Sos`, `ShcP` | Molecule count | Phospho-Shc complexes or total phospho-Shc, without requiring receptor | Cytosolic plus receptor-associated adaptor assembly state. |
+| `R_S_G_S`, `Sos_act` | Molecule count | Complete indirect receptor–ShcP–Grb2–Sos complex; `Sos_act` sums direct and indirect receptor-bound Sos | Detailed indirect endpoint and combined receptor-associated Sos output. |
+| `Efgr_total`, `Shc_total`, `Sos_total`, `Grb2_total` | Molecule count | All molecules of each named type | Pool-conservation checks; `Efgr_total` retains the source spelling. |
 
 ## 8. Actions and simulation workflow
 
-The file generates the network, sets free `egf(r)` to zero, and performs a 100000-time-unit, 10-step sparse ODE steady-state equilibration. It restores EGF to `egf_tot`, writes SBML, then runs a 120-time-unit, 120-step sparse ODE kinetic simulation with `atol=rtol=1e-8`.
+The workflow generates a network, removes free EGF, and performs a long sparse ODE steady-state equilibration. It then restores EGF, writes SBML, and runs a 120-time-unit kinetic ODE simulation with 120 output steps and tight tolerances.
 
 ## 9. Technical caveats and ambiguities
 
-The metadata's immunology/BCR tags conflict with the local EGFR/Shc/Grb2/Sos model and should not drive interpretation. Molecule observables may count multiple matching embeddings. `RP` is a sum of two patterns and can count a doubly phosphorylated receptor twice. The comment says “check detailed balanced,” but `loop1`–`loop5` are diagnostics only. The metadata records parser trouble associated with the sparse action option.
+- Metadata immunology/BCR tags conflict with the EGFR–Shc–Grb2–Sos source model.
+- `RP` sums two site patterns and can double-count doubly phosphorylated receptors.
+- `loop1`–`loop5` diagnose detailed-balance consistency but do not enforce or alter rates.
+- Pattern observables can count multiple embeddings in one complex.
+- Sparse-solver options are reported as parser-sensitive in local compatibility notes.

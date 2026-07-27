@@ -1,77 +1,76 @@
-# Detailed Model Explanation: Kozer 2014 EGFR tetramer recruitment model
+# Detailed Model Explanation: Kozer 2014 EGFR tetramer and Grb2 recruitment model
 
-## 1. Model identity and scope
+## 1. Model overview
 
-`Kozer_2014` models epidermal growth factor (EGF)-dependent epidermal growth factor receptor (EGFR) ectodomain and cytosolic-tail assembly, receptor phosphorylation, and growth-factor-receptor-bound protein 2 (Grb2) recruitment. Sources: `Published/Kozer2014/Kozer_2014.bngl` and `Published/Kozer2014/Kozer_2014_metadata.yaml`.
+This model links EGF occupancy to EGFR ectodomain crosslinking, opening and association of cytosolic tails, receptor phosphorylation, and Grb2 recruitment. It explicitly represents alternative ligand states and ring-closing steps within four-receptor assemblies so tetramer topology changes the effective association rate.
 
 ## 2. BNGL block inventory
 
-The file contains 36 parameters, 3 molecule types, 3 seed species, 16 reaction rules, 15 observables, and 2 inline actions. It has no enclosing model block, compartments, anchors, or functions. Network generation explicitly caps EGF and EGFR stoichiometry at four.
+The file contains 36 parameters, 3 molecule types, 3 free seed species, 16 rules, 15 observables, and 2 actions. It has no enclosing model block, compartments, anchors, or functions; network generation caps EGF and EGFR stoichiometry at four.
 
 ## 3. Parameters, functions, and rate laws
 
-Parameters are grouped by the receptor context they control:
+Concentration and cell-volume parameters convert experimental pool sizes and bimolecular rates into molecular units. Binding rates are separated by ligand/oligomer context, while `chi_r` boosts only ring-closing events whose partners are already held in one assembly.
 
-- **Count and volume conversion:** `NA = 6.02e14`, `f = 0.01`, `V = f*1.0e-12`, `cellDen = 6.0e8`, and `Vo = f/cellDen` convert reported concentrations and per-cell counts into simulation molecule numbers.
-- **Initial pools:** `LT = 3.0*NA*Vo` for EGF, `RT = 0.09*NA*Vo` for EGFR, and `GT = f*9.0e4` for Grb2.
-- **EGF binding by ectodomain context**
-  - Non-crosslinked receptor: `K11 = 4.6`, `k11f = 0.09/(NA*Vo)`, `k11r = 0.02`.
-  - First ligand on a receptor dimer: `K21 = 5.3`, `k21f = 0.053/(NA*Vo)`, `k21r = 0.02`.
-  - Second ligand on a receptor dimer: `K22 = 0.34`, `k22f = 0.136/(NA*Vo)`, `k22r = 0.2`.
-- **EGFR ectodomain crosslinking**
-  - Two ligand-free receptors: `L20 = 212`, `l20f = 526/(NA*Vo)`, `l20r = 1.24`.
-  - One liganded receptor: `L21 = 244`, `l21f = 180/(NA*Vo)`, `l21r = 0.738`.
-  - Two liganded receptors: `L22 = 18.0`, `l22f = 9.79/(NA*Vo)`, `l22r = 0.272`.
-- **Cytosolic-tail behavior:** ligand-driven opening uses `k_o = 6.0`; closing uses `k_c = 1.6`; open-tail association/dissociation uses `kaf = 15.4/(NA*Vo)`, `kar = 8.89`.
-- **Phosphorylation:** `kp = 1` phosphorylates EGFR in an associated-tail pair; `kdp = 1` removes that modification.
-- **Ring closure:** `chi_r = 4.37e4*(NA*Vo)` multiplies forward rates for an intracomplex closing edge, where the partners are already held in one tetramer.
-- **Grb2 recruitment:** `KDg = 713` and `kmg = 0.31` define the dissociation scale; the association rate is derived as `kpg = (kmg/KDg)/(NA*V)`.
+| Parameter group or names | Function in this model |
+| --- | --- |
+| `NA`, `f`, `V`, `cellDen`, `Vo`; `LT`, `RT`, `GT` | Unit/volume conversion and initial EGF, EGFR, and Grb2 pools. |
+| `K11`, `k11f`, `k11r` | EGF binding to EGFR not ectodomain-crosslinked to another receptor. |
+| `K21`, `k21f`, `k21r`; `K22`, `k22f`, `k22r` | First and second EGF-binding events on an ectodomain-linked receptor pair; the second ligand has a distinct, weaker context. |
+| `L20`, `l20f`, `l20r`; `L21`, `l21f`, `l21r`; `L22`, `l22f`, `l22r` | Ectodomain crosslinking for zero, one, or two EGF-occupied receptors, respectively. |
+| `k_o`, `k_c` | Ligand-dependent cytosolic-tail opening and ligand-independent closing. |
+| `kaf`, `kar` | Association/dissociation of two open EGFR cytosolic tails. |
+| `chi_r` | Effective-concentration multiplier for closing an ectodomain or tail edge inside a preassembled four-receptor topology. |
+| `kp`, `kdp` | EGFR phosphorylation across a tail pair and global dephosphorylation. |
+| `KDg`, `kmg`; derived `kpg` | Grb2–phospho-EGFR affinity, dissociation, and volume-scaled association. |
 
-There is no functions block.
+There are no functions.
 
 ## 4. Molecule types, sites, and states
 
-| Molecule type | Site count | Sites/components | Internal states | Anchor/allowed compartments | Binding/modification roles | Notes |
-| --- | ---: | --- | --- | --- | --- | --- |
-| `EGF` | 1 | `rec` | None | None | `rec` binds `EGFR.lig` | Ligand |
-| `EGFR` | 4 | `back`, `lig`, `cd`, `Y` | `cd: c,o`; `Y: u,p` | None | `back` ectodomain crosslinks; `lig` binds EGF; `cd` changes conformation and binds another tail; `Y` is phosphorylated and binds Grb2 | Receptor |
-| `Grb2` | 1 | `SH2` | None | None | `SH2` binds `EGFR.Y~p` | Adaptor |
+| Molecule type(s) | Site count | Sites/components | Internal states | Anchor/allowed compartments | Explanation |
+| --- | ---: | --- | --- | --- | --- |
+| `EGF` | 1 | `rec` | None | None | Ligand whose receptor-facing site occupies EGFR `lig`. |
+| `EGFR` | 4 | `back`, `lig`, `cd`, `Y` | `cd: c, o`; `Y: u, p` | None | Receptor combining ectodomain crosslinking (`back`), ligand binding, tail conformation/association (`cd`), and a phosphorylatable Grb2 docking site (`Y`). |
+| `Grb2` | 1 | `SH2` | None | None | Adaptor recruited specifically to phosphorylated EGFR `Y~p`. |
 
 ## 5. Compartments, anchors, initial species, and setup
 
-No compartments or anchors are declared. The initial mixture contains free `EGF(rec)` at `LT`, closed/unphosphorylated `EGFR(back,lig,cd~c,Y~u)` at `RT`, and free `Grb2(SH2)` at `GT`.
+The model is nonspatial and starts with free EGF, closed unphosphorylated EGFR, and free Grb2. Pool expressions correspond to the modeled fraction of a cell and its surrounding fluid; no receptor dimers, tetramers, phospho-EGFR, or Grb2 complexes are seeded.
 
-## 6. Complete reaction-rule inventory
+## 6. Reaction-rule inventory
 
-**Rule-family orientation.** Rules 1–9 distinguish ligand-dependent ectodomain association and ring closure. Rules 10–13 open and pair cytosolic tails. Rules 14–16 convert tail pairing into phosphorylation and Grb2 recruitment. The table separates prerequisites, the actual edit, kinetics, and the consequence so topology is readable without reproducing whole BNGL patterns.
+**Rule-family orientation.** Rules 1–9 couple EGF occupancy to ectodomain edges, including closure inside tetramers. Rules 10–13 open and connect cytosolic tails, and rules 14–16 turn tail association into phosphorylation and Grb2 loading.
 
-| # | Direction | Participants and required context | Bond or state change | Rate(s) | Implementation consequence |
-| ---: | --- | --- | --- | --- | --- |
-| 1 | Reversible | EGF `rec`; monomeric EGFR `lig` with free `back` | Create/remove `rec–lig` | `k11f`; `k11r` | Ligand occupancy of a receptor not ectodomain-crosslinked. |
-| 2 | Reversible | EGF; ligand-free EGFR within a ligand-free `back` dimer | Create/remove `rec–lig` on one dimer member | `k21f`; `k21r` | Adds the first ligand to a preformed ectodomain dimer. |
-| 3 | Reversible | EGF; singly liganded EGFR `back` dimer | Create/remove `rec–lig` on the second receptor | `k22f`; `k22r` | Completes ligand occupancy of the dimer. |
-| 4 | Reversible | two ligand-free EGFR molecules | Create/remove `back–back` | `l20f`; `l20r` | Forms a ligand-free ectodomain dimer. |
-| 5 | Reversible | one ligand-free and one EGF-bound EGFR | Create/remove `back–back` | `l21f`; `l21r` | Forms a singly liganded ectodomain dimer. |
-| 6 | Reversible | two EGF-bound EGFR molecules | Create/remove `back–back` | `l22f`; `l22r` | Forms a doubly liganded ectodomain dimer. |
-| 7 | Reversible | four-EGFR assembly already tethered through tail and one ectodomain pair; target receptors unliganded | Close/open the remaining `back–back` edge | `chi_r*l20f`; `l20r` | Closes a ligand-free ectodomain ring; `chi_r` represents the high local encounter rate. |
-| 8 | Reversible | same four-receptor topology; one target receptor ligand-bound | Close/open remaining `back–back` edge | `chi_r*l21f`; `l21r` | Closes a singly liganded ectodomain ring. |
-| 9 | Reversible | same topology; both target receptors ligand-bound | Close/open remaining `back–back` edge | `chi_r*l22f`; `l22r` | Closes a doubly liganded ectodomain ring. |
-| 10 | One-way | ligand-bound EGFR | `cd`: `c→o` | `k_o` | Ligand occupancy exposes the cytosolic-tail association state. |
-| 11 | One-way | any EGFR with open tail | `cd`: `o→c` | `k_c` | Returns the tail to its closed conformation independently of ligand. |
-| 12 | Reversible | two EGFR molecules with `cd~o` | Create/remove `cd–cd` | `kaf`; `kar` | Associates two open cytosolic tails. |
-| 13 | Reversible | four-EGFR assembly with two ectodomain edges and one tail edge | Close/open the second `cd–cd` edge | `chi_r*kaf`; `kar` | Completes the cytosolic-tail ring within a preassembled tetramer. |
-| 14 | One-way | two receptors joined through open `cd` sites; one has `Y~u` | `Y`: `u→p`; tail bond retained | `kp` | Implements phosphorylation in trans across an associated tail pair. |
-| 15 | One-way | any phosphorylated EGFR | `Y`: `p→u` | `kdp` | Erases the Grb2 docking state regardless of oligomer context. |
-| 16 | Reversible | Grb2 `SH2`; EGFR `Y~p` | Create/remove `SH2–Y~p` | `kpg`; `kmg` | Loads or unloads Grb2 on phosphorylated receptor. |
+| Rule number(s) | Direction | Involved molecules/sites | Exact modeled change and rate logic | Role within the model |
+| ---: | --- | --- | --- | --- |
+| 1–3 | Reversible | EGF `rec` and EGFR `lig`; rule 1 uses non-crosslinked EGFR, rule 2 the first ligand on an unliganded `back` dimer, rule 3 the second ligand | Creates/releases `rec–lig` using `k11f/k11r`, `k21f/k21r`, or `k22f/k22r`, respectively. | Makes ligand affinity depend on ectodomain assembly and prior occupancy rather than treating all sites identically. |
+| 4–6 | Reversible | Two EGFR `back` sites with zero, one, or two bound EGF molecules, respectively | Creates/releases the ectodomain `back–back` edge using the matching `l20`, `l21`, or `l22` forward/reverse pair. | Produces the three ligand-defined ectodomain dimer classes from freely encountering receptors. |
+| 7–9 | Reversible | Two still-free `back` sites inside a four-EGFR assembly already tethered by tail and ectodomain edges; zero, one, or two target receptors are liganded | Closes/opens the remaining ectodomain edge with `chi_r*l20f`, `chi_r*l21f`, or `chi_r*l22f`; reverse rates are unchanged. | Converts open four-receptor chains into rings and represents their high intracomplex encounter probability. |
+| 10–11 | One-way | EGFR `cd`; rule 10 additionally requires bound ligand | Rule 10 changes `cd: c → o` at `k_o`; rule 11 changes any `o → c` at `k_c`. | Couples ligand to tail exposure while allowing spontaneous closure to oppose activation. |
+| 12–13 | Reversible | Two open EGFR `cd` sites; rule 13 places the free pair inside a four-receptor assembly | Creates/releases a `cd–cd` tail edge at `kaf/kar`; intratetramer closure multiplies only the forward rate by `chi_r`. | Builds tail dimers in free encounters or closes the second tail edge within a tetramer. |
+| 14 | One-way | Two EGFR molecules joined through open tails; one receptor has `Y~u` | Changes that receptor `Y: u → p` at `kp`, preserving the tail bond. | Implements transphosphorylation only in the associated-tail context. |
+| 15 | One-way | Any EGFR `Y~p` | Changes `Y: p → u` at `kdp`, without requiring oligomer dissociation. | Erases the adaptor docking state throughout the receptor population. |
+| 16 | Reversible | EGFR `Y~p` and Grb2 `SH2` | Creates/releases the phosphotyrosine–SH2 bond at `kpg/kmg`. | Converts receptor phosphorylation into measurable Grb2 recruitment. |
 
 ## 7. Observables and technical readouts
 
-Molecules `EGFfree` counts unbound `EGF.rec`; `EGFRfree` counts free `EGFR.lig`; `pEGFR` counts `Y~p` whether free or bound; `Grb2_pEGFR` counts the explicit `Y~p!1-SH2!1` complex; and `Grb2Free` counts free `SH2`. Species `Clusters` sums species with exactly 1–4 EGFR; `monomer`, `dimer`, and `trimer` count exactly 1, 2, or 3 EGFR, while `tetramer` uses `EGFR>3`. Species `Grb2EGFRMonomer` counts a phospho-EGFR–Grb2 complex whose receptor `cd` and `back` are unbound. `Grb2EGFRDimer1`/`3` count back-linked dimers with one/two Grb2; `Grb2EGFRDimer2`/`4` count tail-linked dimers with one/two Grb2.
+| Observable(s) | Type | What is measured | Technical interpretation |
+| --- | --- | --- | --- |
+| `EGFfree`, `EGFRfree`, `Grb2Free` | Molecule count | Free ligand site, free receptor ligand site, or free Grb2 SH2 site | Unoccupied pools; `EGFRfree` concerns ligand occupancy, not whether the receptor is oligomerized. |
+| `Clusters`; `monomer`, `dimer`, `trimer`, `tetramer` | Species count | EGFR-containing species grouped by receptor count | Assembly-size distribution. `Clusters` combines sizes 1–4, while `tetramer` uses a greater-than-three cardinality condition. |
+| `pEGFR` | Molecule count | EGFR with phosphorylated `Y`, whether free or Grb2-bound | Total receptor phosphorylation output. |
+| `Grb2_pEGFR` | Molecule count | Explicit phospho-EGFR–Grb2 bond | Total recruited adaptor, independent of receptor oligomer size. |
+| `Grb2EGFRMonomer` | Species count | Grb2-bound phospho-EGFR with free `back` and `cd` | Recruited adaptor on a receptor not crosslinked through either receptor–receptor interface. |
+| `Grb2EGFRDimer1`–`4` | Species count | Back-linked or tail-linked EGFR dimers carrying one or two Grb2 molecules | Resolves adaptor occupancy and whether the dimer is joined through ectodomain (`1`, `3`) or open tails (`2`, `4`). |
 
 ## 8. Actions and simulation workflow
 
-`generate_network({overwrite=>1,max_stoich=>{EGF=>4,EGFR=>4}})` builds a bounded network prohibiting ligand/receptor oligomers above four copies. `simulate_ode({t_end=>120,n_steps=>100})` then integrates that network by ordinary differential equations.
+The file generates a network capped at four EGF and four EGFR molecules per species, preventing assemblies larger than the modeled tetramer. It then runs an ODE simulation to time 120 with 100 output steps.
 
 ## 9. Technical caveats and ambiguities
 
-The metadata files disagree on some compatibility fields, so the BNGL is authoritative here. `Species Clusters` supplies four adjacent patterns without commas, and `EGFR>3` is nonstandard-looking cardinality syntax whose interpretation depends on the BioNetGen version. Ring-closure rules constrain a particular four-receptor topology; `chi_r` is therefore not a generic oligomerization multiplier. Pattern observables can count embeddings, not necessarily unique physical clusters.
+- Ring-closure rules match a specific four-receptor topology; `chi_r` is not a general multiplier for all oligomerization.
+- `Clusters` lists several cardinality patterns compactly, and `EGFR>3` support may depend on parser version.
+- Species-pattern observables may count embeddings rather than unique physical assemblies.
+- The model has no explicit membrane or cytosolic compartments despite describing ectodomain and tail processes.
