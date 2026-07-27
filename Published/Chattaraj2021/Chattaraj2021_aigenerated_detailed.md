@@ -1,103 +1,69 @@
-# Coder Model Explanation: Chattaraj 2021
+# Detailed Model Explanation: Chattaraj 2021 multivalent Nephrin–Nck–NWASP clustering model
 
-## 1. Model identity and scope
+## 1. Model overview
 
-- **Model id:** `Chattaraj_2021`
-- **Title:** Chattaraj 2021
-- **BNGL path:** `Published/Chattaraj2021/Chattaraj_2021.bngl`
-- **YAML path:** `Published/Chattaraj2021/metadata.yaml`
-- **Metadata description:** The YAML says “NFkB oscillations,” but the BNGL comments and model body describe Nephrin/Nck/NWASP multivalent clustering.
-- **Scope:** This file is a heterotypic condensate/clustering model with three molecule types. Nephrin contributes three phosphotyrosine-like sites (`pY1`, `pY2`, `pY3`) that bind the Nck `Sh2` site. Nck also contributes three SH3-like sites (`S1`, `S2`, `S3`) that each bind NWASP proline sites (`p1` through `p6`). The entire behavior is encoded as 21 reversible site-to-site binding rules; there are no internal state changes, compartments, anchors, or functions.
+This model studies heterotypic clustering of a trivalent Nephrin scaffold, a four-interface Nck adaptor, and a hexavalent NWASP partner. Condensate-like connectivity emerges solely from reversible, equal-affinity site binding, allowing valency and starting stoichiometry to determine cluster formation.
 
 ## 2. BNGL block inventory
 
-| Block | Present? | Count / role |
-| --- | --- | --- |
-| Parameters | Yes | 6 parameters: two dissociation constants, two off-rates, and two derived on-rates for Nephrin-Nck and Nck-NWASP binding. |
-| Compartments | No | No compartment block. |
-| Anchors | No | No anchors. |
-| Molecule types | Yes | 3 molecule types: `Nephrin`, `Nck`, and `NWASP`. |
-| Seed/species | Yes | 3 initial pools: 300 Nephrin, 900 Nck, 450 NWASP. |
-| Observables | Yes | 11 observables for total/free molecules, fully bound molecules, and mixed clusters. |
-| Functions | No | No functions block; rate laws are direct parameters. |
-| Reaction rules | Yes | 21 reversible binding rules. |
-| Actions | Yes | One inline `writeXML()` command after the model. |
+The model contains 6 parameters, 3 molecule types, 3 free seed species, 11 molecule-count observables, and 21 reversible rules. It has no compartments, anchors, functions, or simulation actions; one XML-export action follows the model block.
 
 ## 3. Parameters, functions, and rate laws
 
-| Parameter | Value/expression | Technical role |
-| --- | --- | --- |
-| `kd_12` | `3500` | Nephrin-Nck equilibrium scale for rules binding `Nephrin.pY*` to `Nck.Sh2`. |
-| `kd_23` | `3500` | Nck-NWASP equilibrium scale for rules binding `Nck.S*` to `NWASP.p*`. |
-| `koff_23` | `1000` | Reverse rate for all Nck SH3-site/NWASP proline-site rules. |
-| `kon_23` | `koff_23/kd_23` | Forward rate for all Nck SH3-site/NWASP proline-site rules. |
-| `koff_12` | `1000` | Reverse rate for all Nephrin phosphotyrosine/Nck SH2 rules. |
-| `kon_12` | `koff_12/kd_12` | Forward rate for all Nephrin phosphotyrosine/Nck SH2 rules. |
+The namespace separates the Nephrin–Nck interface (`12`) from the Nck–NWASP interface (`23`). Both interfaces are assigned the same dissociation constant and off-rate, so their derived on-rates are also equal.
 
-No functions are declared. Every rule uses either `kon_23, koff_23` or `kon_12, koff_12`.
+| Parameter group or names | Function in this model |
+| --- | --- |
+| `kd_12`, `kd_23` | Dissociation constants for Nephrin-pY/Nck-SH2 and Nck-S/NWASP-p binding, respectively; both are set to 3500, eliminating affinity as a difference between the two edge types. |
+| `koff_12`, `koff_23` | Unbinding rates for the two edge types; both are 1000. |
+| `kon_12 = koff_12/kd_12`, `kon_23 = koff_23/kd_23` | Derived association rates. The same ratio for both families makes site count, concentration, and network topology—not kinetic asymmetry—the source of different clustering behavior. |
+
+There are no functions or conditional rate laws.
 
 ## 4. Molecule types, sites, and states
 
-| Molecule type | Site count | Sites/components | Internal states | Anchor/allowed compartments | Binding/modification roles | Notes |
-| --- | ---: | --- | --- | --- | --- | --- |
-| `Nephrin` | 3 | `pY1`, `pY2`, `pY3` | none | none | All three sites bind `Nck.Sh2`. | Multivalent upstream scaffold; no phosphorylation state is modeled even though names contain `pY`. |
-| `Nck` | 4 | `S1`, `S2`, `S3`, `Sh2` | none | none | `Sh2` binds Nephrin; `S1`, `S2`, `S3` bind NWASP. | Central adaptor connecting Nephrin and NWASP. |
-| `NWASP` | 6 | `p1`, `p2`, `p3`, `p4`, `p5`, `p6` | none | none | Every `p*` site can bind Nck `S1`, `S2`, or `S3`. | Six-site multivalent ligand for Nck SH3 sites. |
+| Molecule type(s) | Site count | Sites/components | Internal states | Anchor/allowed compartments | Explanation |
+| --- | ---: | --- | --- | --- | --- |
+| `Nephrin` | 3 | `pY1`, `pY2`, `pY3` | None | None | Trivalent upstream scaffold; each phosphotyrosine-like site can bind one Nck SH2 domain. |
+| `Nck` | 4 | `S1`, `S2`, `S3`, `Sh2` | None | None | Central adaptor: `Sh2` binds Nephrin, while three S sites independently bind NWASP, allowing Nck to bridge the other two molecule classes. |
+| `NWASP` | 6 | `p1`–`p6` | None | None | Hexavalent downstream partner whose six proline-rich sites can each bind any Nck S site, providing the greatest branching capacity. |
 
 ## 5. Compartments, anchors, initial species, and setup
 
-No compartments or anchors are declared. The initial condition starts all three molecules free: `Nephrin(pY1,pY2,pY3)` at 300, `Nck(S1,S2,S3,Sh2)` at 900, and `NWASP(p1,p2,p3,p4,p5,p6)` at 450. Because all rules are reversible and do not change internal states, cluster composition is controlled by multivalent site occupancy and the two affinity classes.
+The model is nonspatial and begins with only free molecules: 300 Nephrin, 900 Nck, and 450 NWASP. This 1:3:1.5 ratio supplies exactly three Nck molecules per Nephrin and two Nck molecules per NWASP on average, while the available sites permit much larger crosslinked assemblies. No phosphorylation reactions occur; the `pY` and `p` names denote already available binding sites.
 
-## 6. Complete reaction-rule inventory
+## 6. Reaction-rule inventory
 
-**Rule-family orientation:** Rules 1-18 enumerate every allowed Nck SH3-site/NWASP proline-site contact, one Nck site at a time. Rules 19-21 enumerate the three Nephrin/Nck contacts through Nck `Sh2`. Every row below forms or releases exactly one bond and leaves all other sites unchanged.
+**Rule-family orientation.** Rules 1–18 enumerate the complete 3-by-6 matrix of Nck S-site/NWASP p-site contacts. Rules 19–21 connect each Nephrin pY site to the single Nck SH2 site, making Nck the bridge between Nephrin-rich and NWASP-rich portions of a cluster.
 
-| # | Rule label/name | Direction | Participants and sites/components | Rate/expression | Exact modeled change | Technical meaning |
-| ---: | --- | --- | --- | --- | --- | --- |
-| 1 | `_01_S1_P1` | reversible | `Nck.S1` + `NWASP.p1` | `kon_23, koff_23` | Forms/releases `Nck.S1!1`–`NWASP.p1!1`. | Allows Nck SH3 site `S1` to occupy NWASP proline site `p1`. |
-| 2 | `_02_S2_P1` | reversible | `Nck.S2` + `NWASP.p1` | `kon_23, koff_23` | Forms/releases `Nck.S2!1`–`NWASP.p1!1`. | Allows Nck `S2` to bind the same NWASP `p1` class as an alternative SH3 contact. |
-| 3 | `_03_S3_P1` | reversible | `Nck.S3` + `NWASP.p1` | `kon_23, koff_23` | Forms/releases `Nck.S3!1`–`NWASP.p1!1`. | Allows Nck `S3` to bind NWASP `p1`. |
-| 4 | `_06_S3_P2` | reversible | `Nck.S3` + `NWASP.p2` | `kon_23, koff_23` | Forms/releases `Nck.S3!1`–`NWASP.p2!1`. | Adds the `S3`/`p2` edge to the SH3-proline interaction graph. |
-| 5 | `_05_S2_P2` | reversible | `Nck.S2` + `NWASP.p2` | `kon_23, koff_23` | Forms/releases `Nck.S2!1`–`NWASP.p2!1`. | Adds the `S2`/`p2` edge. |
-| 6 | `_04_S1_P2` | reversible | `Nck.S1` + `NWASP.p2` | `kon_23, koff_23` | Forms/releases `Nck.S1!1`–`NWASP.p2!1`. | Adds the `S1`/`p2` edge. |
-| 7 | `_08_S2_P3` | reversible | `Nck.S2` + `NWASP.p3` | `kon_23, koff_23` | Forms/releases `Nck.S2!1`–`NWASP.p3!1`. | Adds the `S2`/`p3` edge. |
-| 8 | `_07_S1_P3` | reversible | `Nck.S1` + `NWASP.p3` | `kon_23, koff_23` | Forms/releases `Nck.S1!1`–`NWASP.p3!1`. | Adds the `S1`/`p3` edge. |
-| 9 | `_09_S3_P3` | reversible | `Nck.S3` + `NWASP.p3` | `kon_23, koff_23` | Forms/releases `Nck.S3!1`–`NWASP.p3!1`. | Adds the `S3`/`p3` edge. |
-| 10 | `_10_S1_P4` | reversible | `Nck.S1` + `NWASP.p4` | `kon_23, koff_23` | Forms/releases `Nck.S1!1`–`NWASP.p4!1`. | Adds the `S1`/`p4` edge. |
-| 11 | `_11_S2_P4` | reversible | `Nck.S2` + `NWASP.p4` | `kon_23, koff_23` | Forms/releases `Nck.S2!1`–`NWASP.p4!1`. | Adds the `S2`/`p4` edge. |
-| 12 | `_12_S3_P4` | reversible | `Nck.S3` + `NWASP.p4` | `kon_23, koff_23` | Forms/releases `Nck.S3!1`–`NWASP.p4!1`. | Adds the `S3`/`p4` edge. |
-| 13 | `_13_S1_P5` | reversible | `Nck.S1` + `NWASP.p5` | `kon_23, koff_23` | Forms/releases `Nck.S1!1`–`NWASP.p5!1`. | Adds the `S1`/`p5` edge. |
-| 14 | `_14_S2_P5` | reversible | `Nck.S2` + `NWASP.p5` | `kon_23, koff_23` | Forms/releases `Nck.S2!1`–`NWASP.p5!1`. | Adds the `S2`/`p5` edge. |
-| 15 | `_15_S3_P5` | reversible | `Nck.S3` + `NWASP.p5` | `kon_23, koff_23` | Forms/releases `Nck.S3!1`–`NWASP.p5!1`. | Adds the `S3`/`p5` edge. |
-| 16 | `_16_S1_P6` | reversible | `Nck.S1` + `NWASP.p6` | `kon_23, koff_23` | Forms/releases `Nck.S1!1`–`NWASP.p6!1`. | Adds the `S1`/`p6` edge. |
-| 17 | `_17_S3_P6` | reversible | `Nck.S3` + `NWASP.p6` | `kon_23, koff_23` | Forms/releases `Nck.S3!1`–`NWASP.p6!1`. | Adds the `S3`/`p6` edge. |
-| 18 | `_18_S2_P6` | reversible | `Nck.S2` + `NWASP.p6` | `kon_23, koff_23` | Forms/releases `Nck.S2!1`–`NWASP.p6!1`. | Adds the `S2`/`p6` edge; ordering in source places it after `S3`/`p6`. |
-| 19 | `_19_pY1_sh2` | reversible | `Nephrin.pY1` + `Nck.Sh2` | `kon_12, koff_12` | Forms/releases `Nephrin.pY1!1`–`Nck.Sh2!1`. | Connects Nephrin site `pY1` to the Nck adaptor through SH2 binding. |
-| 20 | `_20_pY2_sh2` | reversible | `Nephrin.pY2` + `Nck.Sh2` | `kon_12, koff_12` | Forms/releases `Nephrin.pY2!1`–`Nck.Sh2!1`. | Connects Nephrin site `pY2` to Nck. |
-| 21 | `_21_pY3_sh2` | reversible | `Nephrin.pY3` + `Nck.Sh2` | `kon_12, koff_12` | Forms/releases `Nephrin.pY3!1`–`Nck.Sh2!1`. | Connects Nephrin site `pY3` to Nck, completing the 3-site Nephrin/Nck binding family. |
+| Rule number(s) | Direction | Involved molecules/sites | Exact modeled change and rate logic | Role within the model |
+| ---: | --- | --- | --- | --- |
+| 1–3 | Reversible | Nck `S1`, `S2`, or `S3`, respectively; NWASP `p1` | Creates or releases one Nck-S–NWASP-p1 bond using `kon_23`/`koff_23`. | Gives NWASP site p1 access to all three equivalent Nck S interfaces. |
+| 4–6 | Reversible | Nck `S3`, `S2`, or `S1`, respectively; NWASP `p2` | Creates/releases the corresponding bond with the same `kon_23`/`koff_23` pair. | Completes the three Nck choices for NWASP p2; source numbering orders the S variants differently but does not change their kinetics. |
+| 7–9 | Reversible | NWASP `p3`; Nck `S2`, `S1`, or `S3` in rules 7, 8, and 9, respectively | Adds/removes one p3 contact at `kon_23`/`koff_23`. | Extends the identical-affinity interaction matrix to the third NWASP site while preserving the source's nonnumerical S-site ordering. |
+| 10–12 | Reversible | Nck `S1`–`S3`, respectively; NWASP `p4` | Adds/removes one Nck–p4 bond at the shared rates. | Provides the fourth independently occupiable NWASP branch. |
+| 13–15 | Reversible | Nck `S1`–`S3`, respectively; NWASP `p5` | Adds/removes one Nck–p5 bond at the shared rates. | Provides the fifth branch and increases the number of possible cluster topologies. |
+| 16–18 | Reversible | NWASP `p6`; Nck `S1`, `S3`, and `S2`, respectively | Adds/removes one p6 contact using `kon_23`/`koff_23`. | Completes the 18-rule Nck–NWASP interaction matrix; all 6 NWASP sites can bind all 3 Nck S sites. |
+| 19–21 | Reversible | Nephrin `pY1`, `pY2`, or `pY3`, respectively; Nck `Sh2` | Creates/releases one pY–SH2 bond using `kon_12`/`koff_12`. | Recruits Nck to any of Nephrin's three sites, enabling an Nck molecule to connect Nephrin to NWASP through its still-independent S sites. |
 
 ## 7. Observables and technical readouts
 
-| Observable | Type | Pattern / target | Technical interpretation |
+| Observable(s) | Type | What is measured | Technical interpretation |
 | --- | --- | --- | --- |
-| `tot_Nck` | `Molecules` | `Nck()` | Counts all Nck molecules regardless of site occupancy. |
-| `free_Nck` | `Molecules` | `Nck(S1,S2,S3,Sh2)` | Counts Nck with all four sites unbound. |
-| `tot_NWASP` | `Molecules` | `NWASP()` | Counts all NWASP molecules. |
-| `free_NWASP` | `Molecules` | `NWASP(p1,p2,p3,p4,p5,p6)` | Counts NWASP with all six proline sites free. |
-| `tot_Nephrin` | `Molecules` | `Nephrin()` | Counts all Nephrin molecules. |
-| `free_Nephrin` | `Molecules` | `Nephrin(pY1,pY2,pY3)` | Counts Nephrin with no Nck bound. |
-| `fully_bound_Nephrin` | `Molecules` | `Nephrin(pY1!+,pY2!+,pY3!+)` | Counts Nephrin molecules with all three pY sites occupied. |
-| `fully_bound_Nck` | `Molecules` | `Nck(S1!+,S2!+,S3!+,Sh2!+)` | Counts Nck molecules whose three SH3 sites and SH2 site are all occupied. |
-| `fully_bound_NWASP` | `Molecules` | `NWASP(p1!+,p2!+,p3!+,p4!+,p5!+,p6!+)` | Counts NWASP molecules with all six proline sites occupied. |
-| `cluster_neph_nck_nw` | `Molecules` | `Nephrin().Nck().NWASP()` | Counts complexes containing at least one Nephrin, Nck, and NWASP molecule. |
-| `cluster_nck_nw` | `Molecules` | `Nck().NWASP()` | Counts Nck/NWASP-containing complexes with or without Nephrin. |
+| `tot_Nephrin`, `tot_Nck`, `tot_NWASP` | Molecule count | Every molecule of each type | Conservation checks for the three fixed pools. |
+| `free_Nephrin`, `free_Nck`, `free_NWASP` | Molecule count | Molecules with all declared sites unbound | Strict monomer/free-pool readouts; partial occupancy excludes a molecule from the corresponding free count. |
+| `fully_bound_Nephrin`, `fully_bound_Nck`, `fully_bound_NWASP` | Molecule count | Molecules with every site occupied | Measures saturation of each valency class rather than cluster size. Fully bound Nck requires all three S sites and Sh2 to be occupied. |
+| `cluster_neph_nck_nw` | Molecule count | Connected complexes containing Nephrin, Nck, and NWASP | Reports ternary network formation, but pattern embeddings may count a large complex more than once when it contains multiple matching molecules. |
+| `cluster_nck_nw` | Molecule count | Connected complexes containing Nck and NWASP, whether or not Nephrin is also present | Broader Nck–NWASP association readout; ternary clusters can contribute because Nephrin is not excluded. |
 
 ## 8. Actions and simulation workflow
 
-`writeXML()` is called after `end model`, so the file is set up to export the model to XML rather than run a simulation inside the BNGL file.
+The source does not generate a network or run ODE, stochastic, or network-free simulation. Its only action writes an XML representation, so quantitative time courses or equilibrium scans must be supplied by an external workflow.
 
 ## 9. Technical caveats and ambiguities
 
-- The YAML description does not match the BNGL content; the BNGL comments and molecules clearly describe Nephrin/Nck/NWASP clustering.
-- Site names such as `pY` and `p` imply biological motifs, but the model contains no internal phosphorylation states; they are binding sites only.
-- The 18 Nck/NWASP rules are explicit individual edges, not one wildcard rule, so site-specific occupancy is preserved in generated complexes.
+- The metadata description says “NFkB oscillations,” but the BNGL and comments unambiguously describe Nephrin–Nck–NWASP clustering; the metadata description is inconsistent.
+- All sites within an interface family share identical rates, so the model intentionally omits site-specific affinity or cooperativity.
+- Molecule-count cluster observables count pattern matches, not necessarily unique physical condensates.
+- The rules model reversible connectivity but no explicit phase, volume, diffusion, or excluded-volume physics; “condensation” is inferred from multivalent cluster behavior.
+- The active file exports XML only despite metadata listing ODE compatibility.

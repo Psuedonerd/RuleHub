@@ -1,63 +1,55 @@
-# Coder Model Explanation: Massole 2023
+# Detailed Model Explanation: Massole 2023 Epo-associated assembly model
 
-## 1. Model identity and scope
+## 1. Model overview
 
-- **Metadata id/title:** `Massole_2023` / Massole 2023.
-- **Declared purpose:** Epo receptor signaling; the metadata categorizes it as signaling and tags it as published.
-- **Inputs:** `Published/Massole2023/Massole_2023.bngl` and `Published/Massole2023/metadata.yaml`.
-- **Scope:** a minimal, irreversible assembly model involving four abstractly named molecule types. The file itself does not define what `_EO_`, `_EG_`, `_PERYT_`, `_PO_`, `epo`, or `oh` abbreviate, so their biological identities must not be inferred beyond the metadata's Epo-related description.
+This compact model represents irreversible assembly among four abstract species associated by the metadata with erythropoietin (Epo) receptor signaling. Two initially unmodified receptor-like pools acquire an `oh~1` state as they bind either multivalent phosphorylated partners or another modified receptor-like molecule.
 
 ## 2. BNGL block inventory
 
-| Construct | Count | Technical role |
-| --- | ---: | --- |
-| Model wrapper | 1 | Encloses the complete model. |
-| Parameters | 0 | Every rule uses the literal rate `1.0`. |
-| Compartments / anchors | 0 / 0 | No localization constraints. |
-| Molecule types | 4 | `_EO_`, `_EG_`, `_PERYT_`, and `_PO_`. |
-| Initial species | 4 | One free pool of each molecule type. |
-| Reaction rules | 6 | Four cross-type contacts and two same-type contacts. |
-| Observables / functions | 0 / 0 | No named outputs or derived rate logic. |
-| Actions | 0 | No network generation or simulation command is supplied. |
+The model contains 4 molecule types, 4 seed species, and 6 one-way reaction rules inside a model block. It has no parameters, functions, observables, compartments, anchors, or execution actions.
 
 ## 3. Parameters, functions, and rate laws
 
-There is no parameter block and no function block. All six one-way bimolecular rules use the literal mass-action rate `1.0`. Consequently, the source offers no named rate namespace, forward/reverse distinction, or parameter-level way to vary one contact independently of the others.
+The model has no parameter namespace or functions: all six rules use the same literal rate `1.0`. Consequently, differences in flux arise from molecular abundance and available-site multiplicity rather than rule-specific kinetic constants.
+
+| Parameter group or names | Function in this model |
+| --- | --- |
+| Literal rate `1.0` | Applies uniformly to all partner-capture and receptor-pairing events; no forward-rate hierarchy or reverse process is encoded. |
 
 ## 4. Molecule types, sites, and states
 
-| Molecule type | Site count | Sites/components | Internal states | Anchor/allowed compartments | Binding/modification roles | Notes |
-| --- | ---: | --- | --- | --- | --- | --- |
-| `_EO_` | 2 | `epo`, `oh` | `oh~0~1` | None | `epo` binds an `oh` site on `_EG_` or `_PERYT_`; `oh` changes `0→1` and, when in state `1`, can bind another `_EO_.epo`. | Names are undefined. |
-| `_EG_` | 2 | `oh`, `oh` | Each repeated `oh` is declared only in state `p`. | None | Either equivalent `oh` can bind `_EO_.epo` or `_PO_.epo`. | Repeats `oh` twice; matches can carry symmetry multiplicity. |
-| `_PERYT_` | 4 | `oh`, `oh`, `oh`, `oh` | Each repeated `oh` is declared only in state `p`. | None | Any equivalent `oh` can bind `_EO_.epo` or `_PO_.epo`. | Four identical component names create a higher-valence pattern. |
-| `_PO_` | 2 | `epo`, `oh` | `oh~0~1` | None | Mirrors `_EO_`: `epo` binds `_EG_`/`_PERYT_`; activated `oh~1` binds another `_PO_.epo`. | Names are undefined. |
+| Molecule type(s) | Site count | Sites/components | Internal states | Anchor/allowed compartments | Explanation |
+| --- | ---: | --- | --- | --- | --- |
+| `_EO_`, `_PO_` | 2 each | `epo`, `oh` | `oh: 0, 1` | None | Two receptor-like pools with the same interface design: `epo` captures a partner, while `oh` records the transition from the initial (`0`) to modified/binding-competent (`1`) form. |
+| `_EG_` | 2 | `oh`, `oh` | both repeated sites: `p` only | None | A bivalent phosphorylated partner; either indistinguishable `oh~p` site can capture an `_EO_` or `_PO_` molecule. |
+| `_PERYT_` | 4 | `oh`, `oh`, `oh`, `oh` | all repeated sites: `p` only | None | A tetravalent phosphorylated partner that can recruit multiple receptor-like molecules and therefore supports larger assemblies than `_EG_`. |
 
 ## 5. Compartments, anchors, initial species, and setup
 
-No compartments or anchors occur. Initial pools are `_PERYT_` = 1,140, `_EO_` with `oh~0` = 580, `_PO_` with `oh~0` = 70,907, and `_EG_` = 27,373. All repeated `_EG_` and `_PERYT_` `oh` sites start in state `p` and unbound. Both `_EO_` and `_PO_` start with free `epo`, inactive `oh~0`, and no preassembled complexes.
+The model is nonspatial. It starts with 580 `_EO_` and 70,907 `_PO_` molecules in the unmodified `oh~0` state, alongside 27,373 bivalent `_EG_` and 1,140 tetravalent `_PERYT_` molecules. The large excess of `_PO_` over `_EO_`, together with the repeated phosphorylated sites on `_EG_` and `_PERYT_`, sets the main stoichiometric bias; no complexes are initially present.
 
-## 6. Complete reaction-rule inventory
+## 6. Reaction-rule inventory
 
-All rules are unlabeled, irreversible, and use rate `1.0`.
+**Rule-family orientation.** Rules 1–4 load `_EO_` or `_PO_` onto the repeated phosphorylated sites of `_EG_` and `_PERYT_`. Rules 5–6 then let a still-unmodified receptor-like molecule bind the `oh~1` site of a modified molecule of its own type, extending homogeneous `_EO_` or `_PO_` assemblies.
 
-| # | Direction and participants | Exact site/state/bond edit | Rate | Technical interpretation |
+| Rule number(s) | Direction | Involved molecules/sites | Exact modeled change and rate logic | Role within the model |
 | ---: | --- | --- | --- | --- |
-| 1 | `_EG_` + `_EO_` → complex | Forms `_EG_.oh–_EO_.epo`; simultaneously changes `_EO_.oh 0→1`. | `1.0` | An `_EG_` repeated `oh~p` site captures `_EO_.epo` and activates the separate `_EO_.oh` flag. |
-| 2 | `_EG_` + `_PO_` → complex | Forms `_EG_.oh–_PO_.epo`; changes `_PO_.oh 0→1`. | `1.0` | Same `_EG_` contact logic applied to `_PO_`. |
-| 3 | `_PERYT_` + `_EO_` → complex | Forms `_PERYT_.oh–_EO_.epo`; changes `_EO_.oh 0→1`. | `1.0` | Any of four equivalent `_PERYT_.oh~p` sites can activate and bind `_EO_`. |
-| 4 | `_PERYT_` + `_PO_` → complex | Forms `_PERYT_.oh–_PO_.epo`; changes `_PO_.oh 0→1`. | `1.0` | Any equivalent `_PERYT_.oh~p` site can activate and bind `_PO_`. |
-| 5 | `_EO_` + `_EO_` → dimer | First `_EO_.epo` binds the second `_EO_.oh~1`; the first reactant is constrained to `oh~0` but remains `oh~0`, while the second must already be `oh~1`. | `1.0` | Creates an irreversible heterostate `_EO_` pair; this rule does not itself activate the first `_EO_`. |
-| 6 | `_PO_` + `_PO_` → dimer | First `_PO_.epo` binds the second `_PO_.oh~1`; first reactant remains `oh~0`, second is required in `oh~1`. | `1.0` | `_PO_` analogue of rule 5. |
+| 1–2 | One-way | One phosphorylated `oh` site on `_EG_`; `_EO_.epo` in rule 1 or `_PO_.epo` in rule 2; receptor-like `oh~0` | The selected `_EG_.oh~p` site bonds to the receptor-like `epo` site, and the recruited molecule changes `oh: 0 → 1`. Both variants use rate `1.0`. | Loads either receptor-like pool onto the bivalent `_EG_` scaffold and simultaneously marks the recruited molecule as modified. |
+| 3–4 | One-way | One of four `_PERYT_.oh~p` sites; `_EO_.epo` in rule 3 or `_PO_.epo` in rule 4; receptor-like `oh~0` | The chosen `_PERYT_` site bonds to `epo`, with the recruited `_EO_` or `_PO_` changing `oh: 0 → 1`; rate `1.0`. | Performs the same capture on a tetravalent scaffold, allowing higher occupancy and potentially larger assemblies. |
+| 5 | One-way | Unmodified `_EO_.epo`; a second `_EO_` with `oh~1` | The first molecule changes `oh: 0 → 1` while its `epo` site bonds to the second molecule's modified `oh~1` site; rate `1.0`. | Extends the `_EO_` population through a receptor-to-receptor contact after an `oh~1` form has been generated by rules 1 or 3. |
+| 6 | One-way | Unmodified `_PO_.epo`; a second `_PO_` with `oh~1` | The first molecule changes `oh: 0 → 1` and bonds through `epo` to the partner's `oh~1`; rate `1.0`. | Mirrors rule 5 for the much more abundant `_PO_` pool, making `_PO_` self-association the quantitatively favored extension route. |
 
 ## 7. Observables and technical readouts
 
-No observable block is present. A simulation would expose only species-level output unless observables were added. Useful additions would separately count free/activated `_EO_` and `_PO_`, occupied `_EG_` and `_PERYT_` sites, and the two same-type dimer classes.
+No observables are declared. A user must add readouts for free pools, `oh~1` abundance, scaffold occupancy, or aggregate size before the model can directly report assembly behavior.
 
 ## 8. Actions and simulation workflow
 
-There is no action block and no inline command. The metadata advertises ODE compatibility, but the source does not call network generation or an ODE simulation. A caller must choose network-generation limits, simulation duration, steps, and outputs.
+The file defines the model but contains no network-generation or simulation command. Metadata advertises ODE use, so execution requires an external caller to generate the network, choose a simulation duration, and define outputs.
 
 ## 9. Technical caveats and ambiguities
 
-The biological expansions of all abbreviated molecule/site names are absent. Repeated identical `oh` sites create symmetry-sensitive match multiplicities. Every rule is irreversible and has the same literal rate, and no output is defined. Rules 5 and 6 also require a previously activated partner but do not modify the inactive partner's `oh~0` state, a detail that should be checked against the intended assembly mechanism.
+- The local files do not expand `_EO_`, `_PO_`, `_EG_`, or `_PERYT_`; their biological identities beyond the Epo-signaling metadata label are therefore uncertain.
+- All rules are irreversible and share a literal rate, so the model describes progressive capture rather than binding equilibrium.
+- Repeated `oh` sites on `_EG_` and `_PERYT_` are indistinguishable; match multiplicity can create statistical factors in generated reaction rates.
+- With no observables or actions, the source is not a self-contained simulation workflow.
