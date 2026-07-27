@@ -94,8 +94,6 @@ Match complete BNGL identifiers case-sensitively where BNGL syntax is case-sensi
 
 Choose the first active command in this priority order and store its command name: `simulate_ode`, `simulate_ssa`, `simulate_nf`, `simulate`.
 
-Use `null` if no active simulation action exists. Do not select a command merely because it appears in `simulation_methods` or a comment.
-
 ### Handle uncertainty
 
 Mark a value ambiguous only when active BNGL syntax cannot be classified confidently. Search the relevant active block or construct again before doing so. Do not use ambiguity as a substitute for inspecting the model.
