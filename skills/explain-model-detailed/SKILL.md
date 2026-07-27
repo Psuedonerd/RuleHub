@@ -1,9 +1,9 @@
 ---
-name: explain-rulehub-model-coders
+name: explain-model-detailed
 description: Generate technical RuleHub BNGL/YAML model explanations for experienced coders, modelers, and curators. Use when asked to create or review coder-facing summaries with complete molecule type/site/state inventories, every BNGL reaction rule, parameters, functions, observables, compartments, anchors, actions, source paths, or JSON index entries for RuleHub models.
 ---
 
-# Explain RuleHub Model for Coders
+# Explain Model (Detailed)
 
 ## Purpose
 
