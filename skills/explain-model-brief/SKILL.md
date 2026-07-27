@@ -1,4 +1,4 @@
-# Explain RuleHub Model
+# Explain Model (Brief)
 
 ## Purpose
 
