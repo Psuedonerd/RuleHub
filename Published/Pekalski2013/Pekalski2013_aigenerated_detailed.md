@@ -1,4 +1,4 @@
-# Coder Model Explanation: Pekalski 2013 autocrine TNF–NF-κB model
+# Detailed Model Explanation: Pekalski 2013 autocrine TNF–NF-κB model
 
 ## 1. Model identity and scope
 
@@ -10,7 +10,7 @@ The file contains 42 active parameter declarations, 14 molecule types, 29 initia
 
 ## 3. Parameters, functions, and rate laws
 
-Every active parameter declaration is listed below; expressions are retained verbatim so scaling and dependencies remain inspectable.
+The namespace separates initial pools (`R`, `K_N`, `K_NN`, gene and transcript totals), receptor/IKK-cascade kinetics, NF-κB–IκB transport and binding, transcriptional feedback, TNF production/secretion, and degradation. The exhaustive list retains one declaration per bullet so each value remains easy to locate.
 
 - `k_v         5        # ratio of C:N volumes`
 - `R         7e+3       # median number of receptors`
@@ -117,50 +117,50 @@ No BNGL compartments or anchors are declared. Initial patterns and amounts are e
 
 ## 6. Complete reaction-rule inventory
 
-**Rule-family orientation.** The family/context column preserves the nearest active BNGL comment; the implementation column preserves every molecule, site, state, bond, direction, and rate expression. Thus repeated families remain one row per concrete rule rather than being collapsed.
+**Rule-family orientation.** Rules progress from TNF receptor and IKK-cascade activation through NF-κB/IκB trafficking, feedback-gene expression, and TNF secretion. Localization is represented by internal `loc` states, not compartments.
 
-| # | Family / technical meaning | Direction | Exact site-level implementation and rate law |
-| ---: | --- | --- | --- |
-| 1 | TNFR1 activation and signal transduction cascade | One-way | `TNF(loc~e)               ->  Trash()                  c_deg` |
-| 2 | TNFR1 activation and signal transduction cascade | One-way | `TNFR(st~i) + TNF(loc~e)  ->  TNFR(st~a)  + TNF(loc~e) k_b` |
-| 3 | TNFR1 activation and signal transduction cascade | One-way | `TNFR(st~i) + TNF(loc~i)  ->  TNFR(st~a)  + TNF(loc~i) k_Ractivation` |
-| 4 | TNFR1 activation and signal transduction cascade | One-way | `TNFR(st~a)               ->  TNFR(st~i)               k_f` |
-| 5 | TNFR1 activation and signal transduction cascade | One-way | `IKKK(st~n)               ->  IKKK(st~a)               k_IKKKactivation` |
-| 6 | TNFR1 activation and signal transduction cascade | One-way | `IKKK(st~a)               ->  IKKK(st~n)               k_i` |
-| 7 | TNFR1 activation and signal transduction cascade | One-way | `IKK(st~n)                ->  IKK(st~a)                k_IKKactivation` |
-| 8 | TNFR1 activation and signal transduction cascade | One-way | `IKK(st~a)                ->  IKK(st~i)                k_IKKintermetiation` |
-| 9 | TNFR1 activation and signal transduction cascade | One-way | `IKK(st~i)                ->  IKK(st~ii)               k_4` |
-| 10 | TNFR1 activation and signal transduction cascade | One-way | `IKK(st~ii)               ->  IKK(st~n)                k_4` |
-| 11 | IkB, A20 and TNF gene expression | One-way | `NFkB(loc~n,bin) + GA20(st~0)        ->  NFkB(loc~n,bin) + GA20(st~1)       q_1` |
-| 12 | IkB, A20 and TNF gene expression | One-way | `NFkB(loc~n,bin) + GIkBa(st~0)       ->  NFkB(loc~n,bin) + GIkBa(st~1)      q_1` |
-| 13 | IkB, A20 and TNF gene expression | One-way | `IkBa(loc~n,pho~0,bin) + GA20(st~1)  ->  IkBa(loc~n,pho~0,bin)+ GA20(st~0)  q_2` |
-| 14 | IkB, A20 and TNF gene expression | One-way | `IkBa(loc~n,pho~0,bin) + GIkBa(st~1) ->  IkBa(loc~n,pho~0,bin)+ GIkBa(st~0) q_2` |
-| 15 | IkB, A20 and TNF gene expression | One-way | `NFkB(loc~n,bin) + GTNF(st~0)        ->  NFkB(loc~n,bin) + GTNF(st~1)       q_1t` |
-| 16 | IkB, A20 and TNF gene expression | One-way | `IkBa(loc~n,pho~0,bin) + GTNF(st~1)  ->  IkBa(loc~n,pho~0,bin)+ GTNF(st~0)  q_2t` |
-| 17 | IkB, A20 and TNF gene expression | One-way | `GTNF(st~1)  ->  GTNF(st~0)                q_2tt` |
-| 18 | IkB, A20 and TNF gene expression | One-way | `GTNF(st~1)  ->  GTNF(st~1)  + TNF_mRNA()   lambda` |
-| 19 | IkB, A20 and TNF gene expression | One-way | `GA20(st~1)  ->  GA20(st~1)  + A20_mRNA()   c_1` |
-| 20 | IkB, A20 and TNF gene expression | One-way | `GIkBa(st~1) ->  GIkBa(st~1) + IkBa_mRNA()  c_1` |
-| 21 | IkB, A20 and TNF gene expression | One-way | `A20_mRNA()   ->  Trash()                             c_3` |
-| 22 | IkB, A20 and TNF gene expression | One-way | `IkBa_mRNA()  ->  Trash()                             c_3` |
-| 23 | IkB, A20 and TNF gene expression | One-way | `A20_mRNA()   ->  A20_mRNA()  + A20()                 c_4` |
-| 24 | IkB, A20 and TNF gene expression | One-way | `IkBa_mRNA()  ->  IkBa_mRNA() + IkBa(loc~c,pho~0,bin) c_4` |
-| 25 | IkB, A20 and TNF gene expression | One-way | `TNF_mRNA()   ->  Trash()                             c_3t` |
-| 26 | IkB, A20 and TNF gene expression | One-way | `TNF_mRNA()   ->  TNF_mRNA()  + TNF(loc~i)            c_4t` |
-| 27 | Protein interactions | One-way | `NFkB(loc~c,bin) + IkBa(loc~c,pho~0,bin)  ->  NFkB(loc~c,bin!0).IkBa(loc~c,pho~0,bin!0)  a_1` |
-| 28 | Protein interactions | One-way | `NFkB(loc~n,bin) + IkBa(loc~n,pho~0,bin)  ->  NFkB(loc~n,bin!0).IkBa(loc~n,pho~0,bin!0)  k_NFkBIkB` |
-| 29 | Protein interactions | One-way | `IkBa(loc~c,pho~0,bin)+ IKK(st~a)   ->  IkBa(loc~c,pho~p,bin)+ IKK(st~a)   a_2` |
-| 30 | Protein interactions | One-way | `NFkB(loc~c,bin!0).IkBa(loc~c,pho~0,bin!0)+IKK(st~a)->  NFkB(loc~c,bin!0).IkBa(loc~c,pho~p,bin!0)+IKK(st~a)  a_3` |
-| 31 | Protein interactions | One-way | `A20()                   ->  Trash()           c_5` |
-| 32 | Protein interactions | One-way | `IkBa(loc~c,pho~p,bin)   ->  Trash()           t_p` |
-| 33 | Protein interactions | One-way | `NFkB(loc~c,bin!0).IkBa(loc~c,pho~p,bin!0)  ->  NFkB(loc~c,bin)   t_p` |
-| 34 | Protein interactions | One-way | `IkBa(loc~c,pho~0,bin)   ->  Trash()           c_5a` |
-| 35 | Protein interactions | One-way | `TNF(loc~i)              ->  Trash()           k_TNFdeg` |
-| 36 | Protein interactions | One-way | `NFkB(loc~c,bin!0).IkBa(loc~c,pho~0,bin!0)  ->  NFkB(loc~c,bin)   c_6a` |
-| 37 | Transport | One-way | `NFkB(loc~c,bin)        ->  NFkB(loc~n,bin)        i_1` |
-| 38 | Transport | One-way | `IkBa(loc~c,pho~0,bin)  ->  IkBa(loc~n,pho~0,bin)  i_1a` |
-| 39 | Transport | One-way | `IkBa(loc~n,pho~0,bin)  ->  IkBa(loc~c,pho~0,bin)  e_1a` |
-| 40 | Transport | One-way | `NFkB(loc~n,bin!0).IkBa(loc~n,pho~0,bin!0)  ->  NFkB(loc~c,bin!0).IkBa(loc~c,pho~0,bin!0)  e_2a` |
+| # | Direction | Required molecules/sites | Net bond, state, or species edit | Rate/expression | Functional interpretation |
+| ---: | --- | --- | --- | --- | --- |
+| 1 | One-way | `TNF` (`loc`); `Trash` | routes the reactant to `Trash`; removes `TNF` | c_deg | Extracellular TNF is cleared, limiting persistence of the autocrine stimulus. |
+| 2 | One-way | `TNFR` (`st`); `TNF` (`loc`) | `TNFR.st` i→a | k_b | Extracellular TNF catalytically activates TNFR; TNF is retained so one ligand can stimulate repeatedly. |
+| 3 | One-way | `TNFR` (`st`); `TNF` (`loc`) | `TNFR.st` i→a | k_Ractivation | Internal TNF activates TNFR through the separate intracellular-feedback rate. |
+| 4 | One-way | `TNFR` (`st`) | `TNFR.st` a→i | k_f | Active TNFR returns to its inactive state and terminates receptor-proximal signaling. |
+| 5 | One-way | `IKKK` (`st`) | `IKKK.st` n→a | k_IKKKactivation | Basal upstream input activates IKKK, initiating the kinase relay. |
+| 6 | One-way | `IKKK` (`st`) | `IKKK.st` a→n | k_i | Active IKKK relaxes to the neutral state, bounding each upstream pulse. |
+| 7 | One-way | `IKK` (`st`) | `IKK.st` n→a | k_IKKactivation | IKKK-dependent input activates IKK, creating the form that targets IκBα. |
+| 8 | One-way | `IKK` (`st`) | `IKK.st` a→i | k_IKKintermetiation | Active IKK enters the first inactive intermediate rather than returning directly to neutral. |
+| 9 | One-way | `IKK` (`st`) | `IKK.st` i→ii | k_4 | IKK advances through the second refractory intermediate. |
+| 10 | One-way | `IKK` (`st`) | `IKK.st` ii→n | k_4 | The refractory IKK cycle closes by returning the kinase to its neutral, activatable state. |
+| 11 | One-way | `NFkB` (`loc`, `bin`); `GA20` (`st`) | `GA20.st` 0→1 | q_1 | Nuclear free NF-κB switches the A20 promoter on. |
+| 12 | One-way | `NFkB` (`loc`, `bin`); `GIkBa` (`st`) | `GIkBa.st` 0→1 | q_1 | Nuclear free NF-κB switches the IκBα promoter on. |
+| 13 | One-way | `IkBa` (`loc`, `pho`, `bin`); `GA20` (`st`) | `GA20.st` 1→0 | q_2 | Nuclear IκBα switches the A20 promoter off, implementing feedback termination. |
+| 14 | One-way | `IkBa` (`loc`, `pho`, `bin`); `GIkBa` (`st`) | `GIkBa.st` 1→0 | q_2 | Nuclear IκBα switches its own promoter off, closing the IκBα negative-feedback loop. |
+| 15 | One-way | `NFkB` (`loc`, `bin`); `GTNF` (`st`) | `GTNF.st` 0→1 | q_1t | Nuclear free NF-κB activates the TNF promoter and thereby the positive autocrine loop. |
+| 16 | One-way | `IkBa` (`loc`, `pho`, `bin`); `GTNF` (`st`) | `GTNF.st` 1→0 | q_2t | Nuclear IκBα actively shuts the TNF promoter off. |
+| 17 | One-way | `GTNF` (`st`) | `GTNF.st` 1→0 | q_2tt | The TNF promoter also turns off spontaneously, independently of IκBα. |
+| 18 | One-way | `GTNF` (`st`); `TNF_mRNA` | creates `TNF_mRNA` | lambda | An active TNF promoter produces TNF mRNA without consuming the promoter state. |
+| 19 | One-way | `GA20` (`st`); `A20_mRNA` | creates `A20_mRNA` | c_1 | An active A20 promoter produces A20 mRNA. |
+| 20 | One-way | `GIkBa` (`st`); `IkBa_mRNA` | creates `IkBa_mRNA` | c_1 | An active IκBα promoter produces IκBα mRNA. |
+| 21 | One-way | `A20_mRNA`; `Trash` | routes the reactant to `Trash`; removes `A20_mRNA` | c_3 | A20 mRNA is degraded, setting the lifetime of the delayed inhibitor transcript. |
+| 22 | One-way | `IkBa_mRNA`; `Trash` | routes the reactant to `Trash`; removes `IkBa_mRNA` | c_3 | IκBα mRNA is degraded, setting the recovery timescale of the inhibitor loop. |
+| 23 | One-way | `A20_mRNA`; `A20` | creates `A20` | c_4 | A20 mRNA produces A20 protein while the transcript is retained catalytically. |
+| 24 | One-way | `IkBa_mRNA`; `IkBa` (`loc`, `pho`, `bin`) | creates `IkBa` | c_4 | IκBα mRNA produces unphosphorylated cytosolic IκBα with a free NF-κB-binding site. |
+| 25 | One-way | `TNF_mRNA`; `Trash` | routes the reactant to `Trash`; removes `TNF_mRNA` | c_3t | TNF mRNA is degraded, limiting cytokine-production duration. |
+| 26 | One-way | `TNF_mRNA`; `TNF` (`loc`) | creates `TNF` | c_4t | TNF mRNA produces intracellular TNF, which can activate receptor internally or be secreted. |
+| 27 | One-way | `NFkB` (`loc`, `bin`); `IkBa` (`loc`, `pho`, `bin`) | forms the explicitly site-matched bond(s) | a_1 | Nuclear NF-κB binds nuclear IκBα, initiating transcriptional shutoff. |
+| 28 | One-way | `NFkB` (`loc`, `bin`); `IkBa` (`loc`, `pho`, `bin`) | forms the explicitly site-matched bond(s) | k_NFkBIkB | Cytosolic NF-κB binds cytosolic IκBα, forming the sequestered inactive complex. |
+| 29 | One-way | `IkBa` (`loc`, `pho`, `bin`); `IKK` (`st`) | `IkBa.pho` 0→p | a_2 | Active IKK phosphorylates free cytosolic IκBα and is carried through unchanged. |
+| 30 | One-way | `NFkB` (`loc`, `bin`); `IkBa` (`loc`, `pho`, `bin`); `IKK` (`st`) | `IkBa.pho` 0→p | a_3 | Active IKK phosphorylates IκBα while it is bound to NF-κB, priming inhibitor removal. |
+| 31 | One-way | `A20`; `Trash` | routes the reactant to `Trash`; removes `A20` | c_5 | A20 protein turns over independently of its signaling targets. |
+| 32 | One-way | `IkBa` (`loc`, `pho`, `bin`); `Trash` | routes the reactant to `Trash`; removes `IkBa` | t_p | Free phosphorylated IκBα is degraded rapidly. |
+| 33 | One-way | `NFkB` (`loc`, `bin`); `IkBa` (`loc`, `pho`, `bin`) | releases the explicitly site-matched bond(s); removes `IkBa` | t_p | Phosphorylated IκBα is removed from the NF-κB complex, releasing free cytosolic NF-κB. |
+| 34 | One-way | `IkBa` (`loc`, `pho`, `bin`); `Trash` | routes the reactant to `Trash`; removes `IkBa` | c_5a | Unphosphorylated free IκBα undergoes basal degradation. |
+| 35 | One-way | `TNF` (`loc`); `Trash` | routes the reactant to `Trash`; removes `TNF` | k_TNFdeg | Intracellular TNF is degraded before secretion or receptor activation. |
+| 36 | One-way | `NFkB` (`loc`, `bin`); `IkBa` (`loc`, `pho`, `bin`) | releases the explicitly site-matched bond(s); removes `IkBa` | c_6a | Unphosphorylated IκBα is removed from the complex, leaving cytosolic NF-κB free. |
+| 37 | One-way | `NFkB` (`loc`, `bin`) | `NFkB.loc` c→n | i_1 | Free cytosolic NF-κB enters the nucleus to drive transcription. |
+| 38 | One-way | `IkBa` (`loc`, `pho`, `bin`) | `IkBa.loc` c→n | i_1a | Free cytosolic IκBα enters the nucleus, where it can terminate promoter activity. |
+| 39 | One-way | `IkBa` (`loc`, `pho`, `bin`) | `IkBa.loc` n→c | e_1a | Free nuclear IκBα is exported back to cytosol. |
+| 40 | One-way | `NFkB` (`loc`, `bin`); `IkBa` (`loc`, `pho`, `bin`) | `NFkB.loc` n→c; `IkBa.loc` n→c | e_2a | The nuclear NF-κB–IκBα complex is exported as a unit, resetting both factors to cytosol. |
 
 ## 7. Observables and technical readouts
 

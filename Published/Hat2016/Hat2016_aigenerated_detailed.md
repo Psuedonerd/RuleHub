@@ -1,4 +1,4 @@
-# Coder Model Explanation: Hat 2016 DNA-damage and p53 decision network
+# Detailed Model Explanation: Hat 2016 DNA-damage and p53 decision network
 
 ## 1. Model identity and scope
 
@@ -10,7 +10,7 @@ The file contains 125 active parameter declarations, 30 molecule types, 15 initi
 
 ## 3. Parameters, functions, and rate laws
 
-Every active parameter declaration is listed below; expressions are retained verbatim so scaling and dependencies remain inspectable.
+The namespace is organized around irradiation/damage (`IR_*`, `DNA_DSB_*`, `h1`–`h3`, `rep`), p53/ATM feedback (`p*`, `d*`, `M*`), transcription and translation (`q*`, `s*`, `t*`, `g*`), cell-cycle control, and apoptosis. The exhaustive list below keeps one declaration per bullet so values and comments can be scanned without a code block.
 
 - `STOCHASTIC_GENES 0  # Pick 0 or 1 to have deterministic or stochastic gene`
 - `IR_duration                 10*60  # time of exposure to IR [s]`
@@ -203,68 +203,68 @@ No BNGL compartments or anchors are declared. Initial patterns and amounts are e
 
 ## 6. Complete reaction-rule inventory
 
-**Rule-family orientation.** The family/context column preserves the nearest active BNGL comment; the implementation column preserves every molecule, site, state, bond, direction, and rate expression. Thus repeated families remain one row per concrete rule rather than being collapsed.
+**Rule-family orientation.** Rules are ordered as gene switching, DNA-damage production/repair, ATM and p53 feedback, arrest/PTEN control, and mitochondrial apoptosis. The table states the molecular prerequisite and net edit without reproducing the full BNGL pattern.
 
-| # | Family / technical meaning | Direction | Exact site-level implementation and rate law |
-| ---: | --- | --- | --- |
-| 1 | These 5 rules are used only in stochastic simulations: | Reversible | `gene_Wip1(tf~0) <-> gene_Wip1(tf~1)  q0_wip1+q1_wip1*p53_arr^h,  q2` |
-| 2 | These 5 rules are used only in stochastic simulations: | Reversible | `gene_Mdm2(tf~0) <-> gene_Mdm2(tf~1)  q0_mdm2+q1_mdm2*p53_arr^h,  q2` |
-| 3 | These 5 rules are used only in stochastic simulations: | Reversible | `gene_p21(tf~0)  <-> gene_p21(tf~1)   q0_p21 +q1_p21 *p53_arr^h,  q2` |
-| 4 | These 5 rules are used only in stochastic simulations: | Reversible | `gene_PTEN(tf~0) <-> gene_PTEN(tf~1)  q0_pten+q1_pten*p53_kill^h, q2` |
-| 5 | These 5 rules are used only in stochastic simulations: | Reversible | `gene_Bax(tf~0)  <-> gene_Bax(tf~1)   q0_bax +q1_bax *p53_kill^h, q2` |
-| 6 | DNA damage due to ionizing radiation | One-way | `0 -> DNA_DSB()  h1*DNA_DSB_due_to_IR*(DNA_DSB_max - DNA_DSB_tot)` |
-| 7 | DNA damage introduced by active Caspases | One-way | `0 -> DNA_DSB()  h2*Caspase_act      *(DNA_DSB_max - DNA_DSB_tot)` |
-| 8 | DNA damage repair | One-way | `DNA_DSB() -> 0  rep/(DNA_DSB_tot + DNA_DSB_Repair_Cplx_total)` |
-| 9 | ATM: activation by DNA DSBs, deactivation by Wip1 | Reversible | `ATM(S1981~0) <-> ATM(S1981~P)  p1*DNA_DSB_tot^h/(M1^h + DNA_DSB_tot^h), d1*Wip1_tot` |
-| 10 | SIAH: phosphorylation by active ATM, dephosphorylation | Reversible | `SIAH1(S19~0) <-> SIAH1(S19~P)  p2*ATM_p, d2` |
-| 11 | HIPK2: synthesis, Mdm2- and SIAH1-mediated degradation | Reversible | `0 <-> HIPK2()  s8, g7*(SIAH1_u + Mdm2_nuc_2p)^2` |
-| 12 | Wip1 gene transcription & degradation (only 1 of the following bidir. rules should be effective): | Reversible | `0 <-> mRNA_Wip1()  (1-STOCHASTIC_GENES)*s1*gene_Wip1_activity(),     (1-STOCHASTIC_GENES)*g1` |
-| 13 | Wip1 gene transcription & degradation (only 1 of the following bidir. rules should be effective): | Reversible | `0 <-> mRNA_Wip1()     STOCHASTIC_GENES *s1*gene_Wip1_on/n_wip1_alleles, STOCHASTIC_GENES *g1` |
-| 14 | Wip1 translation | Reversible | `0 <-> Wip1()  t1*mRNA_Wip1, g8` |
-| 15 | p53 synthesis | One-way | `0 -> p53(S15_S20~0,S46~0)  s6` |
-| 16 | 53 degradations: | One-way | `p53() -> 0  g101` |
-| 17 | 53 degradations: | One-way | `p53(S15_S20~0,S46~0)  -> 0  g11*Mdm2_nuc_2p^2` |
-| 18 | 53 degradations: | One-way | `p53(S15_S20~0,S46~P)  -> 0  g12*Mdm2_nuc_2p^2` |
-| 19 | 53 degradations: | One-way | `p53(S15_S20~PP,S46~0) -> 0  g12*Mdm2_nuc_2p^2` |
-| 20 | 53 degradations: | One-way | `p53(S15_S20~PP,S46~P) -> 0  g12*Mdm2_nuc_2p^2` |
-| 21 | p53 modifications at arrester sites: p'ylation by activee ATM, dep'ylation | Reversible | `p53(S15_S20~0) <-> p53(S15_S20~PP)  p3*ATM_p, d3` |
-| 22 | p53 modification at the killer site: p'ylation by HIPK2, dep'ylation by Wip1 | Reversible | `p53(S46~0) <-> p53(S46~P)  p4*HIPK2_tot, d4*Wip1_tot` |
-| 23 | Mdm2 gene transcription & degradation (only 1 of the following bidir. rules should be effective): | Reversible | `0 <-> mRNA_Mdm2()  (1-STOCHASTIC_GENES)*s3*gene_Mdm2_activity(),     (1-STOCHASTIC_GENES)*g3` |
-| 24 | Mdm2 gene transcription & degradation (only 1 of the following bidir. rules should be effective): | Reversible | `0 <-> mRNA_Mdm2()     STOCHASTIC_GENES *s3*gene_Mdm2_on/n_mdm2_alleles, STOCHASTIC_GENES *g3` |
-| 25 | Mdm2 translation | One-way | `0 -> Mdm2(S166_S186~0,S395~0,loc~Cyt)  t3*mRNA_Mdm2` |
-| 26 | Mdm2 degradations: | One-way | `Mdm2(S166_S186~0)  -> 0  g14` |
-| 27 | Mdm2 degradations: | One-way | `Mdm2(S166_S186~PP) -> 0  g15` |
-| 28 | Mdm2 degradations: | One-way | `Mdm2(S166_S186~PP,S395~P,loc~Nuc) -> 0  g16` |
-| 29 | Mdm2 modifications at 2xSer site: p'ylation by AKT, dep'ylation | Reversible | `Mdm2(S166_S186~0,S395~0,loc~Cyt) <-> Mdm2(S166_S186~PP,S395~0,loc~Cyt)  p5*AKT_p, d5` |
-| 30 | Mdm2_cyt_2p import into the nucleus | One-way | `Mdm2(S166_S186~PP,S395~0,loc~Cyt) -> Mdm2(S166_S186~PP,S395~0,loc~Nuc)  i1` |
-| 31 | Mdm2_nuc_2p modification at S395: p'ylation by ATM_p, dep'ylation by Wip1 | Reversible | `Mdm2(S166_S186~PP,S395~0,loc~Nuc)<-> Mdm2(S166_S186~PP,S395~P,loc~Nuc)  p6*ATM_p, d6*Wip1_tot` |
-| 32 | PTEN gene transcription & degradation (only 1 of the following bidir. rules should be effective): | Reversible | `0 <-> mRNA_PTEN()  (1-STOCHASTIC_GENES)*s2*gene_PTEN_activity(),     (1-STOCHASTIC_GENES)*g2` |
-| 33 | PTEN gene transcription & degradation (only 1 of the following bidir. rules should be effective): | Reversible | `0 <-> mRNA_PTEN()     STOCHASTIC_GENES *s2*gene_PTEN_on/n_pten_alleles, STOCHASTIC_GENES *g2` |
-| 34 | PTEN translation, protein degradation | Reversible | `0 <-> PTEN()  t2*mRNA_PTEN, g6` |
-| 35 | PIP2--PIP3 interconversions | Reversible | `PtdIns(s~PP) <-> PtdIns(s~PPP)  p8*PI3K_tot,  d7*PTEN_tot` |
-| 36 | AKT activation (by PDK1, implicit), deactivation | Reversible | `AKT(T308~0) <-> AKT(T308~P)  p12*PIP3, d8` |
-| 37 | p21 gene transcription & degradation (only 1 of the following bidir. rules should be effective): | Reversible | `0 <-> mRNA_p21()  (1-STOCHASTIC_GENES)*s5*gene_p21_activity(),    (1-STOCHASTIC_GENES)*g5` |
-| 38 | p21 gene transcription & degradation (only 1 of the following bidir. rules should be effective): | Reversible | `0 <-> mRNA_p21()     STOCHASTIC_GENES *s5*gene_p21_on/n_p21_alleles, STOCHASTIC_GENES *g5` |
-| 39 | p21 translation, protein degradation | Reversible | `0 <-> p21(b)  t5*mRNA_p21, g19` |
-| 40 | cyclin E synthesis: spontaneous and E2F1-induced; degradation | Reversible | `0 <-> Cyclin_E(b)  s10 + s9*E2F1_free^h/(M3^h + E2F1_free^h),  g20` |
-| 41 | p21 and cyclin E binding, unbinding | Reversible | `p21(b) + Cyclin_E(b) <-> p21(b!5).Cyclin_E(b!5)  b5, u6` |
-| 42 | p21--cyclin E complex degradation | One-way | `p21(b!5).Cyclin_E(b!5) -> 0  g20` |
-| 43 | retinoblastoma p'ylation by cyclin E | Reversible | `Rb(S567~0,b) <-> Rb(S567~P,b)  p9*CyclinE_free,  d12/(M2 + Rb_p_free)` |
-| 44 | retinoblastoma (dep'ylated) and E2F1 binding, unbinding | Reversible | `Rb(S567~0,b) + E2F1(b) <-> Rb(S567~0,b!4).E2F1(b!4)  b4, u5` |
-| 45 | retinolblastoma--E2F1 complex disociaiton upon retinoblastoma p'ylation by cyclin E | One-way | `Rb(S567~0,b!4).E2F1(b!4)-> Rb(S567~P,b) + E2F1(b)  p10*CyclinE_free` |
-| 46 | Bax gene transcription & degradation (only 1 of the following bidir. rules should be effective): | Reversible | `0 <-> mRNA_Bax()  (1-STOCHASTIC_GENES)*s4*gene_Bax_activity(),    (1-STOCHASTIC_GENES)*g4` |
-| 47 | Bax gene transcription & degradation (only 1 of the following bidir. rules should be effective): | Reversible | `0 <-> mRNA_Bax()     STOCHASTIC_GENES* s4*gene_Bax_on/n_bax_alleles, STOCHASTIC_GENES *g4` |
-| 48 | Bax translation, protein degradatoin | Reversible | `0 <-> Bax(b)  t4*mRNA_Bax, g9` |
-| 49 | Bax--BclXL binding, unbinding | Reversible | `Bax(b) + BclXL(b) <-> Bax(b!1).BclXL(b!1)  b1, u1` |
-| 50 | Bax (complexed) degradation | One-way | `Bax(b!1).BclXL(b!1) -> BclXL(b)  g16` |
-| 51 | BclXL and dep'ylated Bad binding, unbinding | Reversible | `BclXL(b) + Bad(S75_S99~0,b) <-> BclXL(b!2).Bad(S75_S99~0,b!2)  b2, u2` |
-| 52 | BclXL unbinding from Bad upon Bad p'ylation by AKT | One-way | `BclXL(b!2).Bad(S75_S99~0,b!2) -> BclXL(b) + Bad(S75_S99~PP,b)  p7*AKT_p` |
-| 53 | Bad p'ylation by AKT, dep'ylation | Reversible | `Bad(S75_S99~0,b) <->  Bad(b,S75_S99~PP)  p7*AKT_p, d9` |
-| 54 | Bad (p'ylated) and 14-3-3 binding, unbinding | Reversible | `Bad(S75_S99~PP,b) + Fourteen_3_3(b) <-> Bad(b!3,S75_S99~PP).Fourteen_3_3(b!3)  b3, u3` |
-| 55 | unbinding of Bad from 14-3-3 upon Bad dep'ylation | One-way | `Bad(S75_S99~PP,b!3).Fourteen_3_3(b!3) -> Bad(S75_S99~0,b) + Fourteen_3_3(b)  d9` |
-| 56 | procaspase synthesis | One-way | `0 -> Caspase(csp~Pro)  s7` |
-| 57 | caspase and procaspase degradation | One-way | `Caspase() -> 0  g17` |
-| 58 | caspase activation by Bax and by other caspases | One-way | `Caspase(csp~Pro) -> Caspase(csp~Act)  a1*Bax_free+a2*Caspase_act^2` |
+| # | Direction | Required molecules/sites | Net bond, state, or species edit | Rate/expression | Functional interpretation |
+| ---: | --- | --- | --- | --- | --- |
+| 1 | Reversible | `gene_Wip1` (`tf`) | `gene_Wip1.tf` 0→1 | q0_wip1+q1_wip1*p53_arr^h,  q2 | Stochastic gene-state switching controlled by the appropriate p53 transcriptional program; this `q0_wip1+q1_wip1*p53_arr^h,  q2` variant requires `gene_Wip1` (`tf`) and `gene_Wip1.tf` 0→1. |
+| 2 | Reversible | `gene_Mdm2` (`tf`) | `gene_Mdm2.tf` 0→1 | q0_mdm2+q1_mdm2*p53_arr^h,  q2 | Stochastic gene-state switching controlled by the appropriate p53 transcriptional program; this `q0_mdm2+q1_mdm2*p53_arr^h,  q2` variant requires `gene_Mdm2` (`tf`) and `gene_Mdm2.tf` 0→1. |
+| 3 | Reversible | `gene_p21` (`tf`) | `gene_p21.tf` 0→1 | q0_p21 +q1_p21 *p53_arr^h,  q2 | Stochastic gene-state switching controlled by the appropriate p53 transcriptional program; this `q0_p21 +q1_p21 *p53_arr^h,  q2` variant requires `gene_p21` (`tf`) and `gene_p21.tf` 0→1. |
+| 4 | Reversible | `gene_PTEN` (`tf`) | `gene_PTEN.tf` 0→1 | q0_pten+q1_pten*p53_kill^h, q2 | Stochastic gene-state switching controlled by the appropriate p53 transcriptional program; this `q0_pten+q1_pten*p53_kill^h, q2` variant requires `gene_PTEN` (`tf`) and `gene_PTEN.tf` 0→1. |
+| 5 | Reversible | `gene_Bax` (`tf`) | `gene_Bax.tf` 0→1 | q0_bax +q1_bax *p53_kill^h, q2 | Stochastic gene-state switching controlled by the appropriate p53 transcriptional program; this `q0_bax +q1_bax *p53_kill^h, q2` variant requires `gene_Bax` (`tf`) and `gene_Bax.tf` 0→1. |
+| 6 | One-way | Source `0`; current `DNA_DSB_tot` below `DNA_DSB_max` | Creates one `DNA_DSB` | `h1*DNA_DSB_due_to_IR*(DNA_DSB_max-DNA_DSB_tot)` | Ionizing radiation generates breaks only while irradiation is active and the modeled damage ceiling has not been reached. |
+| 7 | One-way | Source `0`; active caspase signal; unsaturated damage capacity | Creates one `DNA_DSB` | `h2*Caspase_act*(DNA_DSB_max-DNA_DSB_tot)` | Active caspases feed additional damage back into the p53 network. |
+| 8 | One-way | Existing `DNA_DSB` and the current repair-complex load | Removes one `DNA_DSB` to sink `0` | `rep/(DNA_DSB_tot+DNA_DSB_Repair_Cplx_total)` | Repairs damage with a load-dependent per-break rate. |
+| 9 | Reversible | `ATM` (`S1981`) | `ATM.S1981` 0→P | , d1*Wip1_tot | ATM: activation by DNA DSBs, deactivation by Wip1. |
+| 10 | Reversible | `SIAH1` (`S19`) | `SIAH1.S19` 0→P | p2*ATM_p, d2 | SIAH: phosphorylation by active ATM, dephosphorylation. |
+| 11 | Reversible | `HIPK2` | creates the product species from source `0`; creates `HIPK2` | ^2 | HIPK2: synthesis, Mdm2- and SIAH1-mediated degradation. |
+| 12 | Reversible | `mRNA_Wip1`; `gene_Wip1_activity` | creates the product species from source `0`; creates `gene_Wip1_activity`; creates `mRNA_Wip1` | *g1 | Wip1 gene transcription & degradation (only 1 of the following bidir. rules should be effective); this `*g1` variant requires `mRNA_Wip1`; `gene_Wip1_activity` and creates the product species from source `0`; creates `gene_Wip1_activity`; creates `mRNA_Wip1`. |
+| 13 | Reversible | `mRNA_Wip1` | creates the product species from source `0`; creates `mRNA_Wip1` | STOCHASTIC_GENES *s1*gene_Wip1_on/n_wip1_alleles, STOCHASTIC_GENES *g1 | Wip1 gene transcription & degradation (only 1 of the following bidir. rules should be effective); this `STOCHASTIC_GENES *s1*gene_Wip1_on/n_wip1_alleles, STOCHASTIC_GENES *g1` variant requires `mRNA_Wip1` and creates the product species from source `0`; creates `mRNA_Wip1`. |
+| 14 | Reversible | `Wip1` | creates the product species from source `0`; creates `Wip1` | t1*mRNA_Wip1, g8 | Wip1 translation. |
+| 15 | One-way | `p53` (`S15_S20`, `S46`) | creates the product species from source `0`; creates `p53` | s6 | p53 synthesis. |
+| 16 | One-way | `p53` | removes the reactant to sink `0`; removes `p53` | g101 | 53 degradations; this `g101` variant requires `p53` and removes the reactant to sink `0`; removes `p53`. |
+| 17 | One-way | `p53` (`S15_S20`, `S46`) | removes the reactant to sink `0`; removes `p53` | g11*Mdm2_nuc_2p^2 | 53 degradations; this `g11*Mdm2_nuc_2p^2` variant requires `p53` (`S15_S20`, `S46`) and removes the reactant to sink `0`; removes `p53`. |
+| 18 | One-way | `p53` (`S15_S20`, `S46`) | removes the reactant to sink `0`; removes `p53` | g12*Mdm2_nuc_2p^2 | 53 degradations; this `g12*Mdm2_nuc_2p^2` variant requires `p53` (`S15_S20`, `S46`) and removes the reactant to sink `0`; removes `p53`. |
+| 19 | One-way | `p53` (`S15_S20`, `S46`) | removes the reactant to sink `0`; removes `p53` | g12*Mdm2_nuc_2p^2 | 53 degradations; this `g12*Mdm2_nuc_2p^2` variant requires `p53` (`S15_S20`, `S46`) and removes the reactant to sink `0`; removes `p53`. |
+| 20 | One-way | `p53` (`S15_S20`, `S46`) | removes the reactant to sink `0`; removes `p53` | g12*Mdm2_nuc_2p^2 | 53 degradations; this `g12*Mdm2_nuc_2p^2` variant requires `p53` (`S15_S20`, `S46`) and removes the reactant to sink `0`; removes `p53`. |
+| 21 | Reversible | `p53` (`S15_S20`) | `p53.S15_S20` 0→PP | p3*ATM_p, d3 | p53 modifications at arrester sites: p'ylation by activee ATM, dep'ylation. |
+| 22 | Reversible | `p53` (`S46`) | `p53.S46` 0→P | p4*HIPK2_tot, d4*Wip1_tot | p53 modification at the killer site: p'ylation by HIPK2, dep'ylation by Wip1. |
+| 23 | Reversible | `mRNA_Mdm2`; `gene_Mdm2_activity` | creates the product species from source `0`; creates `gene_Mdm2_activity`; creates `mRNA_Mdm2` | *g3 | Mdm2 gene transcription & degradation (only 1 of the following bidir. rules should be effective); this `*g3` variant requires `mRNA_Mdm2`; `gene_Mdm2_activity` and creates the product species from source `0`; creates `gene_Mdm2_activity`; creates `mRNA_Mdm2`. |
+| 24 | Reversible | `mRNA_Mdm2` | creates the product species from source `0`; creates `mRNA_Mdm2` | STOCHASTIC_GENES *s3*gene_Mdm2_on/n_mdm2_alleles, STOCHASTIC_GENES *g3 | Mdm2 gene transcription & degradation (only 1 of the following bidir. rules should be effective); this `STOCHASTIC_GENES *s3*gene_Mdm2_on/n_mdm2_alleles, STOCHASTIC_GENES *g3` variant requires `mRNA_Mdm2` and creates the product species from source `0`; creates `mRNA_Mdm2`. |
+| 25 | One-way | `Mdm2` (`S166_S186`, `S395`, `loc`) | creates the product species from source `0`; creates `Mdm2` | t3*mRNA_Mdm2 | Mdm2 translation. |
+| 26 | One-way | `Mdm2` (`S166_S186`) | removes the reactant to sink `0`; removes `Mdm2` | g14 | Mdm2 degradations; this `g14` variant requires `Mdm2` (`S166_S186`) and removes the reactant to sink `0`; removes `Mdm2`. |
+| 27 | One-way | `Mdm2` (`S166_S186`) | removes the reactant to sink `0`; removes `Mdm2` | g15 | Mdm2 degradations; this `g15` variant requires `Mdm2` (`S166_S186`) and removes the reactant to sink `0`; removes `Mdm2`. |
+| 28 | One-way | `Mdm2` (`S166_S186`, `S395`, `loc`) | removes the reactant to sink `0`; removes `Mdm2` | g16 | Mdm2 degradations; this `g16` variant requires `Mdm2` (`S166_S186`, `S395`, `loc`) and removes the reactant to sink `0`; removes `Mdm2`. |
+| 29 | Reversible | `Mdm2` (`S166_S186`, `S395`, `loc`) | `Mdm2.S166_S186` 0→PP | p5*AKT_p, d5 | Mdm2 modifications at 2xSer site: p'ylation by AKT, dep'ylation. |
+| 30 | One-way | `Mdm2` (`S166_S186`, `S395`, `loc`) | `Mdm2.loc` Cyt→Nuc | i1 | Mdm2_cyt_2p import into the nucleus. |
+| 31 | Reversible | `Mdm2` (`S166_S186`, `S395`, `loc`) | `Mdm2.S395` 0→P | p6*ATM_p, d6*Wip1_tot | Mdm2_nuc_2p modification at S395: p'ylation by ATM_p, dep'ylation by Wip1. |
+| 32 | Reversible | `mRNA_PTEN`; `gene_PTEN_activity` | creates the product species from source `0`; creates `gene_PTEN_activity`; creates `mRNA_PTEN` | *g2 | PTEN gene transcription & degradation (only 1 of the following bidir. rules should be effective); this `*g2` variant requires `mRNA_PTEN`; `gene_PTEN_activity` and creates the product species from source `0`; creates `gene_PTEN_activity`; creates `mRNA_PTEN`. |
+| 33 | Reversible | `mRNA_PTEN` | creates the product species from source `0`; creates `mRNA_PTEN` | STOCHASTIC_GENES *s2*gene_PTEN_on/n_pten_alleles, STOCHASTIC_GENES *g2 | PTEN gene transcription & degradation (only 1 of the following bidir. rules should be effective); this `STOCHASTIC_GENES *s2*gene_PTEN_on/n_pten_alleles, STOCHASTIC_GENES *g2` variant requires `mRNA_PTEN` and creates the product species from source `0`; creates `mRNA_PTEN`. |
+| 34 | Reversible | `PTEN` | creates the product species from source `0`; creates `PTEN` | t2*mRNA_PTEN, g6 | PTEN translation, protein degradation. |
+| 35 | Reversible | `PtdIns` (`s`) | `PtdIns.s` PP→PPP | p8*PI3K_tot,  d7*PTEN_tot | PIP2--PIP3 interconversions. |
+| 36 | Reversible | `AKT` (`T308`) | `AKT.T308` 0→P | p12*PIP3, d8 | AKT activation (by PDK1, implicit), deactivation. |
+| 37 | Reversible | `mRNA_p21`; `gene_p21_activity` | creates the product species from source `0`; creates `gene_p21_activity`; creates `mRNA_p21` | *g5 | p21 gene transcription & degradation (only 1 of the following bidir. rules should be effective); this `*g5` variant requires `mRNA_p21`; `gene_p21_activity` and creates the product species from source `0`; creates `gene_p21_activity`; creates `mRNA_p21`. |
+| 38 | Reversible | `mRNA_p21` | creates the product species from source `0`; creates `mRNA_p21` | STOCHASTIC_GENES *s5*gene_p21_on/n_p21_alleles, STOCHASTIC_GENES *g5 | p21 gene transcription & degradation (only 1 of the following bidir. rules should be effective); this `STOCHASTIC_GENES *s5*gene_p21_on/n_p21_alleles, STOCHASTIC_GENES *g5` variant requires `mRNA_p21` and creates the product species from source `0`; creates `mRNA_p21`. |
+| 39 | Reversible | `p21` (`b`) | creates the product species from source `0`; creates `p21` | t5*mRNA_p21, g19 | p21 translation, protein degradation. |
+| 40 | Reversible | `Cyclin_E` (`b`) | creates the product species from source `0`; creates `Cyclin_E` | ,  g20 | cyclin E synthesis: spontaneous and E2F1-induced; degradation. |
+| 41 | Reversible | `p21` (`b`); `Cyclin_E` (`b`) | forms the explicitly site-matched bond(s) | b5, u6 | p21 and cyclin E binding, unbinding. |
+| 42 | One-way | `p21` (`b`); `Cyclin_E` (`b`) | releases the explicitly site-matched bond(s); removes the reactant to sink `0`; removes `Cyclin_E`; removes `p21` | g20 | p21--cyclin E complex degradation. |
+| 43 | Reversible | Rb (`S567`) and the free Cyclin E readout | `Rb.S567` switches `0↔P` | forward `p9*CyclinE_free`; reverse `d12/(M2+Rb_p_free)` | Cyclin E phosphorylates Rb, while the reverse flux is reduced as free phosphorylated Rb accumulates. |
+| 44 | Reversible | `Rb` (`S567`, `b`); `E2F1` (`b`) | forms the explicitly site-matched bond(s) | b4, u5 | retinoblastoma (dep'ylated) and E2F1 binding, unbinding. |
+| 45 | One-way | `Rb` (`S567`, `b`); `E2F1` (`b`) | `Rb.S567` 0→P; releases the explicitly site-matched bond(s) | p10*CyclinE_free | retinolblastoma--E2F1 complex disociaiton upon retinoblastoma p'ylation by cyclin E. |
+| 46 | Reversible | `mRNA_Bax`; `gene_Bax_activity` | creates the product species from source `0`; creates `gene_Bax_activity`; creates `mRNA_Bax` | *g4 | Bax gene transcription & degradation (only 1 of the following bidir. rules should be effective); this `*g4` variant requires `mRNA_Bax`; `gene_Bax_activity` and creates the product species from source `0`; creates `gene_Bax_activity`; creates `mRNA_Bax`. |
+| 47 | Reversible | `mRNA_Bax` | creates the product species from source `0`; creates `mRNA_Bax` | STOCHASTIC_GENES* s4*gene_Bax_on/n_bax_alleles, STOCHASTIC_GENES *g4 | Bax gene transcription & degradation (only 1 of the following bidir. rules should be effective); this `STOCHASTIC_GENES* s4*gene_Bax_on/n_bax_alleles, STOCHASTIC_GENES *g4` variant requires `mRNA_Bax` and creates the product species from source `0`; creates `mRNA_Bax`. |
+| 48 | Reversible | `Bax` (`b`) | creates the product species from source `0`; creates `Bax` | t4*mRNA_Bax, g9 | Bax translation, protein degradatoin. |
+| 49 | Reversible | `Bax` (`b`); `BclXL` (`b`) | forms the explicitly site-matched bond(s) | b1, u1 | Bax--BclXL binding, unbinding. |
+| 50 | One-way | `Bax` (`b`); `BclXL` (`b`) | releases the explicitly site-matched bond(s); removes `Bax` | g16 | Bax (complexed) degradation. |
+| 51 | Reversible | `BclXL` (`b`); `Bad` (`S75_S99`, `b`) | forms the explicitly site-matched bond(s) | b2, u2 | BclXL and dep'ylated Bad binding, unbinding. |
+| 52 | One-way | `BclXL` (`b`); `Bad` (`S75_S99`, `b`) | `Bad.S75_S99` 0→PP; releases the explicitly site-matched bond(s) | p7*AKT_p | BclXL unbinding from Bad upon Bad p'ylation by AKT. |
+| 53 | Reversible | `Bad` (`S75_S99`, `b`); `Bad` (`b`, `S75_S99`) | `Bad.S75_S99` 0→PP | p7*AKT_p, d9 | Bad p'ylation by AKT, dep'ylation. |
+| 54 | Reversible | `Bad` (`S75_S99`, `b`); `Fourteen_3_3` (`b`); `Bad` (`b`, `S75_S99`) | forms the explicitly site-matched bond(s) | b3, u3 | Bad (p'ylated) and 14-3-3 binding, unbinding. |
+| 55 | One-way | `Bad` (`S75_S99`, `b`); `Fourteen_3_3` (`b`) | `Bad.S75_S99` PP→0; releases the explicitly site-matched bond(s) | d9 | unbinding of Bad from 14-3-3 upon Bad dep'ylation. |
+| 56 | One-way | `Caspase` (`csp`) | creates the product species from source `0`; creates `Caspase` | s7 | procaspase synthesis. |
+| 57 | One-way | `Caspase` | removes the reactant to sink `0`; removes `Caspase` | g17 | caspase and procaspase degradation. |
+| 58 | One-way | `Caspase` (`csp`) | `Caspase.csp` Pro→Act | a1*Bax_free+a2*Caspase_act^2 | caspase activation by Bax and by other caspases. |
 
 ## 7. Observables and technical readouts
 
