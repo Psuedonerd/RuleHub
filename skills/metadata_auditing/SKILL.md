@@ -1,65 +1,34 @@
 ---
-name: metadata_auditing
-description: Audit RuleHub BNGL/YAML metadata feature fields, write concise Markdown audit reports, and create same-directory audited YAML copies with corrected feature values.
+name: metadata-auditing
+description: Audit RuleHub BNGL feature metadata. Use when checking one or more same-directory BNGL/YAML model pairs; always create a brief Markdown audit under data/ and a metadata_aigenerated.yaml file in every audited model directory.
 ---
 
-# RuleHub Metadata Auditing
+# Audit RuleHub metadata
 
-## Purpose
+Produce both deliverables for every audit:
 
-Use this skill to audit RuleHub BNGL/YAML model metadata against the local BNGL source. The audit has two deliverables when requested:
+1. One brief Markdown report under `data/`.
+2. One `metadata_aigenerated.yaml` in every audited model directory.
 
-1. A concise Markdown audit summary under `data/`.
-2. Audited YAML copies inside each audited model folder.
+Never run in report-only mode. Never overwrite the source YAML.
 
-## Required Inputs and Pairing Rule
+## Select inputs
 
-Read local repository files only. Never rely on GitHub raw URLs or inherited ancestor metadata.
+Use only local files. Pair each `.bngl` file with metadata from the same directory; never inherit metadata from another directory.
 
-A valid audit pair is a `.bngl` file and one target YAML file in the **same directory**.
+Choose the source YAML in this order:
 
-- Do not pair a BNGL file with YAML from a parent, child, or sibling directory.
-- If a directory has multiple same-directory `.bngl` files and one target YAML file, each `.bngl` may be audited as a separate BNGL/YAML pair if the user requests pair-level auditing.
+1. A file named by the user.
+2. The model-specific `*_metadata.yaml` supplied by a collaborator.
+3. `metadata.yaml`.
 
-## YAML Target Selection
+Do not use an existing `metadata_aigenerated.yaml` as the source. If several candidates remain, do not choose silently; note the ambiguity in the report and identify the file that requires confirmation.
 
-For each model directory, choose the YAML file to audit using this priority:
+For a multi-BNGL directory, audit the user-selected model. If none is selected, audit each BNGL separately only when each has an unambiguous model-specific YAML; otherwise request review in the report rather than combining evidence across models.
 
-1. If the user explicitly names a YAML file, audit that file.
-2. Else, if a nonstandard metadata-like YAML exists, especially a file matching `*_metadata.yaml`, audit that collaborator-updated YAML.
-3. Else, audit the standard `metadata.yaml`.
+## Audit fields
 
-If both `metadata.yaml` and one or more nonstandard metadata-like YAML files are present, state which YAML file was audited. Do not silently merge values across YAML files.
-
-## Audited YAML Output Rule
-
-When the user asks for audited YAML files, create a new YAML file in the **same model folder** as the audited source YAML.
-
-Name the audited file:
-
-```text
-<original-yaml-stem>_audited.yaml
-```
-
-Examples:
-
-| Source YAML | Audited YAML |
-| --- | --- |
-| `metadata.yaml` | `metadata_audited.yaml` |
-| `An_2009_metadata.yaml` | `An_2009_metadata_audited.yaml` |
-| `Dolan_2015_metadata.yaml` | `Dolan_2015_metadata_audited.yaml` |
-
-Rules:
-
-- Do not overwrite the original YAML unless the user explicitly asks.
-- Do not write audited YAML files under `data/`, `data/summaries/`, `data/summaries_coders/`, or any central output folder.
-- Preserve unrelated YAML content, ordering, quoting style, and nested structure as much as practical.
-- Insert or update audited fields in the existing `compatibility:` mapping unless the repository has an explicitly different convention for the target file.
-- If the target YAML is malformed or ambiguous, do not guess silently; record `manual review` in the audit report.
-
-## Fields to Audit
-
-Audit these fields unless the user gives a different list:
+Audit these fields under `compatibility:`:
 
 ```yaml
 uses_cbngl_compartments: boolean
@@ -73,185 +42,117 @@ uses_multiple_identical_sites: boolean
 uses_deletes_molecules: boolean
 uses_exclude_include_reactants: boolean
 uses_generate_network: boolean
-default_sim_command:
+default_sim_command: string | null
 ```
 
-## BNGL Preprocessing
+## Analyze BNGL
 
-Before detection:
+### Preprocess active content
 
-- Ignore blank lines.
-- Ignore full-line comments.
-- Ignore disabled/commented-out rules, blocks, observables, actions, and modifiers.
-- Treat an active entry as an uncommented, nonempty line inside a BNGL block.
-- Report block presence separately from active entry count.
+Before detecting features:
 
-## Detection Definitions
+- Ignore blank lines and full-line comments.
+- Strip trailing comments before analyzing a line.
+- Ignore commented-out blocks, entries, rules, observables, actions, and modifiers.
+- Treat a block entry as active only when it is uncommented and nonempty between the matching `begin` and `end` lines.
+- Do not count block delimiters as entries.
+- Inspect the complete BNGL file; do not infer a feature from metadata, filenames, or tags.
 
-### Compartments
+### Detect compartment grammar
 
-Compartment compatibility is determined by BNGL grammar.
+Set compartment booleans from active species-pattern syntax, not from the presence of a `begin compartments` block:
 
-- `uses_vcell_compartments`: `true` when active BNGL patterns use VCell-style compartment-prefix syntax:
+- Set `uses_vcell_compartments: true` for active compartment-prefix syntax: `@Compartment:Molecule(...)`.
+- Set `uses_cbngl_compartments: true` for active molecule-suffix syntax: `Molecule(...)@Compartment`.
+- Set both fields to `true` if both syntaxes occur.
+- Set either field to `false` when its syntax does not occur, even if a compartments block exists.
 
-  ```text
-  @Compartment:Molecule(...)
-  ```
+Take care not to confuse compartment suffixes with molecule-site state or bond syntax. A compartments block defines compartments but does not prove either pattern grammar is used.
 
-  Example: `@EC:EGF(rb)`.
+### Detect block-based features
 
-- `uses_cbngl_compartments`: `true` when active BNGL patterns use CBNGL-style molecule-suffixed compartment syntax:
+Empty or comment-only blocks are false. Require at least one active entry:
 
-  ```text
-  Molecule(...)@Compartment
-  ```
+- `uses_functions`: an active entry inside `begin functions`.
+- `uses_anchors`: an active entry inside `begin anchors`.
+- `uses_energy`: an active entry inside an energy-pattern block.
 
-  Example: `SARM(b)@Cyt`.
+Only count active entries when resolving ambiguity or justifying a review item; do not place routine block diagnostics in the audit.
 
-- A `begin compartments` block must be reported in block diagnostics, but it does not by itself make either compartment field true.
-- If both syntaxes appear actively in one BNGL file, set both fields to `true` and add a short mixed-syntax rationale.
+### Detect other features
 
-### Block-based fields
+- `uses_moveconnected`: an active `moveConnected` call.
+- `uses_trash_molecules`: an active `Trash(...)` molecule or pattern used as a sink.
+- `uses_multiple_identical_sites`: a molecule-type declaration repeats a component name within that molecule, such as `L(r,r)`.
+- `uses_deletes_molecules`: an active `DeleteMolecules` modifier or action.
+- `uses_exclude_include_reactants`: an active `include_reactants` or `exclude_reactants` modifier.
+- `uses_generate_network`: an active `generate_network(...)` action.
 
-Empty blocks do **not** make feature booleans true.
+Match complete BNGL identifiers case-sensitively where BNGL syntax is case-sensitive. Do not treat prose in comments or similarly named identifiers as evidence.
 
-For block-based fields, set the field to `true` only when the relevant block contains at least one active, uncommented, nonempty entry.
+### Detect the default simulation command
 
-Examples:
+Choose the first active command in this priority order and store its command name: `simulate_ode`, `simulate_ssa`, `simulate_nf`, `simulate`.
 
-```bngl
-begin functions
-end functions
-```
+### Handle uncertainty
 
-means:
+Mark a value ambiguous only when active BNGL syntax cannot be classified confidently. Search the relevant active block or construct again before doing so. Do not use ambiguity as a substitute for inspecting the model.
 
-```yaml
-uses_functions: false
-```
+## Create the YAML files
 
-but the report should still record:
+For every audited model, copy the selected source metadata to same-directory `metadata_aigenerated.yaml`, then set every detected audit field to the detected value. If `compatibility:` is absent, create it.
 
-```text
-functions block present: true; active entries: 0
-```
+- Insert missing false values without requesting review.
+- Insert missing true values and flag them for review.
+- Apply any change to an existing value and flag it for review.
+- If detection is genuinely ambiguous, preserve the source value when present; otherwise use `null` only where the schema permits it. Flag the ambiguity for review.
+- Preserve all unaudited content, ordering, quoting, and structure as closely as practical.
 
-Apply this active-entry rule to:
+Treat a missing boolean as effectively false when deciding whether review is needed, but still write the explicit detected boolean to `metadata_aigenerated.yaml`.
 
-- `uses_functions`: true only if the `begin functions` block has at least one active function entry.
-- `uses_anchors`: true only if the `begin anchors` block has at least one active anchor entry.
-- `uses_energy`: true only if an energy-pattern block exists and has at least one active energy entry.
+Preserve identity, citation, source, playground, and all other unaudited metadata. Keep the source file's ordering, quoting, and formatting as closely as practical. Validate the completed YAML and ensure it contains only one `compatibility:` mapping and one instance of each audited key.
 
-### Other feature fields
+## Write the brief audit
 
-- `uses_moveconnected`: true when an uncommented `moveConnected` call is detected.
-- `uses_trash_molecules`: true when an active `Trash(...)` molecule or pattern is detected.
-- `uses_multiple_identical_sites`: true when any molecule type declaration repeats the same site/component name within one molecule type, such as `L(r,r)`.
-- `uses_deletes_molecules`: true when an uncommented `DeleteMolecules` modifier/action is detected.
-- `uses_exclude_include_reactants`: true when an uncommented `include_reactants` or `exclude_reactants` modifier is detected.
-- `uses_generate_network`: true when an uncommented `generate_network(...)` action is detected.
-- `default_sim_command`: choose the first active simulation command in this priority order: `simulate_ode`, `simulate_ssa`, `simulate_nf`, `simulate`.
+Use a descriptive filename under `data/`. Keep the report focused on what a programmer must review. Do not include detection definitions, pairing lists, tables, block diagnostics, compartment examples, unchanged values, or evidence dumps.
 
-## Markdown Audit Report Requirements
-
-Create the audit report under `data/` unless the user specifies another location.
-
-The report must include these sections:
+Start with only a compact batch summary:
 
 ```markdown
-# <descriptive audit title>
+# <Audit title>
 
-## Introduction
-
-## Detection definitions
-
-## Batch summary
-
-## Audited pairs
-
-## Per-model findings
+Audited <N> models and created <N> `metadata_aigenerated.yaml` files. Inserted <N> missing values; <N> items require review.
 ```
 
-### Introduction
+Then add one heading per model. Keep all information for that model under its heading:
 
-Write a short, polished introduction explaining:
+```markdown
+## ModelName
 
-- the audit root or batch,
-- the same-directory pairing rule,
-- whether audited YAML copies were created.
+- Inserted false: `field_a`, `field_b`.
+- Review insertion: `field_c: true` — <short evidence>.
+- Review change: `field_d: true` → `false` — <short evidence>.
+- Review ambiguity: `field_e` — <what is unclear>.
+```
 
-### Detection definitions
+Apply these brevity rules:
 
-State the exact definitions used for each field, especially:
+- Omit any bullet type that does not apply.
+- Group all routine false insertions into one bullet.
+- Give each inserted true, changed value, or ambiguity one short review bullet.
+- Include an active-entry count only when it directly explains a reviewed anchors/functions/energy decision.
+- If a model has no false insertions and nothing requires review, write `- No review required.`
+- Do not explain that missing fields imply false.
+- Mention the source YAML only when its selection is ambiguous or otherwise requires review.
 
-- VCell syntax: `@Compartment:Molecule(...)`.
-- CBNGL syntax: `Molecule(...)@Compartment`.
-- Empty block handling: empty blocks have zero active entries and do not make block-based fields true.
-- `begin compartments` is diagnostic evidence only, not direct compartment-compatibility evidence.
+## Verify
 
-### Batch summary
+Before finishing, confirm:
 
-Include a compact table with one row per audited field:
-
-| Field | Detected true | Detected false | Detected null | Current YAML missing | Proposed insertions | Proposed changes | Manual review |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-
-### Audited pairs
-
-Include one row per pair:
-
-| # | BNGL path | YAML audited | Audited YAML output | Proposed updates | Manual review? |
-| ---: | --- | --- | --- | ---: | --- |
-
-If this is report-only mode, use `not created` for the audited YAML output.
-
-### Per-model findings
-
-Keep each per-model section short. Do not include model-summary prose or long evidence lists.
-
-Each per-model finding should include only:
-
-1. **Block diagnostics**: block present yes/no and active entry count for key blocks.
-2. **Compartment syntax example**: one VCell-style example if present and one CBNGL-style example if present. If none are present, say none detected.
-3. **Results table** with detected value, current YAML value, proposed action, proposed value, and short rationale.
-
-Use this table:
-
-| Field | Detected from BNGL | Current YAML value | Proposed action | Proposed value | Short rationale |
-| --- | --- | --- | --- | --- | --- |
-
-Allowed proposed actions:
-
-- `keep`
-- `insert`
-- `change`
-- `manual review`
-
-Do not repeat every compartment pattern, every block line, every rule, or every observable in the per-model finding. Include only the information needed to justify metadata-field decisions.
-
-## Audited YAML Content Requirements
-
-When creating audited YAML copies:
-
-- Start from the selected target YAML content.
-- Insert missing audited fields under `compatibility:`.
-- Change inaccurate audited field values to the detected values.
-- Preserve fields not being audited.
-- Preserve existing metadata identity fields such as `id`, `name`, `description`, `source`, and `playground`.
-- If `compatibility:` is absent, create it in a reasonable location near existing model-level metadata.
-- Record every insertion/change in the Markdown report.
-- If a value cannot be determined confidently, do not invent it; keep or insert a conservative value only if instructed, and mark the row `manual review`.
-
-## Quality Checklist
-
-Before finalizing, verify:
-
-- Every audited BNGL/YAML pair is same-directory.
-- The correct target YAML was chosen, including collaborator `*_metadata.yaml` files when present.
-- Audited YAML copies, if created, are inside the corresponding model folders and named `<original-yaml-stem>_audited.yaml`.
-- Empty blocks are reported with active entries `0` and do not make block-based fields true.
-- VCell and CBNGL compartment fields are based on grammar examples, not block presence.
-- Per-model findings are concise and do not contain long repeated evidence lists.
-- The report includes introduction, definitions, batch summary, audited pairs, and per-model findings.
-- The report distinguishes insertions, changes, keeps, and manual-review cases.
-- No original YAML file is overwritten unless explicitly requested.
+- every audited model has a same-directory `metadata_aigenerated.yaml`;
+- every boolean audit field is present and agrees with active BNGL content;
+- `default_sim_command` agrees with the active command when one is detected;
+- source YAML files remain unchanged;
+- report totals match the generated files and reported bullets;
+- only inserted true values, changes to existing values, and ambiguities are marked for review;
+- the report contains no tables or diagnostic sections.
