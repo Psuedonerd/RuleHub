@@ -1,55 +1,67 @@
-# Detailed Model Explanation: Dushek 2014 biosensor oligomerization model
+# Detailed Model Explanation: Dushek 2014 phosphorylation-coupled biosensor oligomerization model
 
-## 1. Model identity and scope
+## 1. Model overview
 
-`Dushek_2014` is described by its metadata as a T-cell receptor signaling-dynamics model, while the BNGL itself deliberately abstracts the mechanism to kinase `E`, phosphatase `F`, and biosensor `B`. The model couples reversible enzyme engagement and phosphorylation to intra- and intermolecular biosensor binding. Sources: `Published/Dushek2014/Dushek_2014.bngl` and `Published/Dushek2014/Dushek_2014_metadata.yaml`.
+This abstract model couples a kinase–phosphatase cycle to the assembly state of a biosensor. Phosphorylation creates a site that can close against the sensor's own binding site or crosslink another sensor, while enzyme engagement temporarily marks the sensor as unavailable for those assembly reactions.
 
 ## 2. BNGL block inventory
 
-The file has 10 parameters, 3 molecule types, 3 seed-species declarations, 6 reaction rules, 17 observables, and 3 actions. It has no model wrapper, compartments, anchors, functions, or energy patterns. A reaction network is generated twice with different aggregate limits before MATLAB export.
+The file contains 10 parameters, 3 molecule types, 3 seed species, 6 rules, 17 observables, and 3 actions. It has no enclosing model block, compartments, anchors, or functions.
 
 ## 3. Parameters, functions, and rate laws
 
-- Kinase engagement uses `Ekf=10`, `Ekb=1`, and catalytic `Ekc=1`; phosphatase engagement analogously uses `Fkf=10`, `Fkb=1`, and `Fkc=1`.
-- Intramolecular biosensor closure uses `kon1=1000`, `koff1=1`; intermolecular biosensor association uses `kon2=10`, `koff2=1`.
-- There are no functions. All rates are direct parameter references.
+The rate namespace is divided into enzyme binding/catalysis and biosensor closure. All rates are direct mass-action constants; no function or concentration-dependent expression modifies them.
+
+| Parameter group or names | Function in this model |
+| --- | --- |
+| `Ekf`, `Ekb`, `Ekc` | Kinase capture, release, and catalytic phosphorylation. Binding is reversible; catalysis releases the kinase and leaves the sensor phosphorylated. |
+| `Fkf`, `Fkb`, `Fkc` | Matching phosphatase capture, release, and catalytic dephosphorylation. |
+| `kon1`, `koff1` | Intramolecular closure/opening of one phosphorylated biosensor. The forward value (1000) is much larger than the intermolecular association rate. |
+| `kon2`, `koff2` | Intermolecular association/dissociation between a phosphorylated sensor site and another sensor's binding site. |
+
+There are no active functions.
 
 ## 4. Molecule types, sites, and states
 
-| Molecule type | Site count | Sites/components | Internal states | Anchor/allowed compartments | Binding/modification roles | Notes |
-| --- | ---: | --- | --- | --- | --- | --- |
-| `E` | 1 | `b` | None | None | `b` binds phosphorylatable `B.Y` during kinase engagement | Abstract kinase |
-| `F` | 1 | `b` | None | None | `b` binds phosphorylated `B.Y` during phosphatase engagement | Abstract phosphatase |
-| `B` | 3 | `e`, `b`, `Y` | `e: 0,1`; `Y: U,P` | None | `Y` is the modification/binding site; `b` supports intra- or intermolecular links; `e` marks enzyme-bound (`1`) versus free (`0`) sensor | Abstract biosensor |
+| Molecule type(s) | Site count | Sites/components | Internal states | Anchor/allowed compartments | Explanation |
+| --- | ---: | --- | --- | --- | --- |
+| `E` | 1 | `b` | None | None | Abstract kinase whose sole site binds the sensor's `Y` site during phosphorylation. |
+| `F` | 1 | `b` | None | None | Abstract phosphatase that binds the same `Y` site after phosphorylation. |
+| `B` | 3 | `e`, `b`, `Y` | `e: 0, 1`; `Y: U, P` | None | Biosensor: `e` records enzyme engagement, `Y` carries phosphorylation and accepts a bond, and `b` supports self-closure or sensor–sensor crosslinking. |
 
 ## 5. Compartments, anchors, initial species, and setup
 
-There are no compartments or anchors. Initial pools are one free `E(b)`, one free `F(b)`, and 100 unbound, unphosphorylated sensors `B(e~0,b,Y~U)`. No phosphorylated or oligomerized biosensor is seeded.
+The model is nonspatial and begins with one free kinase, one free phosphatase, and 100 biosensors in the enzyme-free, unphosphorylated state. No closed or oligomerized sensors are seeded, so assembly requires kinase-driven production of `Y~P` first.
 
-## 6. Complete reaction-rule inventory
+## 6. Reaction-rule inventory
 
-The six rules form three reversible/catalytic modules: kinase processing, phosphatase processing, and phosphorylation-dependent sensor closure/oligomerization. The `e` state is an engagement flag, whereas `Y` carries the biochemical phosphorylation state.
+**Rule-family orientation.** Rules 1–2 form the kinase catalytic cycle, rules 3–4 mirror it for the phosphatase, and rules 5–6 compete for phosphorylated sensors through intra- versus intermolecular bonding.
 
-| # | Direction | Participants and required context | Bond or state change | Rate(s) | Implementation consequence |
-| ---: | --- | --- | --- | --- | --- |
-| 1 | Reversible | kinase `E.b`; unphosphorylated sensor `B.Y~U` with `e~0` | Create/remove `E.b–B.Y`; `B.e` follows `0↔1` | `Ekf`; `Ekb` | Captures kinase on an unmodified sensor and records enzyme engagement in `e`. |
-| 2 | One-way | the kinase–sensor complex from rule 1 | Break `E.b–B.Y`; `B.Y`: `U→P`; `B.e`: `1→0` | `Ekc` | Completes catalysis, releases kinase, and leaves a phosphorylated sensor. |
-| 3 | Reversible | phosphatase `F.b`; phosphorylated sensor `B.Y~P` with `e~0` | Create/remove `F.b–B.Y`; `B.e` follows `0↔1` | `Fkf`; `Fkb` | Captures phosphatase specifically on the phosphorylated sensor. |
-| 4 | One-way | the phosphatase–sensor complex from rule 3 | Break `F.b–B.Y`; `B.Y`: `P→U`; `B.e`: `1→0` | `Fkc` | Completes dephosphorylation and releases phosphatase. |
-| 5 | Reversible | one enzyme-free phosphorylated sensor | Create/remove an internal `B.b–B.Y` bond | `kon1`; `koff1` | Moves a single sensor between open and self-closed conformations. |
-| 6 | Reversible | two enzyme-free sensors, one exposing `Y~P` and the other `b` | Create/remove an intermolecular `Y–b` bond | `kon2`; `koff2` | Extends or shortens sensor oligomers through phosphotyrosine-dependent crosslinks. |
+| Rule number(s) | Direction | Involved molecules/sites | Exact modeled change and rate logic | Role within the model |
+| ---: | --- | --- | --- | --- |
+| 1 | Reversible | Kinase `E.b`; sensor `B.Y~U` with `e~0` | `E.b` binds `B.Y`, and sensor engagement changes `e: 0 ↔ 1`; `Ekf`/`Ekb`. | Captures an unphosphorylated sensor in the kinase-bound intermediate required for rule 2. |
+| 2 | One-way | Kinase-bound sensor with `Y~U` and `e~1` | Releases the E–B bond, changes `Y: U → P` and `e: 1 → 0`, and uses `Ekc`. | Completes phosphorylation while recycling kinase and exposing the phosphotyrosine-like assembly site. |
+| 3 | Reversible | Phosphatase `F.b`; sensor `B.Y~P` with `e~0` | `F.b` binds `B.Y`, with `e: 0 ↔ 1`; `Fkf`/`Fkb`. | Selects phosphorylated sensors for reversal of the kinase output. |
+| 4 | One-way | Phosphatase-bound sensor with `Y~P` and `e~1` | Releases F, changes `Y: P → U` and `e: 1 → 0`, and uses `Fkc`. | Dephosphorylates the sensor and removes its ability to close or crosslink. |
+| 5 | Reversible | One enzyme-free sensor; its own `Y~P` and `b` sites | Creates/releases an intramolecular `Y–b` bond at `kon1`/`koff1`; phosphorylation is retained. | Sequesters the phosphorylated site in a closed monomer, competing with oligomer growth. |
+| 6 | Reversible | Two enzyme-free sensors; one `Y~P`, the other free `b` | Creates/releases an intermolecular `Y–b` bond at `kon2`/`koff2`. | Builds chains or larger sensor assemblies whose size distribution is reported by `V2`–`V15`. |
 
 ## 7. Observables and technical readouts
 
-- Molecules `W` sums free phosphorylated `B(e~0,b,Y~P)`, free unphosphorylated `B(e~0,b,Y~U)`, and enzyme-engaged `B(e~1,b)` patterns (comma-separated alternatives).
-- Molecules `U` counts intramolecularly closed `B(e~0,b!1,Y~P!1)`.
-- Species `V2` through `V15` separately count complete species containing exactly 2 through 15 `B` molecules (`B==N`).
-- Molecules `E` counts kinase whose `b` site is bound (`E(b!+)`), i.e. sequestered kinase.
+| Observable(s) | Type | What is measured | Technical interpretation |
+| --- | --- | --- | --- |
+| `W` | Molecule count | Open sensors plus enzyme-engaged sensors, across the listed phosphorylation/engagement alternatives | Composite “state 1” pool; because it sums alternatives, it should not be interpreted as phosphorylation alone. |
+| `U` | Molecule count | Sensors closed through their own `b–Y~P` bond | Intramolecularly closed “state 2” sensors. |
+| `V2`–`V15` | Species count | Complete species containing exactly 2 through 15 B molecules, respectively | Oligomer-size distribution; each observable isolates one aggregate stoichiometry. |
+| `E` | Molecule count | Kinase whose `b` site is occupied | Sequestered enzyme in the phosphorylation intermediate. |
 
 ## 8. Actions and simulation workflow
 
-The first `generate network` requests overwrite and `max agg=>15`; the second immediately regenerates with overwrite and `max agg=>2`. `writeMfile({})` then exports the current network as MATLAB code. No simulation action is present in the file.
+The file generates a network with a maximum aggregate of 15, then overwrites it with a second network capped at aggregate size 2, and finally writes a MATLAB model file. No simulation is run, so an external caller must decide which generated network is intended and execute it.
 
 ## 9. Technical caveats and ambiguities
 
-The biological mapping of `E`, `F`, and `B` is intentionally abstract and is not resolved by local comments. The `B==N` syntax and spaced action keys (`generate network`, `max agg`) are parser-sensitive extensions, consistent with the metadata's reported VCell/action parsing issues. Because the second overwrite generation follows the 15-mer generation, tooling should verify which aggregate limit governs the exported MATLAB network.
+- `E`, `F`, and `B` are deliberately abstract; metadata associates the model with T-cell receptor signaling but does not map these symbols to named proteins.
+- The two consecutive overwrite operations use conflicting aggregate limits, making the final exported network dependent on action semantics.
+- `B==N` species-count syntax and spaced action names/keys may be parser-sensitive.
+- Molecule-count observables can count pattern matches, whereas `V2`–`V15` count complete species by stoichiometry.
