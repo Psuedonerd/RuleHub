@@ -1,4 +1,4 @@
-# Coder Model Explanation: Barua 2013 beta-catenin destruction model
+# Detailed Model Explanation: Barua 2013 beta-catenin destruction model
 
 ## 1. Model identity and scope
 
@@ -10,7 +10,31 @@ The file contains 25 parameters, 7 molecule types, 7 initial species, 29 reactio
 
 ## 3. Parameters, functions, and rate laws
 
-Pools are `BCATtot=11000`, `APCtot=31540`, `AXINtot=3154`, `GSKtot=31540`, and `CK1atot=31540`. Reversible binding pairs are APC 15-aa–bCat `kf1_bap=3.17e-6`/`kr1_bap=0.273`, phospho-APC 20-aa–bCat `kf2_bap=3.17e-6`/`kr2_bap=0.0015`, AXIN–bCat `kf_ba=3.17e-6`/`kr_ba=0.227`, APC–AXIN `kf_apa=3.17e-6`/`kr_apa=0.1`, GSK3b–AXIN `kf_ga=3.17e-6`/`kr_ga=0.065`, and CK1a–AXIN `kf_ca=3.17e-6`/`kr_ca=0.1`. Modification rates are `kpb=0.05`, `kmpb=0.0012`, `kp=0.05`, and `kmp=0.05`; bCat degradation-state changes use `kdb1=0.0000428` and `kdb2=0.00428`; synthesis uses `ksb=4.0`. `chi=3154000` multiplies association rates for intracomplex closure. Five dissociation rules use literal rate `1000`. There are no functions.
+The parameters fall into five functional groups:
+
+- **Initial molecular pools**
+  - `BCATtot = 11000`: live beta-catenin.
+  - `APCtot = 31540`: APC.
+  - `AXINtot = 3154`: AXIN scaffold.
+  - `GSKtot = 31540`: GSK3b.
+  - `CK1atot = 31540`: CK1a.
+- **Beta-catenin binding**
+  - APC 15-aa interface: `kf1_bap = 3.17e-6`, `kr1_bap = 0.273`.
+  - Phosphorylated APC 20-aa interface: `kf2_bap = 3.17e-6`, `kr2_bap = 0.0015`.
+  - AXIN interface: `kf_ba = 3.17e-6`, `kr_ba = 0.227`.
+- **Destruction-complex assembly**
+  - APC–AXIN: `kf_apa = 3.17e-6`, `kr_apa = 0.1`.
+  - GSK3b–AXIN: `kf_ga = 3.17e-6`, `kr_ga = 0.065`.
+  - CK1a–AXIN: `kf_ca = 3.17e-6`, `kr_ca = 0.1`.
+  - `chi = 3154000` multiplies forward rates when two sites meet within an existing complex rather than by free diffusion.
+- **Modification and turnover**
+  - Beta-catenin phosphorylation/dephosphorylation: `kpb = 0.05`, `kmpb = 0.0012`.
+  - APC phosphorylation/dephosphorylation: `kp = 0.05`, `kmp = 0.05`.
+  - Slow unphosphorylated versus fast phosphorylated beta-catenin degradation marking: `kdb1 = 0.0000428`, `kdb2 = 0.00428`.
+  - Constitutive beta-catenin synthesis: `ksb = 4.0`.
+  - Five post-degradation bond-release rules use the literal fast rate `1000`.
+
+There is no functions block; every rule uses these parameters or the literal cleanup rate directly.
 
 ## 4. Molecule types, sites, and states
 
@@ -30,39 +54,39 @@ No compartments or anchors are present. Free pools seed live, unphosphorylated b
 
 ## 6. Complete reaction-rule inventory
 
-**Rule-family orientation.** Rules 1–13 enumerate free association and intracomplex closure among bCat, APC, and AXIN. Rules 14–18 recruit kinases and phosphorylate substrates; rules 19–24 reverse modifications, synthesize bCat, and mark it degraded; rules 25–29 release partners from degraded bCat, including unusual connected-product variants.
+**Rule-family orientation.** Rules 1–15 assemble the destruction complex through free association or `chi`-accelerated intracomplex closure. Rules 16–24 implement ordered phosphorylation, reversal, synthesis, and degradation marking. Rules 25–29 rapidly dismantle contacts after degradation. Bond numbers are omitted here because they are local BNGL identifiers; the biologically relevant site pairs are named explicitly.
 
-| # | Direction | Exact modeled edit | Rate(s) |
-| ---: | --- | --- | --- |
-| 1 | Reversible | `bCat.ARM59` binds `APC.a15` as `!1` while `bCat.ss~l` | `kf1_bap`, `kr1_bap` |
-| 2 | Reversible | In an AXIN–APC–bCat complex, free `bCat.ARM59` closes onto `APC.a15` as `!3` | `chi*kf1_bap`, `kr1_bap` |
-| 3 | Reversible | In an APC–bCat complex already linked at `ARM34-a20~P`, free `ARM59` closes onto `APC.a15` as `!2` | `chi*kf1_bap`, `kr1_bap` |
-| 4 | Reversible | Live `bCat.ARM34` binds phosphorylated `APC.a20~P` as `!1` | `kf2_bap`, `kr2_bap` |
-| 5 | Reversible | In an `ARM59-a15` complex, free `ARM34` closes onto `APC.a20~P` as `!2` | `chi*kf2_bap`, `kr2_bap` |
-| 6 | Reversible | Live `bCat.ARM34` binds `AXIN.b` as `!1` | `kf_ba`, `kr_ba` |
-| 7 | Reversible | In an APC-linked complex, free `bCat.ARM34` closes onto `AXIN.b` as `!3` | `chi*kf_ba`, `kr_ba` |
-| 8 | Reversible | `APC.s` with `a20~U` binds `AXIN.rgs` as `!1` | `kf_apa`, `kr_apa` |
-| 9 | Reversible | `APC.s` with free `a20~P` binds `AXIN.rgs` as `!1` | `kf_apa`, `kr_apa` |
-| 10 | Reversible | `APC.s` with bound `a20~P!+` binds `AXIN.rgs` as `!1` | `kf_apa`, `kr_apa` |
-| 11 | Reversible | In an unphosphorylated APC–bCat–AXIN assembly, `APC.s` closes onto `AXIN.rgs` as `!3` | `chi*kf_apa`, `kr_apa` |
-| 12 | Reversible | The same closure occurs with free `APC.a20~P` | `chi*kf_apa`, `kr_apa` |
-| 13 | Reversible | The same closure occurs with bound `APC.a20~P!+` | `chi*kf_apa`, `kr_apa` |
-| 14 | Reversible | `GSK3b.a` binds `AXIN.gid` as `!1` | `kf_ga`, `kr_ga` |
-| 15 | Reversible | `AXIN.e` binds `CK1a.e` as `!1` | `kf_ca`, `kr_ca` |
-| 16 | One-way | In a complex containing CK1a, live bCat changes `s45 U→P`; topology is preserved | `kpb` |
-| 17 | One-way | In a complex containing GSK3b, live bCat with `s45~P` changes `s33s37 U→P` | `kpb` |
-| 18 | One-way | APC associated in a complex with GSK3b changes `a20 U→P` | `kp` |
-| 19 | One-way | Live bCat changes `s45 P→U` | `kmpb` |
-| 20 | One-way | Live bCat changes `s33s37 P→U` | `kmpb` |
-| 21 | One-way | APC in an AXIN-containing complex changes `a20 P→U` | `kmp` |
-| 22 | One-way | Conserved `I` produces live, unphosphorylated, unbound bCat; `I` remains on both sides | `ksb` |
-| 23 | One-way | Live bCat with `s33s37~U` changes `ss l→d` | `kdb1` |
-| 24 | One-way | Live bCat with `s33s37~P` changes `ss l→d` | `kdb2` |
-| 25 | One-way | Degraded bCat releases its `ARM59!1-a15!1` bond, yielding separate bCat and APC | `1000` |
-| 26 | One-way | The same `ARM59-a15` bond is removed but bCat and APC remain in one connected product pattern through unspecified other links | `1000` |
-| 27 | One-way | Degraded bCat releases its `ARM34!1-APC.a20~P!1` bond into separate products | `1000` |
-| 28 | One-way | Degraded bCat releases its `ARM34!1-AXIN.b!1` bond into separate products | `1000` |
-| 29 | One-way | The `ARM34-AXIN.b` bond is removed while bCat and AXIN remain in one connected product pattern through unspecified other links | `1000` |
+| # | Direction | Participants and required context | Bond or state change | Rate(s) | Implementation consequence |
+| ---: | --- | --- | --- | --- | --- |
+| 1 | Reversible | live `bCat` (`ARM59`) and APC (`a15`) | Create/remove the `ARM59–a15` bond | `kf1_bap`; `kr1_bap` | Allows beta-catenin to enter or leave APC through the 15-aa-repeat contact. |
+| 2 | Reversible | bCat–AXIN–APC complex already linked through `ARM34–AXIN.b` and `AXIN.rgs–APC.s` | Close/open an additional `bCat.ARM59–APC.a15` bond | `chi*kf1_bap`; `kr1_bap` | Converts an already assembled chain into a multivalent closed complex; `chi` accelerates the intracomplex encounter. |
+| 3 | Reversible | bCat already linked to phosphorylated `APC.a20` through `ARM34` | Close/open `bCat.ARM59–APC.a15` on that same pair | `chi*kf1_bap`; `kr1_bap` | Makes beta-catenin bivalently attached to APC through both ARM contact regions. |
+| 4 | Reversible | live bCat (`ARM34`) and APC with `a20~P` | Create/remove the `ARM34–a20~P` bond | `kf2_bap`; `kr2_bap` | Makes APC phosphorylation permissive for the second beta-catenin-binding interface. |
+| 5 | Reversible | bCat–APC pair already joined through `ARM59–a15`; APC `a20~P` | Close/open the second `ARM34–a20` contact | `chi*kf2_bap`; `kr2_bap` | Converts a singly attached pair into a bivalent bCat–APC complex. |
+| 6 | Reversible | live bCat (`ARM34`) and AXIN (`b`) | Create/remove the `ARM34–b` bond | `kf_ba`; `kr_ba` | Directly recruits beta-catenin to the AXIN scaffold. |
+| 7 | Reversible | bCat and AXIN already co-confined by an APC bridge | Close/open `bCat.ARM34–AXIN.b` | `chi*kf_ba`; `kr_ba` | Closes the APC–AXIN–bCat assembly into a multivalent complex. |
+| 8 | Reversible | unphosphorylated APC (`a20~U`, `s`) and AXIN (`rgs`) | Create/remove `APC.s–AXIN.rgs` | `kf_apa`; `kr_apa` | Scaffolds APC to AXIN before APC phosphorylation. |
+| 9 | Reversible | phosphorylated APC with free `a20~P`, plus AXIN | Create/remove `APC.s–AXIN.rgs` | `kf_apa`; `kr_apa` | Allows phosphorylated but beta-catenin-free APC to bind AXIN. |
+| 10 | Reversible | phosphorylated APC whose `a20~P` is already occupied, plus AXIN | Create/remove `APC.s–AXIN.rgs` | `kf_apa`; `kr_apa` | Recruits a beta-catenin-occupied APC molecule to AXIN. |
+| 11 | Reversible | APC–bCat–AXIN complex with APC `a20~U` and existing bCat–APC/AXIN contacts | Close/open `APC.s–AXIN.rgs` | `chi*kf_apa`; `kr_apa` | Adds the APC–AXIN contact inside an unphosphorylated multicomponent complex. |
+| 12 | Reversible | same three-component context, but APC has free `a20~P` | Close/open `APC.s–AXIN.rgs` | `chi*kf_apa`; `kr_apa` | Stabilizes the phosphorylated destruction complex by intracomplex closure. |
+| 13 | Reversible | same context with occupied `APC.a20~P` | Close/open `APC.s–AXIN.rgs` | `chi*kf_apa`; `kr_apa` | Completes a highly multivalent complex in which APC is also bound to beta-catenin at `a20`. |
+| 14 | Reversible | GSK3b (`a`) and AXIN (`gid`) | Create/remove the kinase–scaffold bond | `kf_ga`; `kr_ga` | Positions GSK3b on AXIN for complex-localized phosphorylation. |
+| 15 | Reversible | AXIN (`e`) and CK1a (`e`) | Create/remove the CK1a–AXIN bond | `kf_ca`; `kr_ca` | Positions CK1a on the destruction scaffold. |
+| 16 | One-way | live bCat and CK1a in the same connected complex | `bCat.s45`: `U→P`; bonds unchanged | `kpb` | Primes beta-catenin at S45 without consuming or releasing CK1a. |
+| 17 | One-way | live, S45-phosphorylated bCat and GSK3b in the same complex | `bCat.s33s37`: `U→P`; bonds unchanged | `kpb` | Adds the degradation-associated S33/S37 phosphorylation after S45 priming. |
+| 18 | One-way | APC and GSK3b in the same connected complex | `APC.a20`: `U→P` | `kp` | Creates the APC state that can engage `bCat.ARM34`. |
+| 19 | One-way | live S45-phosphorylated bCat | `s45`: `P→U` | `kmpb` | Removes the priming phosphate independently of complex membership. |
+| 20 | One-way | live S33/S37-phosphorylated bCat | `s33s37`: `P→U` | `kmpb` | Reverses the degradation-associated beta-catenin modification. |
+| 21 | One-way | phosphorylated APC in any AXIN-containing complex | `APC.a20`: `P→U` | `kmp` | Turns off the phospho-APC beta-catenin-binding state while APC remains scaffold-associated. |
+| 22 | One-way | conserved source marker `I` | Create one free live bCat with both phosphosites `U`; retain `I` | `ksb` | Implements constitutive beta-catenin synthesis without depleting the source. |
+| 23 | One-way | live bCat with `s33s37~U` | `ss`: `l→d` | `kdb1` | Marks unphosphorylated beta-catenin degraded at the slow basal rate. |
+| 24 | One-way | live bCat with `s33s37~P` | `ss`: `l→d` | `kdb2` | Marks phosphorylated beta-catenin degraded at the much faster regulated rate. |
+| 25 | One-way | degraded bCat bound through `ARM59` to `APC.a15` | Break `ARM59–a15`; emit separate molecules | `1000` | Rapidly clears the APC 15-aa contact after beta-catenin degradation. |
+| 26 | One-way | same degraded bCat–APC contact, with another unspecified connection retaining one complex | Break `ARM59–a15`; keep products connected elsewhere | `1000` | Removes this contact without forcing complete complex dissociation. |
+| 27 | One-way | degraded bCat bound through `ARM34` to phosphorylated `APC.a20` | Break `ARM34–a20`; emit separate molecules | `1000` | Releases APC from degraded beta-catenin. |
+| 28 | One-way | degraded bCat bound through `ARM34` to `AXIN.b` | Break `ARM34–b`; emit separate molecules | `1000` | Releases AXIN from degraded beta-catenin. |
+| 29 | One-way | same degraded bCat–AXIN contact, with another connection retaining the complex | Break `ARM34–b`; keep products connected elsewhere | `1000` | Removes the direct AXIN contact while preserving any alternative connection. |
 
 ## 7. Observables and technical readouts
 

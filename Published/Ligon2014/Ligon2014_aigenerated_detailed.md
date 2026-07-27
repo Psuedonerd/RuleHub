@@ -1,4 +1,4 @@
-# Coder Model Explanation: Ligon 2014
+# Detailed Model Explanation: Ligon 2014
 
 ## 1. Model identity and scope
 
@@ -62,43 +62,43 @@ No compartments or anchors are declared. Initial `Lext` is distributed across ca
 
 ## 6. Complete reaction-rule inventory
 
-**Rule-family orientation:** Rules 2-8 sequentially add external lipoplexes to pit slots `l1`-`l7`; each new `Lext.p` site bonds to the next open `Pit.l*` site. Rules 9-13 convert occupied pits to endosomes by changing `Pit.s p→e` while preserving existing `Lext.p`/`Pit.l*` bonds and using `DeleteMolecules`. Rules 15-26 lyse endosomes and discard the pit/bonds while creating internal `Lint` cargo states. Rules 28-29 unpack only `Lint.n~345` and `Lint.n~346` in the active source.
+**Rule-family orientation.** Rules 2-8 sequentially add external lipoplexes to pit slots `l1`-`l7`; each new `Lext.p` site bonds to the next open `Pit.l*` site. Rules 9-13 convert occupied pits to endosomes by changing `Pit.s p→e` while preserving existing `Lext.p`/`Pit.l*` bonds and using `DeleteMolecules`. Rules 15-26 lyse endosomes and discard the pit/bonds while creating internal `Lint` cargo states. Rules 28-29 unpack only `Lint.n~345` and `Lint.n~346` in the active source. Each row separates the prerequisite occupancy, the actual edit, and its modeling consequence; commented higher-occupancy rules are not treated as active behavior.
 
-| # | Rule label/name | Direction | Participants and sites/components | Rate/expression | Exact modeled change | Technical meaning |
-| ---: | --- | --- | --- | --- | --- | --- |
-| 1 | `Unlabeled` | one-way | `Lext.p`, `Lext.n` | `wash` | `Lext(p,n) → Trash`; no pit bond required. | Removes any external lipoplex after the timer-gated wash turns on. |
-| 2 | `Unlabeled` | one-way | free `Lext.p` + free `Pit.l1`, `Pit.s~p` | `kA` | Forms `Lext.p!1`–`Pit.l1!1`; also creates a new free `Pit(s~p,...)` product. | First lipoplex attaches to slot `l1`; the extra free pit product in the rule is a source-like amplification term in the active BNGL. |
-| 3 | `Unlabeled` | one-way | free `Lext.p` + open `Pit.l2` on a pit already carrying `l1!1` | `kA` | Forms `Lext.p!2`–`Pit.l2!2`; preserves the existing `l1!1` bond. | Adds a second lipoplex to slot `l2`. |
-| 4 | `Unlabeled` | one-way | free `Lext.p` + open `Pit.l3` on a two-lipoplex pit | `kA` | Forms `Lext.p!3`–`Pit.l3!3`; preserves `l1!1,l2!2`. | Adds a third lipoplex to slot `l3`. |
-| 5 | `Unlabeled` | one-way | free `Lext.p` + open `Pit.l4` | `kA` | Forms `Lext.p!4`–`Pit.l4!4`; preserves earlier slot bonds. | Adds a fourth lipoplex to slot `l4`. |
-| 6 | `Unlabeled` | one-way | free `Lext.p` + open `Pit.l5` | `kA` | Forms `Lext.p!5`–`Pit.l5!5`. | Adds a fifth lipoplex to slot `l5`. |
-| 7 | `Unlabeled` | one-way | free `Lext.p` + open `Pit.l6` | `kA` | Forms `Lext.p!6`–`Pit.l6!6`. | Adds a sixth lipoplex to slot `l6`. |
-| 8 | `Unlabeled` | one-way | free `Lext.p` + open `Pit.l7` | `kA` | Forms `Lext.p!7`–`Pit.l7!7`. | Adds a seventh lipoplex to slot `l7`; higher slot rules are commented out. |
-| 9 | `Unlabeled` | one-way | one-lipoplex pit: `Lext.p!1`–`Pit.l1!1`, `Pit.s~p` | `kE DeleteMolecules` | `Pit.s p→e`; preserves `l1!1`; deletes unmatched molecules from the reactant complex context. | Converts a one-lipoplex pit into an endosome. |
-| 10 | `Unlabeled` | one-way | two-lipoplex pit: bonds at `l1!1,l2!2`, `Pit.s~p` | `kE DeleteMolecules` | `Pit.s p→e`; preserves bonds at `l1,l2`. | Converts a two-lipoplex pit into an endosome. |
-| 11 | `Unlabeled` | one-way | three-lipoplex pit: bonds at `l1!1,l2!2,l3!3` | `kE DeleteMolecules` | `Pit.s p→e`; preserves bonds at `l1`-`l3`. | Converts a three-lipoplex pit into an endosome. |
-| 12 | `Unlabeled` | one-way | four-lipoplex pit: bonds at `l1!1`-`l4!4` | `kE DeleteMolecules` | `Pit.s p→e`; preserves bonds at `l1`-`l4`. | Converts a four-lipoplex pit into an endosome. |
-| 13 | `Unlabeled` | one-way | five-lipoplex pit: bonds at `l1!1`-`l5!5` | `kE DeleteMolecules` | `Pit.s p→e`; preserves bonds at `l1`-`l5`. | Converts a five-lipoplex pit into an endosome; the source comments say five more endocytosis rules would be needed. |
-| 14 | `Unlabeled` | one-way | empty `Pit.s~e` with all `l1`-`l10` free | `dE` | `Pit(s~e, free slots) → Trash`. | Degrades an empty endosome. |
-| 15 | `Unlabeled` | one-way | `Lext.p!1,n~345` bound to `Pit.s~e,l1!1` | `kL` | Releases/deletes the endosome complex and creates `Lint(n~345)`. | Lyses a one-lipoplex endosome carrying `n~345`. |
-| 16 | `Unlabeled` | one-way | `Lext.p!1,n~346` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~346)`. | Lyses a one-lipoplex endosome carrying `n~346`. |
-| 17 | `Unlabeled` | one-way | `Lext.p!1,n~347` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~347)`. | Lyses a one-lipoplex endosome carrying `n~347`. |
-| 18 | `Unlabeled` | one-way | `Lext.p!1,n~348` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~348)`. | Lyses a one-lipoplex endosome carrying `n~348`. |
-| 19 | `Unlabeled` | one-way | `Lext.p!1,n~349` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~349)`. | Lyses a one-lipoplex endosome carrying `n~349`. |
-| 20 | `Unlabeled` | one-way | `Lext.p!1,n~350` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~350)`. | Lyses a one-lipoplex endosome carrying `n~350`. |
-| 21 | `Unlabeled` | one-way | `Lext.p!1,n~351` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~351)`. | Lyses a one-lipoplex endosome carrying `n~351`. |
-| 22 | `Unlabeled` | one-way | `Lext.p!1,n~352` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~352)`. | Lyses a one-lipoplex endosome carrying `n~352`. |
-| 23 | `Unlabeled` | one-way | `Lext.p!1,n~353` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~353)`. | Lyses a one-lipoplex endosome carrying `n~353`. |
-| 24 | `Unlabeled` | one-way | `Lext.p!1,n~354` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~354)`. | Lyses a one-lipoplex endosome carrying `n~354`. |
-| 25 | `Unlabeled` | one-way | `Lext.p!1,n~355` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~355)`. | Lyses a one-lipoplex endosome carrying `n~355`. |
-| 26 | `Unlabeled` | one-way | two `Lext` molecules both `n~345`, bound at `Pit.l1!1` and `Pit.l2!2` in an endosome | `kL` | Creates two `Lint(n~345)` products; pit/endosome complex is consumed. | Special two-lipoplex lysis case for the `345/345` cargo-state pair only. |
-| 27 | `Unlabeled` | one-way | `Lint` any `n` state | `dL` | `Lint → Trash`. | Degrades internal lipoplex cargo regardless of `n` state. |
-| 28 | `Unlabeled` | one-way | `Lint.n~345` | `kU` | `Lint(n~345) → 5 mRNA`. | Unpacks an internal `n~345` lipoplex into five population mRNA increments, not 345 mRNA. |
-| 29 | `Unlabeled` | one-way | `Lint.n~346` | `kU` | `Lint(n~346) → 5 mRNA`. | Unpacks an internal `n~346` lipoplex into five mRNA increments; other `n` states have no active unpacking rule. |
-| 30 | `Unlabeled` | one-way | population `mRNA` | `dM` | `mRNA → Trash`. | Degrades one mRNA population unit. |
-| 31 | `Unlabeled` | one-way | population `mRNA` | `kTL` | `mRNA → mRNA + GFP`. | Translates GFP while preserving the mRNA population unit. |
-| 32 | `Unlabeled` | one-way | population `GFP` | `dG` | `GFP → Trash`. | Degrades GFP. |
-| 33 | `Unlabeled` | one-way | population `I` | `1` | `I → I + Timer`. | Preserves timer source `I` and increments `Timer`, which eventually activates `wash`. |
+| # | Direction | Required molecular context | Rate/expression | Bond/state/species edit | Why the rule matters |
+| ---: | --- | --- | --- | --- | --- |
+| 1 | one-way | `Lext.p`, `Lext.n` | `wash` | `Lext(p,n) → Trash`; no pit bond required. | Removes any external lipoplex after the timer-gated wash turns on. |
+| 2 | one-way | free `Lext.p` + free `Pit.l1`, `Pit.s~p` | `kA` | Forms `Lext.p!1`–`Pit.l1!1`; also creates a new free `Pit(s~p,...)` product. | First lipoplex attaches to slot `l1`; the extra free pit product in the rule is a source-like amplification term in the active BNGL. |
+| 3 | one-way | free `Lext.p` + open `Pit.l2` on a pit already carrying `l1!1` | `kA` | Forms `Lext.p!2`–`Pit.l2!2`; preserves the existing `l1!1` bond. | Adds a second lipoplex to slot `l2`. |
+| 4 | one-way | free `Lext.p` + open `Pit.l3` on a two-lipoplex pit | `kA` | Forms `Lext.p!3`–`Pit.l3!3`; preserves `l1!1,l2!2`. | Adds a third lipoplex to slot `l3`. |
+| 5 | one-way | free `Lext.p` + open `Pit.l4` | `kA` | Forms `Lext.p!4`–`Pit.l4!4`; preserves earlier slot bonds. | Adds a fourth lipoplex to slot `l4`. |
+| 6 | one-way | free `Lext.p` + open `Pit.l5` | `kA` | Forms `Lext.p!5`–`Pit.l5!5`. | Adds a fifth lipoplex to slot `l5`. |
+| 7 | one-way | free `Lext.p` + open `Pit.l6` | `kA` | Forms `Lext.p!6`–`Pit.l6!6`. | Adds a sixth lipoplex to slot `l6`. |
+| 8 | one-way | free `Lext.p` + open `Pit.l7` | `kA` | Forms `Lext.p!7`–`Pit.l7!7`. | Adds a seventh lipoplex to slot `l7`; higher slot rules are commented out. |
+| 9 | one-way | one-lipoplex pit: `Lext.p!1`–`Pit.l1!1`, `Pit.s~p` | `kE DeleteMolecules` | `Pit.s p→e`; preserves `l1!1`; deletes unmatched molecules from the reactant complex context. | Converts a one-lipoplex pit into an endosome. |
+| 10 | one-way | two-lipoplex pit: bonds at `l1!1,l2!2`, `Pit.s~p` | `kE DeleteMolecules` | `Pit.s p→e`; preserves bonds at `l1,l2`. | Converts a two-lipoplex pit into an endosome. |
+| 11 | one-way | three-lipoplex pit: bonds at `l1!1,l2!2,l3!3` | `kE DeleteMolecules` | `Pit.s p→e`; preserves bonds at `l1`-`l3`. | Converts a three-lipoplex pit into an endosome. |
+| 12 | one-way | four-lipoplex pit: bonds at `l1!1`-`l4!4` | `kE DeleteMolecules` | `Pit.s p→e`; preserves bonds at `l1`-`l4`. | Converts a four-lipoplex pit into an endosome. |
+| 13 | one-way | five-lipoplex pit: bonds at `l1!1`-`l5!5` | `kE DeleteMolecules` | `Pit.s p→e`; preserves bonds at `l1`-`l5`. | Converts a five-lipoplex pit into an endosome; the source comments say five more endocytosis rules would be needed. |
+| 14 | one-way | empty `Pit.s~e` with all `l1`-`l10` free | `dE` | `Pit(s~e, free slots) → Trash`. | Degrades an empty endosome. |
+| 15 | one-way | `Lext.p!1,n~345` bound to `Pit.s~e,l1!1` | `kL` | Releases/deletes the endosome complex and creates `Lint(n~345)`. | Lyses a one-lipoplex endosome carrying `n~345`. |
+| 16 | one-way | `Lext.p!1,n~346` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~346)`. | Lyses a one-lipoplex endosome carrying `n~346`. |
+| 17 | one-way | `Lext.p!1,n~347` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~347)`. | Lyses a one-lipoplex endosome carrying `n~347`. |
+| 18 | one-way | `Lext.p!1,n~348` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~348)`. | Lyses a one-lipoplex endosome carrying `n~348`. |
+| 19 | one-way | `Lext.p!1,n~349` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~349)`. | Lyses a one-lipoplex endosome carrying `n~349`. |
+| 20 | one-way | `Lext.p!1,n~350` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~350)`. | Lyses a one-lipoplex endosome carrying `n~350`. |
+| 21 | one-way | `Lext.p!1,n~351` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~351)`. | Lyses a one-lipoplex endosome carrying `n~351`. |
+| 22 | one-way | `Lext.p!1,n~352` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~352)`. | Lyses a one-lipoplex endosome carrying `n~352`. |
+| 23 | one-way | `Lext.p!1,n~353` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~353)`. | Lyses a one-lipoplex endosome carrying `n~353`. |
+| 24 | one-way | `Lext.p!1,n~354` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~354)`. | Lyses a one-lipoplex endosome carrying `n~354`. |
+| 25 | one-way | `Lext.p!1,n~355` bound to `Pit.s~e,l1!1` | `kL` | Creates `Lint(n~355)`. | Lyses a one-lipoplex endosome carrying `n~355`. |
+| 26 | one-way | two `Lext` molecules both `n~345`, bound at `Pit.l1!1` and `Pit.l2!2` in an endosome | `kL` | Creates two `Lint(n~345)` products; pit/endosome complex is consumed. | Special two-lipoplex lysis case for the `345/345` cargo-state pair only. |
+| 27 | one-way | `Lint` any `n` state | `dL` | `Lint → Trash`. | Degrades internal lipoplex cargo regardless of `n` state. |
+| 28 | one-way | `Lint.n~345` | `kU` | `Lint(n~345) → 5 mRNA`. | Unpacks an internal `n~345` lipoplex into five population mRNA increments, not 345 mRNA. |
+| 29 | one-way | `Lint.n~346` | `kU` | `Lint(n~346) → 5 mRNA`. | Unpacks an internal `n~346` lipoplex into five mRNA increments; other `n` states have no active unpacking rule. |
+| 30 | one-way | population `mRNA` | `dM` | `mRNA → Trash`. | Degrades one mRNA population unit. |
+| 31 | one-way | population `mRNA` | `kTL` | `mRNA → mRNA + GFP`. | Translates GFP while preserving the mRNA population unit. |
+| 32 | one-way | population `GFP` | `dG` | `GFP → Trash`. | Degrades GFP. |
+| 33 | one-way | population `I` | `1` | `I → I + Timer`. | Preserves timer source `I` and increments `Timer`, which eventually activates `wash`. |
 
 ## 7. Observables and technical readouts
 

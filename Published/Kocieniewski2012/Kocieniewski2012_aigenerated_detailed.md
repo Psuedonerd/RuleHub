@@ -1,4 +1,4 @@
-# Coder Model Explanation: Kocieniewski 2012
+# Detailed Model Explanation: Kocieniewski 2012
 
 ## 1. Model identity and scope
 
@@ -55,30 +55,30 @@ No compartments or anchors are present. Initial species are all free: inactive `
 
 ## 6. Complete reaction-rule inventory
 
-**Rule-family orientation:** Rules 2-11 are scaffold docking/release rules using kinase `s` sites and matching scaffold sites. Rules 12-15 are scaffold-local phosphorylation rules where an upstream active kinase remains scaffold-bound while the downstream kinase’s `R1` or `R2` state changes. Rules 16-20 globally reverse activation/phosphorylation without requiring scaffold binding.
+**Rule-family orientation.** Rules 2-11 are scaffold docking/release rules using kinase `s` sites and matching scaffold sites. Rules 12-15 are scaffold-local phosphorylation rules where an upstream active kinase remains scaffold-bound while the downstream kinase’s `R1` or `R2` state changes. Rules 16-20 globally reverse activation/phosphorylation without requiring scaffold binding. Because no source rule is labeled, the inventory uses stable source order rather than filling a redundant label column.
 
-| # | Rule label/name | Direction | Participants and sites/components | Rate/expression | Exact modeled change | Technical meaning |
-| ---: | --- | --- | --- | --- | --- | --- |
-| 1 | `Unlabeled` | one-way | `MAP3K.S` | `S` | `MAP3K.S I→A`; `MAP3K.s` remains free. | Basally activates MAP3K before or independent of scaffold docking. |
-| 2 | `Unlabeled` | reversible | `MAP3K.s` + `Scaff.map3k` | `a, d1` | Forms/releases `MAP3K.s!1`–`Scaff.map3k!1` for active `MAP3K.S~A`. | Docks active MAP3K onto the scaffold’s MAP3K slot. |
-| 3 | `Unlabeled` | one-way | `MAP3K.s!1` + `Scaff.map3k!1` | `d2` | Releases `MAP3K.s!1`–`Scaff.map3k!1` for inactive `MAP3K.S~I`. | Forces inactive scaffold-bound MAP3K off the scaffold. |
-| 4 | `Unlabeled` | reversible | `MAP2K.s` + `Scaff.map2k`; `MAP2K.R1~Y,R2~Y` | `a, d1` | Forms/releases `MAP2K.s!1`–`Scaff.map2k!1`. | Docks completely unphosphorylated MAP2K. |
-| 5 | `Unlabeled` | reversible | `MAP2K.s` + `Scaff.map2k`; `MAP2K.R1~Yp,R2~Y` | `a, d1` | Forms/releases `MAP2K.s!1`–`Scaff.map2k!1`. | Docks MAP2K already phosphorylated at `R1` only. |
-| 6 | `Unlabeled` | reversible | `MAP2K.s` + `Scaff.map2k`; `MAP2K.R1~Y,R2~Yp` | `a, d1` | Forms/releases `MAP2K.s!1`–`Scaff.map2k!1`. | Docks MAP2K already phosphorylated at `R2` only. |
-| 7 | `Unlabeled` | reversible | `MAP2K.s` + `Scaff.map2k`; `MAP2K.R1~Yp,R2~Yp` | `a, d1` | Forms/releases `MAP2K.s!1`–`Scaff.map2k!1`. | Docks doubly phosphorylated MAP2K, which can support MAPK phosphorylation in rules 14-15. |
-| 8 | `Unlabeled` | reversible | `MAPK.s` + `Scaff.mapk`; `MAPK.R1~Y,R2~Y` | `a, d1` | Forms/releases `MAPK.s!1`–`Scaff.mapk!1`. | Docks unphosphorylated MAPK. |
-| 9 | `Unlabeled` | reversible | `MAPK.s` + `Scaff.mapk`; `MAPK.R1~Yp,R2~Y` | `a, d1` | Forms/releases `MAPK.s!1`–`Scaff.mapk!1`. | Docks MAPK phosphorylated at `R1` only. |
-| 10 | `Unlabeled` | reversible | `MAPK.s` + `Scaff.mapk`; `MAPK.R1~Y,R2~Yp` | `a, d1` | Forms/releases `MAPK.s!1`–`Scaff.mapk!1`. | Docks MAPK phosphorylated at `R2` only. |
-| 11 | `Unlabeled` | one-way | `MAPK.s!1` + `Scaff.mapk!1`; `MAPK.R1~Yp,R2~Yp` | `d2` | Releases doubly phosphorylated `MAPK.s!1`–`Scaff.mapk!1`. | Removes fully phosphorylated MAPK from the scaffold after signal completion. |
-| 12 | `Unlabeled` | one-way | `MAP3K.S~A`, `MAP3K.s!1`–`Scaff.map3k!1`, `MAP2K.s!2`–`Scaff.map2k!2`, `MAP2K.R1~Y` | `pscaff` | `MAP2K.R1 Y→Yp`; all scaffold bonds remain. | Active scaffold-bound MAP3K phosphorylates scaffold-bound MAP2K site `R1`. |
-| 13 | `Unlabeled` | one-way | Same scaffolded MAP3K/MAP2K complex, `MAP2K.R2~Y` | `pscaff` | `MAP2K.R2 Y→Yp`; all scaffold bonds remain. | Active scaffold-bound MAP3K phosphorylates MAP2K site `R2`. |
-| 14 | `Unlabeled` | one-way | `MAP2K.R1~Yp,R2~Yp`, `MAP2K.s!2`–`Scaff.map2k!2`, `MAPK.s!1`–`Scaff.mapk!1`, `MAPK.R1~Y` | `pscaff` | `MAPK.R1 Y→Yp`; scaffold bonds remain. | Fully phosphorylated scaffold-bound MAP2K phosphorylates scaffold-bound MAPK site `R1`. |
-| 15 | `Unlabeled` | one-way | Same scaffolded MAP2K/MAPK complex, `MAPK.R2~Y` | `pscaff` | `MAPK.R2 Y→Yp`; scaffold bonds remain. | Fully phosphorylated scaffold-bound MAP2K phosphorylates MAPK site `R2`. |
-| 16 | `Unlabeled` | one-way | `MAP3K.S~A` | `u` | `MAP3K.S A→I`. | Global MAP3K deactivation; pattern does not require a scaffold bond. |
-| 17 | `Unlabeled` | one-way | `MAP2K.R1~Yp` | `u` | `MAP2K.R1 Yp→Y`. | Global dephosphorylation of MAP2K site `R1`. |
-| 18 | `Unlabeled` | one-way | `MAP2K.R2~Yp` | `u` | `MAP2K.R2 Yp→Y`. | Global dephosphorylation of MAP2K site `R2`. |
-| 19 | `Unlabeled` | one-way | `MAPK.R1~Yp` | `u` | `MAPK.R1 Yp→Y`. | Global dephosphorylation of MAPK site `R1`. |
-| 20 | `Unlabeled` | one-way | `MAPK.R2~Yp` | `u` | `MAPK.R2 Yp→Y`. | Global dephosphorylation of MAPK site `R2`. |
+| # | Direction | Required molecular context | Rate/expression | Bond/state/species edit | Why the rule matters |
+| ---: | --- | --- | --- | --- | --- |
+| 1 | one-way | `MAP3K.S` | `S` | `MAP3K.S I→A`; `MAP3K.s` remains free. | Basally activates MAP3K before or independent of scaffold docking. |
+| 2 | reversible | `MAP3K.s` + `Scaff.map3k` | `a, d1` | Forms/releases `MAP3K.s!1`–`Scaff.map3k!1` for active `MAP3K.S~A`. | Docks active MAP3K onto the scaffold’s MAP3K slot. |
+| 3 | one-way | `MAP3K.s!1` + `Scaff.map3k!1` | `d2` | Releases `MAP3K.s!1`–`Scaff.map3k!1` for inactive `MAP3K.S~I`. | Forces inactive scaffold-bound MAP3K off the scaffold. |
+| 4 | reversible | `MAP2K.s` + `Scaff.map2k`; `MAP2K.R1~Y,R2~Y` | `a, d1` | Forms/releases `MAP2K.s!1`–`Scaff.map2k!1`. | Docks completely unphosphorylated MAP2K. |
+| 5 | reversible | `MAP2K.s` + `Scaff.map2k`; `MAP2K.R1~Yp,R2~Y` | `a, d1` | Forms/releases `MAP2K.s!1`–`Scaff.map2k!1`. | Docks MAP2K already phosphorylated at `R1` only. |
+| 6 | reversible | `MAP2K.s` + `Scaff.map2k`; `MAP2K.R1~Y,R2~Yp` | `a, d1` | Forms/releases `MAP2K.s!1`–`Scaff.map2k!1`. | Docks MAP2K already phosphorylated at `R2` only. |
+| 7 | reversible | `MAP2K.s` + `Scaff.map2k`; `MAP2K.R1~Yp,R2~Yp` | `a, d1` | Forms/releases `MAP2K.s!1`–`Scaff.map2k!1`. | Docks doubly phosphorylated MAP2K, which can support MAPK phosphorylation in rules 14-15. |
+| 8 | reversible | `MAPK.s` + `Scaff.mapk`; `MAPK.R1~Y,R2~Y` | `a, d1` | Forms/releases `MAPK.s!1`–`Scaff.mapk!1`. | Docks unphosphorylated MAPK. |
+| 9 | reversible | `MAPK.s` + `Scaff.mapk`; `MAPK.R1~Yp,R2~Y` | `a, d1` | Forms/releases `MAPK.s!1`–`Scaff.mapk!1`. | Docks MAPK phosphorylated at `R1` only. |
+| 10 | reversible | `MAPK.s` + `Scaff.mapk`; `MAPK.R1~Y,R2~Yp` | `a, d1` | Forms/releases `MAPK.s!1`–`Scaff.mapk!1`. | Docks MAPK phosphorylated at `R2` only. |
+| 11 | one-way | `MAPK.s!1` + `Scaff.mapk!1`; `MAPK.R1~Yp,R2~Yp` | `d2` | Releases doubly phosphorylated `MAPK.s!1`–`Scaff.mapk!1`. | Removes fully phosphorylated MAPK from the scaffold after signal completion. |
+| 12 | one-way | `MAP3K.S~A`, `MAP3K.s!1`–`Scaff.map3k!1`, `MAP2K.s!2`–`Scaff.map2k!2`, `MAP2K.R1~Y` | `pscaff` | `MAP2K.R1 Y→Yp`; all scaffold bonds remain. | Active scaffold-bound MAP3K phosphorylates scaffold-bound MAP2K site `R1`. |
+| 13 | one-way | Same scaffolded MAP3K/MAP2K complex, `MAP2K.R2~Y` | `pscaff` | `MAP2K.R2 Y→Yp`; all scaffold bonds remain. | Active scaffold-bound MAP3K phosphorylates MAP2K site `R2`. |
+| 14 | one-way | `MAP2K.R1~Yp,R2~Yp`, `MAP2K.s!2`–`Scaff.map2k!2`, `MAPK.s!1`–`Scaff.mapk!1`, `MAPK.R1~Y` | `pscaff` | `MAPK.R1 Y→Yp`; scaffold bonds remain. | Fully phosphorylated scaffold-bound MAP2K phosphorylates scaffold-bound MAPK site `R1`. |
+| 15 | one-way | Same scaffolded MAP2K/MAPK complex, `MAPK.R2~Y` | `pscaff` | `MAPK.R2 Y→Yp`; scaffold bonds remain. | Fully phosphorylated scaffold-bound MAP2K phosphorylates MAPK site `R2`. |
+| 16 | one-way | `MAP3K.S~A` | `u` | `MAP3K.S A→I`. | Global MAP3K deactivation; pattern does not require a scaffold bond. |
+| 17 | one-way | `MAP2K.R1~Yp` | `u` | `MAP2K.R1 Yp→Y`. | Global dephosphorylation of MAP2K site `R1`. |
+| 18 | one-way | `MAP2K.R2~Yp` | `u` | `MAP2K.R2 Yp→Y`. | Global dephosphorylation of MAP2K site `R2`. |
+| 19 | one-way | `MAPK.R1~Yp` | `u` | `MAPK.R1 Yp→Y`. | Global dephosphorylation of MAPK site `R1`. |
+| 20 | one-way | `MAPK.R2~Yp` | `u` | `MAPK.R2 Yp→Y`. | Global dephosphorylation of MAPK site `R2`. |
 
 ## 7. Observables and technical readouts
 

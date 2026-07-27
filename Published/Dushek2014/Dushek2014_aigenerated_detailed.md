@@ -1,4 +1,4 @@
-# Coder Model Explanation: Dushek 2014 biosensor oligomerization model
+# Detailed Model Explanation: Dushek 2014 biosensor oligomerization model
 
 ## 1. Model identity and scope
 
@@ -28,14 +28,16 @@ There are no compartments or anchors. Initial pools are one free `E(b)`, one fre
 
 ## 6. Complete reaction-rule inventory
 
-| # | Direction | Participants and exact edit | Rate(s) | Technical meaning |
-| ---: | --- | --- | --- | --- |
-| 1 | Reversible | `E.b` binds `B.Y~U`, creating `E.b!1-B.Y!1`, while `B.e 0→1`; reverse removes that bond and restores the free pattern | `Ekf`, `Ekb` | Forms the kinase–unphosphorylated-sensor complex. |
-| 2 | One-way | Bound `E.b!1-B.Y~U!1` separates; `B.Y U→P` and `B.e 1→0`, with `E.b` released | `Ekc` | Catalytic phosphorylation and kinase release. |
-| 3 | Reversible | `F.b` binds `B.Y~P`, creating `F.b!1-B.Y!1`, while `B.e 0→1` | `Fkf`, `Fkb` | Forms the phosphatase–phosphorylated-sensor complex. |
-| 4 | One-way | Bound `F.b!1-B.Y~P!1` separates; `B.Y P→U` and `B.e 1→0`, with `F.b` released | `Fkc` | Catalytic dephosphorylation and phosphatase release. |
-| 5 | Reversible | Within one `B(e~0,b,Y~P)`, `B.b` binds its own `B.Y~P` as bond `!1`; no state changes occur | `kon1`, `koff1` | Intramolecular closure of a phosphorylated biosensor. |
-| 6 | Reversible | `Y~P` of one `B(e~0)` binds `b` of another `B(e~0)` as bond `!1` | `kon2`, `koff2` | Extends or breaks intermolecular sensor oligomers. |
+The six rules form three reversible/catalytic modules: kinase processing, phosphatase processing, and phosphorylation-dependent sensor closure/oligomerization. The `e` state is an engagement flag, whereas `Y` carries the biochemical phosphorylation state.
+
+| # | Direction | Participants and required context | Bond or state change | Rate(s) | Implementation consequence |
+| ---: | --- | --- | --- | --- | --- |
+| 1 | Reversible | kinase `E.b`; unphosphorylated sensor `B.Y~U` with `e~0` | Create/remove `E.b–B.Y`; `B.e` follows `0↔1` | `Ekf`; `Ekb` | Captures kinase on an unmodified sensor and records enzyme engagement in `e`. |
+| 2 | One-way | the kinase–sensor complex from rule 1 | Break `E.b–B.Y`; `B.Y`: `U→P`; `B.e`: `1→0` | `Ekc` | Completes catalysis, releases kinase, and leaves a phosphorylated sensor. |
+| 3 | Reversible | phosphatase `F.b`; phosphorylated sensor `B.Y~P` with `e~0` | Create/remove `F.b–B.Y`; `B.e` follows `0↔1` | `Fkf`; `Fkb` | Captures phosphatase specifically on the phosphorylated sensor. |
+| 4 | One-way | the phosphatase–sensor complex from rule 3 | Break `F.b–B.Y`; `B.Y`: `P→U`; `B.e`: `1→0` | `Fkc` | Completes dephosphorylation and releases phosphatase. |
+| 5 | Reversible | one enzyme-free phosphorylated sensor | Create/remove an internal `B.b–B.Y` bond | `kon1`; `koff1` | Moves a single sensor between open and self-closed conformations. |
+| 6 | Reversible | two enzyme-free sensors, one exposing `Y~P` and the other `b` | Create/remove an intermolecular `Y–b` bond | `kon2`; `koff2` | Extends or shortens sensor oligomers through phosphotyrosine-dependent crosslinks. |
 
 ## 7. Observables and technical readouts
 
