@@ -1,0 +1,67 @@
+id: "Korwek_2023"
+name: "Korwek_2023"
+description: "This BioNetGen file features the article:"
+contributors:
+  - name: "Nabil Mardhy"
+
+citation:
+  year: "2021"
+  pmid: "33495441"  
+  reference: "McMillan et al., 2021"
+
+tags: ["validation", "korwek", "2023", "polyic", "rigi", "mavs", "pkr", "oas3", "rnasel", "eif2a", "rigi_mrna"]
+date:  
+  last_tested: 2026-07-19
+
+category: "validation"
+biol_categories: ["validation"]
+comp_categories: ["other"]
+
+compatibility:
+  rr_compatible: true
+  bnglviz_compatible: true
+  bng2_compatible: false
+  bngp_compatible: false
+  vcell_compatible: false
+  vcell_errors: "Encountered 1 at line 45"
+  simulation_methods: ["ode", "ssa"]
+  uses_energy: false
+  uses_functions: false
+  uses_compartments: false
+  nfsim_compatible: false
+  molclustpy_compatible: false
+  mpd_compatible: false
+  comments: "MCP XML file couldn't be generated  nfsim  Invalid component name in '1,2,3)' (must begin with a letter or underscore) at line 45"
+
+features:
+  uses_generate_network: true
+  default_sim_command: "ode" 
+  uses_totalrate: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: true
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_functions: false
+  uses_compartments: false
+  uses_energy: false
+  
+source:
+  origin: "test-case"
+  original_format: "bngl"
+  original_repository: "bionetgen-web-simulator"
+  source_path: "published-models/validation/Korwek_2023.bngl"
+
+playground:
+  visible: true
+  gallery_category: "validation"
+  featured: false
+  difficulty: "intermediate"
+
+
+
+
+
+
+
