@@ -1,4 +1,4 @@
-# Coder Model Explanation: Barua 2009
+# Detailed Model Explanation: Barua 2009
 
 ## 1. Model identity and scope
 
