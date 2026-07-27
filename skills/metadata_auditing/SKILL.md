@@ -100,7 +100,7 @@ Mark a value ambiguous only when active BNGL syntax cannot be classified confide
 
 ## Create the YAML files
 
-For every audited model, copy the selected source metadata to same-directory `metadata_aigenerated.yaml`, then set every audit field to the detected value. If `compatibility:` is absent, create it.
+For every audited model, copy the selected source metadata to same-directory `metadata_aigenerated.yaml`, then set every detected audit field to the detected value. If `compatibility:` is absent, create it.
 
 - Insert missing false values without requesting review.
 - Insert missing true values and flag them for review.
@@ -150,7 +150,8 @@ Apply these brevity rules:
 Before finishing, confirm:
 
 - every audited model has a same-directory `metadata_aigenerated.yaml`;
-- every audit field is present and agrees with active BNGL content;
+- every boolean audit field is present and agrees with active BNGL content;
+- `default_sim_command` agrees with the active command when one is detected;
 - source YAML files remain unchanged;
 - report totals match the generated files and reported bullets;
 - only inserted true values, changes to existing values, and ambiguities are marked for review;
