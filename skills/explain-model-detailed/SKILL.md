@@ -18,7 +18,6 @@ Before reading a model, deliberately discard assumptions from previous models an
 - Do not assume an abbreviation has the same meaning in two models. For example, `Ca` may mean calcium in one model and a named abstract species in another unless the current metadata, comments, or molecule names establish it.
 - Do not reuse paragraph templates, caveats, event descriptions, or interpretations from another summary.
 - Do not infer organism, cell type, compartment, residue identity, experimental conclusion, or biological role unless this model's local files support it.
-- If a name is abstract or ambiguous, say so in the technical caveats instead of inventing meaning.
 
 ## Required Inputs
 
