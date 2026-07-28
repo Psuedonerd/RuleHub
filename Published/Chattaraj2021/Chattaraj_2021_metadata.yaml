@@ -1,0 +1,66 @@
+id: "Chattaraj_2021"
+name: "Chattaraj 2021"
+description: "NFkB oscillations"
+contributors:
+  - name: "Nabil Mardhy"
+
+citation:
+  year: "2021"
+  pmid: "34236318"  
+  reference: "Chattaraj et al., 2021"
+
+tags: ["published", "chattaraj", "2021", "nephrin", "nck", "nwasp", "writexml"]
+date:  
+  last_tested: 2026-07-19
+
+category: "signaling"
+biol_categories: ["signaling"]
+comp_categories: ["other"]
+
+compatibility:
+  rr_compatible: true
+  bnglviz_compatible: true
+  bng2_compatible: false
+  bngp_compatible: false
+  vcell_compatible: true
+  vcell_errors: 
+  simulation_methods: ["ssa"]
+  uses_energy: false
+  uses_functions: false
+  uses_compartments: false
+  nfsim_compatible: false
+  molclustpy_compatible: false
+  mpd_compatible: false
+  comments: "MCP XML file couldn't be generated  nfsim gets stuck while loading file"
+
+features:
+  uses_generate_network: true
+  default_sim_command: "ode" 
+  uses_totalrate: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: true
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_functions: false
+  uses_compartments: false
+  uses_energy: false
+  
+source:
+  origin: "published"
+  original_format: "bngl"
+  original_repository: "bionetgen-web-simulator"
+  source_path: "published-models/complex-models/Chattaraj_2021.bngl"
+
+playground:
+  visible: false
+  gallery_categories: ["neuroscience"]
+  featured: false
+  difficulty: "advanced"
+
+
+
+
+
+
