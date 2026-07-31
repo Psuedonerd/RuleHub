@@ -62,7 +62,7 @@ Apply these rules internally even when the final summary groups constructs:
 - Record exact internal-state changes in readable form, such as `IKK.st: n → a`.
 - Distinguish reversible association from one-way catalysis, creation, degradation, transport, or state conversion.
 - Identify source `0`, sink `0`, `Trash`, `Sink`, `DeleteMolecules`, population species, catalytic carry-through, and compartment changes when they affect interpretation.
-- Treat anchors as localization constraints on molecules or complexes, not as reaction rules or binding sites.
+- Treat anchors as localization constraints on molecules or complexes.
 - Distinguish molecule-count observables from species-count observables and remember that pattern matches may count embeddings rather than unique complexes.
 - Explain extended constructs such as compartments, anchors, population maps, local functions, energy patterns, or conditional rates only when they occur.
 
