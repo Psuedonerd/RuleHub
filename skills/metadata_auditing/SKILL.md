@@ -110,12 +110,12 @@ Count only non-AI YAML files when assessing directory state.
 
 Read the repository's `metadata-schema.yaml` before writing `collection` and use only schema-valid keys and enum values.
 
-- **Multiple BNGL files and one source YAML:** report that the directory is a BNGL collection. Add or update a top-level `collection:` mapping in the generated YAML and report that insertion/change. Always set `collection.count` to the number of BNGL files. Set `type`, `parent_model`, and `variant_key` only when filenames, metadata, or model content support schema-valid values; flag unsupported or uncertain collection classification for review rather than inventing it. Audit collection-level compatibility across all members as defined under **Select inputs**.
+- **Multiple BNGL files and one source YAML:** report that the directory is a BNGL collection. Add or update a top-level `collection:` mapping in the generated YAML and report that insertion/change. Always set `collection.count` to the number of BNGL files. Set `type`, `parent_model`, and `variant_key` only when filenames, or model content support schema-valid values; flag unsupported or uncertain collection classification for review. Audit collection-level compatibility across all members as defined under **Select inputs**.
 - **No source YAML:** report a blocking warning, list the BNGL files affected concisely, and do not create an AI-generated YAML from nothing.
-- **No BNGL file:** report a blocking warning naming the available source YAML; do not claim that compatibility fields were audited and do not create a generated audit copy.
+- **No BNGL file:** report a blocking warning naming the available source YAML.
 - **Multiple BNGL and multiple source YAML files:** pair only by an explicit user selection or an unambiguous model-specific stem. Report unpaired files and any ambiguity.
 
-AI-generated YAML files never satisfy the “source YAML” requirement and never influence collection detection.
+AI-generated YAML files never satisfy the “source YAML” requirement.
 
 ## Analyze BNGL
 
