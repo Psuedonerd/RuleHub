@@ -1,6 +1,6 @@
 ---
 name: metadata-auditing
-description: Audit RuleHub BNGL feature metadata. Use when checking one or more same-directory BNGL/YAML model pairs; always create a brief Markdown audit under data/ and a metadata_aigenerated.yaml file in every audited model directory.
+description: Audit RuleHub BNGL feature, citation, and collection metadata. Use when checking one or more model directories or same-directory BNGL/YAML pairs; select collaborator-curated YAML first, create source-derived *_aigenerated.yaml copies, and write a brief Markdown audit under data/.
 ---
 
 # Audit RuleHub metadata
@@ -8,13 +8,13 @@ description: Audit RuleHub BNGL feature metadata. Use when checking one or more 
 Produce both deliverables for every audit:
 
 1. One brief Markdown report under `data/`.
-2. One `metadata_aigenerated.yaml` in every audited model directory.
+2. One source-derived `*_aigenerated.yaml` for every auditable BNGL/YAML pair.
 
-Never run in report-only mode. Never overwrite the source YAML.
+Never overwrite a source YAML. A report-only result is allowed only for a directory that cannot be audited because its BNGL or source YAML is missing; report that blockage explicitly.
 
 ## Select inputs
 
-Use only local files. Pair each `.bngl` file with metadata from the same directory; never inherit metadata from another directory.
+Use local files for model pairing and BNGL feature analysis. Citation lookup may use the internet as described below. Pair each `.bngl` file with metadata from the same directory; never inherit metadata from another directory.
 
 Choose the source YAML in this order:
 
@@ -22,9 +22,18 @@ Choose the source YAML in this order:
 2. The model-specific `*_metadata.yaml` supplied by a collaborator.
 3. `metadata.yaml`.
 
-Do not use an existing `metadata_aigenerated.yaml` as the source. If several candidates remain, do not choose silently; note the ambiguity in the report and identify the file that requires confirmation.
+The collaborator-curated model-specific file takes precedence over `metadata.yaml` whenever both exist. Do not use any `*_aigenerated.yaml` as a source or count it as a source YAML. If several candidates remain at the same priority, do not choose silently; note the ambiguity in the report and identify the files requiring confirmation.
 
-For a multi-BNGL directory, audit the user-selected model. If none is selected, audit each BNGL separately only when each has an unambiguous model-specific YAML; otherwise request review in the report rather than combining evidence across models.
+Name the generated copy from the selected source name:
+
+- `metadata.yaml` → `metadata_aigenerated.yaml`
+- `Model_metadata.yaml` → `Model_aigenerated.yaml`
+
+For a collaborator-curated `*_metadata.yaml`, replace the terminal `_metadata.yaml` with `_aigenerated.yaml`; do not retain `_metadata` in the output name. Do not force every output to be named `metadata_aigenerated.yaml`; the output name must reveal which source YAML it copies.
+
+For a multi-BNGL directory with one source YAML, treat that YAML as collection-level metadata: inspect every BNGL, add `collection`, and aggregate boolean compatibility fields with logical OR (true when any member uses the feature). Set `default_sim_command` only when all detected member defaults agree; otherwise preserve an existing value or use `null` when permitted and flag the conflict. When each BNGL has an unambiguous model-specific YAML, audit the pairs separately instead. Never combine several model-specific YAML files into one output.
+
+Before pairing, inventory all active `.bngl` files and all non-AI YAML files in each target directory. Apply the directory consistency checks under **Audit directory structure** even if pairing is blocked.
 
 ## Audit fields
 
@@ -44,6 +53,69 @@ uses_exclude_include_reactants: boolean
 uses_generate_network: boolean
 default_sim_command: string | null
 ```
+
+Also audit the top-level `citation:` and `collection:` mappings as specified below. Do not audit or infer `citation.doi` in this workflow; preserve an existing DOI unchanged.
+
+## Audit citations
+
+Every generated YAML must contain or update:
+
+```yaml
+citation:
+  year: "YYYY"
+  pmid: "PubMed ID"
+  # Use url instead of pmid only when no PMID can be established.
+  reference: "Author et al., Journal, Year, Volume, Pages"
+```
+
+Require a four-digit `year`, a `reference`, and either `pmid` or `url`. Prefer `pmid`; store only the identifier, not a PubMed link. Store a journal, preprint, or website link in `url` only when a PMID remains unavailable. Do not add, update, or remove `doi` during this audit.
+
+Verify existing citation values with the same process; do not treat a pre-existing `citation` mapping as authoritative. Insert missing required fields and update incorrect ones. When a PMID is established, populate `pmid`; a verified existing URL may remain as supplemental metadata, but it does not replace the PMID.
+
+### Find citation evidence
+
+Use the following sources in strict order. Stop when a model-to-paper match and all required citation values are adequately supported; otherwise continue to the next source.
+
+1. Open [BNGLViz examples](https://bnglviz.github.io/examples.html). Match the model's name/year or folder name to a listed paper, then open links within the page to obtain the year, PMID or URL, and full reference.
+2. Open [BioNetGen applications](https://bionetgen.org/applications). Apply the same name/year matching and follow the page's paper links.
+3. Inspect same-directory `README.md` and other descriptive files. If an RTF, PDF, text file, or similar artifact may contain citation data, name that artifact in the report and inspect it before proceeding.
+4. Only when the first three sources fail, infer a candidate reference from the model name, year, title, pathway, molecule names, and source comments. Clearly label this as a low-confidence guess requiring review.
+
+Internet access is allowed and expected for steps 1, 2, and unresolved PubMed searches. Do not stop at a listing page when its outbound paper, journal, or PubMed links can establish the citation.
+
+### Handle missing PubMed IDs
+
+When a matched source provides a paper URL but no PMID:
+
+1. Add a warning to the audit report.
+2. Search PubMed by title, authors, journal, and year.
+3. If found, write `pmid` and include a clickable PubMed link in the report.
+4. If still unresolved, write the source `url`, retain the warning, include both the source link and a linked PubMed title/author search in the report, and explicitly request PMID review.
+
+Never invent a PMID. A URL is a fallback, not a reason to skip the PubMed search.
+
+### Report citation rationale
+
+Report the value and evidence for every audited citation. The year needs no separate rationale beyond its source. PMID, URL, and reference each require a short model-specific justification that states:
+
+- where the value came from;
+- how the model was matched to the paper (for example, folder/model name and year); and
+- one corroborating detail when needed, such as a paper title naming the pathway or a paper/model sharing a distinctive molecule.
+
+Keep each rationale to one sentence. A useful level of detail is: “BioNetGen applications lists `Lin_2009`; its paper title concerns ERK, which is also a named molecule in the matched model.” Do not use generic statements such as “the citation looked correct.”
+
+## Audit directory structure
+
+Count only non-AI YAML files when assessing directory state.
+
+Read the repository's `metadata-schema.yaml` before writing `collection` and use only schema-valid keys and enum values.
+
+- **Multiple BNGL files and one source YAML:** report that the directory is a BNGL collection. Add or update a top-level `collection:` mapping in the generated YAML and report that insertion/change. Always set `collection.count` to the number of BNGL files. Set `type`, `parent_model`, and `variant_key` only when filenames, metadata, or model content support schema-valid values; flag unsupported or uncertain collection classification for review rather than inventing it. Audit collection-level compatibility across all members as defined under **Select inputs**.
+- **No source YAML:** report a blocking warning, list the BNGL files affected concisely, and do not create an AI-generated YAML from nothing.
+- **No BNGL file:** report a blocking warning naming the available source YAML; do not claim that compatibility fields were audited and do not create a generated audit copy.
+- **Multiple BNGL and multiple source YAML files:** pair only by an explicit user selection or an unambiguous model-specific stem. Report unpaired files and any ambiguity.
+
+AI-generated YAML files never satisfy the “source YAML” requirement and never influence collection detection.
 
 ## Analyze BNGL
 
@@ -100,7 +172,7 @@ Mark a value ambiguous only when active BNGL syntax cannot be classified confide
 
 ## Create the YAML files
 
-For every audited model, copy the selected source metadata to same-directory `metadata_aigenerated.yaml`, then set every detected audit field to the detected value. If `compatibility:` is absent, create it.
+For every auditable pair, copy the selected source metadata to the same-directory output name derived under **Select inputs**, then set every detected compatibility field, required citation field, and supported collection field to its audited value. If `compatibility:` or `citation:` is absent, create it.
 
 - Insert missing false values without requesting review.
 - Insert missing true values and flag them for review.
@@ -108,9 +180,9 @@ For every audited model, copy the selected source metadata to same-directory `me
 - If detection is genuinely ambiguous, preserve the source value when present; otherwise use `null` only where the schema permits it. Flag the ambiguity for review.
 - Preserve all unaudited content, ordering, quoting, and structure as closely as practical.
 
-Treat a missing boolean as effectively false when deciding whether review is needed, but still write the explicit detected boolean to `metadata_aigenerated.yaml`.
+Treat a missing boolean as effectively false when deciding whether review is needed, but still write the explicit detected boolean to the generated YAML.
 
-Preserve identity, citation, source, playground, and all other unaudited metadata. Keep the source file's ordering, quoting, and formatting as closely as practical. Validate the completed YAML and ensure it contains only one `compatibility:` mapping and one instance of each audited key.
+Preserve identity, source, playground, DOI, and all other unaudited metadata. Keep the source file's ordering, quoting, and formatting as closely as practical. Validate the completed YAML and ensure it contains only one mapping for each of `compatibility`, `citation`, and `collection` and one instance of each audited key.
 
 ## Write the brief audit
 
@@ -121,7 +193,7 @@ Start with only a compact batch summary:
 ```markdown
 # <Audit title>
 
-Audited <N> models and created <N> `metadata_aigenerated.yaml` files. Inserted <N> missing values; <N> items require review.
+Audited <N> models and created <N> `*_aigenerated.yaml` files. Inserted <N> missing values; <N> items require review; <N> directories were blocked.
 ```
 
 Then add one heading per model. Keep all information for that model under its heading:
@@ -133,6 +205,12 @@ Then add one heading per model. Keep all information for that model under its he
 - Review insertion: `field_c: true` — <short evidence>.
 - Review change: `field_d: true` → `false` — <short evidence>.
 - Review ambiguity: `field_e` — <what is unclear>.
+- Citation year: `YYYY`.
+- Citation PMID: `12345678` — <source and model-to-paper match>; [PubMed](https://pubmed.ncbi.nlm.nih.gov/12345678/).
+- Citation URL: [source](<URL>) — <source and model-to-paper match>; **warning: PMID unresolved**; [PubMed search](<query URL>).
+- Citation reference: `<reference>` — <source and model-to-paper match>.
+- Collection insertion: `count: N` — directory contains N BNGL files; <classification evidence or review warning>.
+- Blocking warning: <missing BNGL/source YAML or unresolved pairing>.
 ```
 
 Apply these brevity rules:
@@ -141,18 +219,28 @@ Apply these brevity rules:
 - Group all routine false insertions into one bullet.
 - Give each inserted true, changed value, or ambiguity one short review bullet.
 - Include an active-entry count only when it directly explains a reviewed anchors/functions/energy decision.
-- If a model has no false insertions and nothing requires review, write `- No review required.`
+- If a model has no compatibility/collection changes or warnings beyond its required citation bullets, omit `- No review required.`; the citation bullets already document the completed audit.
 - Do not explain that missing fields imply false.
 - Mention the source YAML only when its selection is ambiguous or otherwise requires review.
+- Always include the concise citation bullets; citation provenance is not an evidence dump.
+- Use a `Citation URL` bullet instead of `Citation PMID` only after the required PubMed search fails, and include the missing-PMID warning in that bullet.
+- Include collection and blocking bullets only when they apply.
 
 ## Verify
 
 Before finishing, confirm:
 
-- every audited model has a same-directory `metadata_aigenerated.yaml`;
+- every auditable pair or collection has its same-directory source-derived `*_aigenerated.yaml`;
+- every generated filename is derived from the selected source YAML stem;
 - every boolean audit field is present and agrees with active BNGL content;
 - `default_sim_command` agrees with the active command when one is detected;
+- every generated YAML contains a four-digit citation year, a reference, and either PMID or fallback URL;
+- every PMID contains only digits and every URL is a working link;
+- every citation PMID/URL/reference has a concise source-and-match rationale in the report;
+- every source that lacked a PMID has a warning; a resolved PMID has a direct PubMed link, while an unresolved PMID has both a linked PubMed search and the fallback source URL in the report;
+- every multi-BNGL/single-source-YAML directory has a reported collection insertion with the correct BNGL count;
+- missing-BNGL, missing-source-YAML, ambiguous pairing, and unpaired-file cases are reported and excluded from completed-audit totals;
 - source YAML files remain unchanged;
 - report totals match the generated files and reported bullets;
-- only inserted true values, changes to existing values, and ambiguities are marked for review;
+- review totals count inserted true compatibility values, changes to existing values, low-confidence or unresolved citation evidence, collection uncertainties, warnings, and ambiguities; routine high-confidence citation evidence is reported but not counted as requiring review;
 - the report contains no tables or diagnostic sections.
