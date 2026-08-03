@@ -70,7 +70,7 @@ citation:
 
 Require a four-digit `year`, a `reference`, and either `pmid` or `url`. Prefer `pmid`; store only the identifier, not a PubMed link. Store a journal, preprint, or website link in `url` only when a PMID remains unavailable. Do not add, update, or remove `doi` during this audit.
 
-Verify existing citation values with the same process; do not treat a pre-existing `citation` mapping as authoritative. Insert missing required fields and update incorrect ones. When a PMID is established, populate `pmid`; a verified existing URL may remain as supplemental metadata, but it does not replace the PMID.
+Verify existing citation values with the same process; do not treat a pre-existing `citation` mapping as authoritative. Insert missing required fields and update incorrect ones. When a PMID is established, populate `pmid`; a verified existing URL may remain as supplemental metadata.
 
 ### Find citation evidence
 
@@ -98,11 +98,11 @@ Never invent a PMID. A URL is a fallback, not a reason to skip the PubMed search
 
 Report the value and evidence for every audited citation. The year needs no separate rationale beyond its source. PMID, URL, and reference each require a short model-specific justification that states:
 
-- where the value came from;
-- how the model was matched to the paper (for example, folder/model name and year); and
-- one corroborating detail when needed, such as a paper title naming the pathway or a paper/model sharing a distinctive molecule.
+- where the value came from
+- how the model was matched to the paper (for example, folder/model name and year)
+- brief corroborating detail(s) when needed, such as a paper title naming the pathway or a paper/model sharing a distinctive molecule.
 
-Keep each rationale to one sentence. A useful level of detail is: “BioNetGen applications lists `Lin_2009`; its paper title concerns ERK, which is also a named molecule in the matched model.” Do not use generic statements such as “the citation looked correct.”
+Keep each rationale to one sentence. A useful level of detail is: “BioNetGen applications lists `Lin_2009`; its paper title concerns ERK, which is also a named molecule in the matched model.” Do not use generic statements.
 
 ## Audit directory structure
 
