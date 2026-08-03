@@ -31,7 +31,7 @@ Name the generated copy from the selected source name:
 
 For a collaborator-curated `*_metadata.yaml`, replace the terminal `_metadata.yaml` with `_aigenerated.yaml`; do not retain `_metadata` in the output name. Do not force every output to be named `metadata_aigenerated.yaml`; the output name must reveal which source YAML it copies.
 
-For a multi-BNGL directory with one source YAML, treat that YAML as collection-level metadata: inspect every BNGL, add `collection`, and aggregate boolean compatibility fields with logical OR (true when any member uses the feature). Set `default_sim_command` only when all detected member defaults agree; otherwise preserve an existing value or use `null` when permitted and flag the conflict. When each BNGL has an unambiguous model-specific YAML, audit the pairs separately instead. Never combine several model-specific YAML files into one output.
+For a multi-BNGL directory with one source YAML, treat that YAML as collection-level metadata: inspect every BNGL, add `collection` to the tags, and aggregate boolean compatibility fields to be true when any member uses the feature. Set `default_sim_command` only when all detected member defaults agree; otherwise preserve an existing value or use `null` when permitted and flag the conflict. When each BNGL has an unambiguous model-specific YAML, audit the pairs separately instead. Never combine several model-specific YAML files into one output.
 
 Before pairing, inventory all active `.bngl` files and all non-AI YAML files in each target directory. Apply the directory consistency checks under **Audit directory structure** even if pairing is blocked.
 
