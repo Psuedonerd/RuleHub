@@ -19,7 +19,7 @@ Use local files for model pairing and BNGL feature analysis. Citation lookup may
 Choose the source YAML in this order:
 
 1. A file named by the user.
-2. The model-specific `*_metadata.yaml` supplied by a collaborator.
+2. The model-specific `*_metadata.yaml` supplied by a collaborator (e.g, An_2009_metadata.yaml for the An2009 folder).
 3. `metadata.yaml`.
 
 The collaborator-curated model-specific file takes precedence over `metadata.yaml` whenever both exist. Do not use any `*_aigenerated.yaml` as a source or count it as a source YAML. If several candidates remain at the same priority, do not choose silently; note the ambiguity in the report and identify the files requiring confirmation.
@@ -27,11 +27,9 @@ The collaborator-curated model-specific file takes precedence over `metadata.yam
 Name the generated copy from the selected source name:
 
 - `metadata.yaml` → `metadata_aigenerated.yaml`
-- `Model_metadata.yaml` → `Model_aigenerated.yaml`
+- `*_metadata.yaml` → `*_metadata_aigenerated.yaml` (e.g, `An_2009_metadata.yaml` → `An_2009_metadata_aigenerated.yaml`)
 
-For a collaborator-curated `*_metadata.yaml`, replace the terminal `_metadata.yaml` with `_aigenerated.yaml`; do not retain `_metadata` in the output name. Do not force every output to be named `metadata_aigenerated.yaml`; the output name must reveal which source YAML it copies.
-
-Before pairing, inventory all active `.bngl` files and all non-AI YAML files in each target directory. Apply the directory consistency checks under **Audit directory structure** even if pairing is blocked.
+For a collaborator-curated `*_metadata.yaml`, append `_aigenerated` to the part of the file name preceding the `.yaml`, as shown above. Do not force every output to be named `metadata_aigenerated.yaml`; the output name must reveal which source YAML it copies.
 
 ## Audit fields
 
