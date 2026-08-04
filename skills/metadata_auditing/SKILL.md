@@ -85,8 +85,8 @@ When a matched source provides a paper URL but no PMID:
 
 1. Add a warning to the audit report.
 2. Search PubMed by title, authors, journal, and year.
-3. If found, write `pmid` and include a clickable PubMed link in the report.
-4. If still unresolved, write the source `url`, retain the warning, include both the source link and a linked PubMed title/author search in the report, and explicitly request PMID review.
+3. If found, write `pmid` and include a clickable PubMed link in the warning description. Specify in the warning that the PMID was found via PubMed search and must be checked.
+4. If still unresolved, write the source `url`, include both the source link and a linked PubMed title/author search in the report, and explicitly request case review.
 
 Never invent a PMID. A URL is a fallback, not a reason to skip the PubMed search.
 
