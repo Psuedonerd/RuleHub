@@ -176,7 +176,7 @@ Start with only a compact batch summary:
 ```markdown
 # <Audit title>
 
-Audited <N> models and created <N> `*_aigenerated.yaml` files. Inserted <N> missing values; <N> items require review; <N> directories were blocked.
+Audited <N> models and created <N> `*_aigenerated.yaml` files. Inserted <N> missing values; <N> items require review.
 ```
 
 Then add one heading per model. Keep all information for that model under its heading:
