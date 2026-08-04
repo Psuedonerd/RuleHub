@@ -155,7 +155,7 @@ Mark a value ambiguous only when active BNGL syntax cannot be classified confide
 
 ## Create the YAML files
 
-For every auditable pair, copy the selected source metadata to the same-directory output name derived under **Select inputs**, then set every detected compatibility field, required citation field, and supported collection field to its audited value. If `compatibility:` or `citation:` is absent, create it.
+For every auditable pair, copy the selected source metadata to the same-directory output name derived under **Select inputs**, then set every detected compatibility field and required citation field to its audited value. If `compatibility:` or `citation:` is absent, create it.
 
 - Insert missing false values without requesting review.
 - Insert missing true values and flag them for review.
