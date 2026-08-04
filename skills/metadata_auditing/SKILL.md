@@ -1,6 +1,6 @@
 ---
 name: metadata-auditing
-description: Audit RuleHub BNGL feature, citation, and collection metadata. Use when checking one or more model directories or same-directory BNGL/YAML pairs; select collaborator-curated YAML first, create source-derived *_aigenerated.yaml copies, and write a brief Markdown audit under data/.
+description: Audit RuleHub BNGL feature and citation metadata. Use when checking one or more model directories or same-directory BNGL/YAML pairs; select collaborator-curated YAML first, create source-derived *_aigenerated.yaml copies, and write a brief Markdown audit under data/.
 ---
 
 # Audit RuleHub metadata
