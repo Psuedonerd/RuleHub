@@ -200,18 +200,17 @@ Apply these brevity rules:
 - Group all routine false insertions into one bullet.
 - Give each inserted true, changed value, or ambiguity one short review bullet.
 - Include an active-entry count only when it directly explains a reviewed anchors/functions/energy decision.
-- If a model has no compatibility/collection changes or warnings beyond its required citation bullets, omit `- No review required.`; the citation bullets already document the completed audit.
+- If a model has no compatibility changes or warnings beyond its required citation bullets, omit `- No review required.`; the citation bullets already document the completed audit.
 - Do not explain that missing fields imply false.
 - Mention the source YAML only when its selection is ambiguous or otherwise requires review.
 - Always include the concise citation bullets; citation provenance is not an evidence dump.
 - Use a `Citation URL` bullet instead of `Citation PMID` only after the required PubMed search fails, and include the missing-PMID warning in that bullet.
-- Include collection and blocking bullets only when they apply.
 
 ## Verify
 
 Before finishing, confirm:
 
-- every auditable pair or collection has its same-directory source-derived `*_aigenerated.yaml`;
+- every audited model has its same-directory source-derived `*_aigenerated.yaml`;
 - every generated filename is derived from the selected source YAML stem;
 - every boolean audit field is present and agrees with active BNGL content;
 - `default_sim_command` agrees with the active command when one is detected;
@@ -219,9 +218,7 @@ Before finishing, confirm:
 - every PMID contains only digits and every URL is a working link;
 - every citation PMID/URL/reference has a concise source-and-match rationale in the report;
 - every source that lacked a PMID has a warning; a resolved PMID has a direct PubMed link, while an unresolved PMID has both a linked PubMed search and the fallback source URL in the report;
-- every multi-BNGL/single-source-YAML directory has a reported collection insertion with the correct BNGL count;
-- missing-BNGL, missing-source-YAML, ambiguous pairing, and unpaired-file cases are reported and excluded from completed-audit totals;
 - source YAML files remain unchanged;
 - report totals match the generated files and reported bullets;
-- review totals count inserted true compatibility values, changes to existing values, low-confidence or unresolved citation evidence, collection uncertainties, warnings, and ambiguities; routine high-confidence citation evidence is reported but not counted as requiring review;
+- review totals count inserted true compatibility values, changes to existing values, low-confidence or unresolved citation evidence, warnings, and ambiguities; routine high-confidence citation evidence is reported but not counted as requiring review;
 - the report contains no tables or diagnostic sections.
