@@ -1,0 +1,29 @@
+id: Mitra2019_02_egfr_bnf1_InputFiles_egfr
+name: InputFiles
+description: EGFR model
+tags: ["signaling"]
+category: signaling
+compatibility:
+  bng2_compatible: true
+  nfsim_compatible: false
+  simulation_methods: ["ode"]
+  uses_compartments: false
+  uses_cbngl_compartments: false
+  uses_vcell_compartments: false
+  uses_energy: false
+  uses_functions: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: false
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_generate_network: true
+  default_sim_command: simulate
+source:
+  origin: published
+playground:
+  visible: false
+  gallery_categories: []
+  featured: false
+  difficulty: intermediate
