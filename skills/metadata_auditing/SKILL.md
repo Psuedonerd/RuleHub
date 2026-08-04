@@ -52,7 +52,7 @@ uses_generate_network: boolean
 default_sim_command: string | null
 ```
 
-Also audit the top-level `citation:` and `collection:` mappings as specified below. Do not audit or infer `citation.doi` in this workflow; preserve an existing DOI unchanged.
+Also audit the top-level `citation:` mappings as specified below. Do not audit or infer `citation.doi` in this workflow; preserve an existing DOI unchanged.
 
 ## Audit citations
 
