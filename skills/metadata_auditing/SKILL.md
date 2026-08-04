@@ -192,8 +192,6 @@ Then add one heading per model. Keep all information for that model under its he
 - Citation PMID: `12345678` — <source and model-to-paper match>; [PubMed](https://pubmed.ncbi.nlm.nih.gov/12345678/).
 - Citation URL: [source](<URL>) — <source and model-to-paper match>; **warning: PMID unresolved**; [PubMed search](<query URL>).
 - Citation reference: `<reference>` — <source and model-to-paper match>.
-- Collection insertion: `count: N` — directory contains N BNGL files; <classification evidence or review warning>.
-- Blocking warning: <missing BNGL/source YAML or unresolved pairing>.
 ```
 
 Apply these brevity rules:
