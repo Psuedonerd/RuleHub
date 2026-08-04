@@ -165,7 +165,7 @@ For every auditable pair, copy the selected source metadata to the same-director
 
 Treat a missing boolean as effectively false when deciding whether review is needed, but still write the explicit detected boolean to the generated YAML.
 
-Preserve identity, source, playground, DOI, and all other unaudited metadata. Keep the source file's ordering, quoting, and formatting as closely as practical. Validate the completed YAML and ensure it contains only one mapping for each of `compatibility`, `citation`, and `collection` and one instance of each audited key.
+Preserve identity, source, playground, DOI, and all other unaudited metadata. Keep the source file's ordering, quoting, and formatting as closely as practical. Validate the completed YAML and ensure it contains only one mapping for `compatibility` and `citation` and one instance of each audited key.
 
 ## Write the brief audit
 
