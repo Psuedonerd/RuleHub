@@ -1,0 +1,59 @@
+id: "retinoic-acid-signaling"
+name: "retinoic acid signaling"
+description: "BioNetGen model: retinoic acid signaling"
+
+contributors:
+  - name: "Achyudhan"
+  - name: "Nabil Mardhy"
+
+tags: ["retinoic", "acid", "signaling", "ra", "rarrxr", "corepressor", "targetgene"]
+date:
+  last_tested: 2026-07-13
+
+category: "signaling"
+biol_categories: ["signaling"]
+comp_categories: ["other"]
+
+compatibility:
+  rr_compatible: true
+  bnglviz_compatible: true
+  bng2_compatible: true
+  vcell_compatible: true
+  vcell_errors:
+  simulation_methods: ["ode", "ssa", "nf"]
+  uses_energy: false
+  uses_functions: false
+  uses_compartments: false
+  nfsim_compatible: true
+  molclustpy_compatible: true
+  comments: "vcell put actions out of model"
+
+features:
+  uses_generate_network: true
+  default_sim_command: "ode" 
+  uses_totalrate: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: false
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_functions: false
+  uses_compartments: false
+  uses_energy: false
+  
+
+source:
+  origin: "ai-generated"
+  original_format: "bngl"
+  original_repository: "bionetgen-web-simulator"
+  source_path: "example-models/retinoic-acid-signaling.bngl"
+ 
+playground:
+  visible: false
+  gallery_categories: ["developmental","test-models"]
+  featured: false
+  difficulty: "advanced"
+ 
+
+

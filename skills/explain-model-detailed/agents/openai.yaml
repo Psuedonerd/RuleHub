@@ -1,0 +1,4 @@
+interface:
+  display_name: "Explain RuleHub Model (Coders)"
+  short_description: "Create technical BNGL/YAML model explanations for coders."
+  default_prompt: "Explain this RuleHub BNGL/YAML model for experienced coders with complete molecule sites and rule inventory."

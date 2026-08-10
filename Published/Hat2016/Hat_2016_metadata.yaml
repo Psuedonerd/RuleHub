@@ -1,0 +1,65 @@
+id: "Hat_2016"
+name: "Hat 2016"
+description: "Nuclear transport"
+contributors:
+  - name: "Nabil Mardhy"
+
+citation:
+  year: "2016"
+  pmid: "26928575"  
+  reference: "Hat et al., 2016"
+
+tags: ["published", "hat", "2016", "dna_dsb", "atm", "siah1", "hipk2", "wip1", "gene_wip1", "mrna_wip1", "p53"]
+date:
+  last_tested: 2026-07-16
+
+category: "signaling"
+biol_categories: ["signaling"]
+comp_categories: ["other"]
+
+compatibility:
+  rr_compatible: true
+  bnglviz_compatible: true
+  bng2_compatible: true
+  bngp_compatible: true
+  vcell_compatible: false
+  vcell_errors: "Encountered ( at line 532"
+  simulation_methods: ["ode", "ssa"]
+  uses_energy: false
+  uses_functions: true
+  uses_compartments: false
+  nfsim_compatible: true
+  molclustpy_compatible: false
+  mpd_compatible: true
+  comments: "nfsim runs after lowering numbers of molecules     MCP list index out of range"
+
+features:
+  uses_generate_network: true
+  default_sim_command: "ode" 
+  uses_totalrate: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: false
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_functions: true
+  uses_compartments: false
+  uses_energy: false
+  
+
+source:
+  origin: "published"
+  original_format: "bngl"
+  original_repository: "bionetgen-web-simulator"
+  source_path: "published-models/cell-regulation/Hat_2016.bngl"
+
+playground:
+  visible: true
+  gallery_categories: ["cell-cycle","multistage"]
+  featured: false
+  difficulty: "intermediate"
+
+
+
+

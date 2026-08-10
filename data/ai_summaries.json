@@ -1,0 +1,689 @@
+[
+  {
+    "model_id": "An_2009",
+    "title": "An 2009",
+    "bngl_path": "Published/An2009/An_2009.bngl",
+    "yaml_path": "Published/An2009/metadata.yaml",
+    "markdown_path": "data/summaries/An2009_aigenerated.md",
+    "summary": "Toll-like receptor 4 signaling from LPS recognition to NF-kB-driven inflammatory gene expression.",
+    "key_events": [
+      "LPS is assembled with CD14 and MD2 before engaging TLR4, so receptor activation depends on coreceptor-mediated ligand presentation.",
+      "TLR4 complexes branch through TRAM/TRIF and MAL/MyD88 adaptor routes, allowing the same stimulus to feed multiple inflammatory signaling arms.",
+      "IKK-driven NF-kB activation is countered by A20 and IkB feedback, so the model can show both signal rise and signal shutoff."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Barua_2007",
+    "title": "Barua 2007",
+    "bngl_path": "Published/Barua2007/Barua_2007.bngl",
+    "yaml_path": "Published/Barua2007/metadata.yaml",
+    "markdown_path": "data/summaries/Barua2007_aigenerated.md",
+    "summary": "SHP2 regulation by phosphorylated receptor dimers and intracomplex SH2-domain engagement.",
+    "key_events": [
+      "Phosphorylated receptor dimers recruit SHP2 through SH2-domain contacts, creating receptor-bound phosphatase complexes.",
+      "SHP2 can transition from a closed inhibited form toward an open form when receptor binding stabilizes active conformations.",
+      "Open SHP2 removes phosphate groups from receptor sites, creating a negative-feedback loop on the receptor scaffold itself."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Barua_2009",
+    "title": "Barua 2009",
+    "bngl_path": "Published/Barua2009/Barua_2009.bngl",
+    "yaml_path": "Published/Barua2009/metadata.yaml",
+    "markdown_path": "data/summaries/Barua2009_aigenerated.md",
+    "summary": "SH2B dimerization as a scaffold for JAK2 phosphorylation.",
+    "key_events": [
+      "Phosphorylated JAK2 recruits SH2B, linking kinase activation to scaffold binding.",
+      "SH2B dimerization brings two JAK2 molecules into the same assembly, increasing opportunities for JAK2-to-JAK2 phosphorylation.",
+      "A partially activated JAK2-containing complex phosphorylates remaining inactive JAK2 more quickly, representing cooperative amplification."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Barua_2013",
+    "title": "Barua 2013",
+    "bngl_path": "Published/Barua2013/Barua_2013.bngl",
+    "yaml_path": "Published/Barua2013/metadata.yaml",
+    "markdown_path": "data/summaries/Barua2013_aigenerated.md",
+    "summary": "Beta-catenin control by the Axin/APC/GSK3/CK1 destruction complex.",
+    "key_events": [
+      "Beta-catenin binds APC and Axin, placing it into the destruction-complex environment.",
+      "CK1 and GSK3 phosphorylate beta-catenin in sequence, converting it into a form that is removed more rapidly.",
+      "When beta-catenin is degraded, associated APC or Axin partners are released so the scaffold can participate in another cycle."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "BaruaBCR_2012",
+    "title": "Barua 2012",
+    "bngl_path": "Published/BaruaBCR2012/BaruaBCR_2012.bngl",
+    "yaml_path": "Published/BaruaBCR2012/metadata.yaml",
+    "markdown_path": "data/summaries/BaruaBCR2012_aigenerated.md",
+    "summary": "Early B-cell receptor signaling with Lyn, Fyn, Syk, Csk, PAG, CD22, and phosphatase feedback.",
+    "key_events": [
+      "Antigen input strengthens B-cell receptor signaling by promoting receptor phosphorylation and receptor-proximal complex assembly.",
+      "Lyn and Fyn phosphorylate receptor ITAMs and themselves switch between activating and inhibitory phosphorylation states.",
+      "Syk recruitment and activation provide positive signaling, while Csk, PAG, CD22, SHP1, SHIP, Dok, and RasGAP restrain the response."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "BaruaFceRI_2012",
+    "title": "BaruaFceRI 2012",
+    "bngl_path": "Published/BaruaFceRI2012/BaruaFceRI_2012.bngl",
+    "yaml_path": "Published/BaruaFceRI2012/metadata.yaml",
+    "markdown_path": "data/summaries/BaruaFceRI2012_aigenerated.md",
+    "summary": "FcεRI signaling regulated by ligand crosslinking, Lyn/Syk activation, LAT signaling, and raft localization.",
+    "key_events": [
+      "Ligand and hapten binding crosslink FcεRI, converting receptor occupancy into receptor clustering.",
+      "Lyn phosphorylates receptor chains, allowing Syk recruitment and activation at the membrane.",
+      "LAT phosphorylation and Grb2 recruitment transmit the receptor signal downstream, while raft localization changes the effective strength of phosphorylation and dephosphorylation."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Blinov_2006",
+    "title": "Blinov 2006",
+    "bngl_path": "Published/Blinov2006/Blinov_2006.bngl",
+    "yaml_path": "Published/Blinov2006/metadata.yaml",
+    "markdown_path": "data/summaries/Blinov2006_aigenerated.md",
+    "summary": "EGF receptor signaling through ligand binding, receptor aggregation, receptor phosphorylation, and Shc adaptor recruitment.",
+    "key_events": [
+      "EGF binding creates ligand-bound EGFR complexes that can aggregate with other receptors.",
+      "Aggregated receptors phosphorylate one another on docking sites, creating binding platforms for adaptor proteins.",
+      "Shc recruitment, Shc phosphorylation, and Grb2/SOS assembly connect receptor phosphorylation to downstream signaling."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Blinov_egfr",
+    "title": "Blinov egfr",
+    "bngl_path": "Published/Blinovegfr/Blinov_egfr.bngl",
+    "yaml_path": "Published/Blinovegfr/metadata.yaml",
+    "markdown_path": "data/summaries/Blinovegfr_aigenerated.md",
+    "summary": "A compact EGFR example showing receptor-ligand binding and receptor complex formation.",
+    "key_events": [
+      "Ligand binding shifts EGFR from free receptor toward ligand-associated receptor complexes.",
+      "Receptor interaction states are tracked as complexes rather than as a single active/inactive switch.",
+      "The model emphasizes the formation and loss of receptor-containing assemblies as the central EGFR behavior."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Blinov_ran",
+    "title": "Blinov ran",
+    "bngl_path": "Published/Blinovran/Blinov_ran.bngl",
+    "yaml_path": "Published/Blinovran/metadata.yaml",
+    "markdown_path": "data/summaries/Blinovran_aigenerated.md",
+    "summary": "A compact Ran-system example focused on nucleotide-state and compartment-related molecular cycling.",
+    "key_events": [
+      "Ran-related species move through state changes that represent molecular cycling.",
+      "Binding partners recognize particular Ran states, making interaction dependent on the current molecular form.",
+      "Compartment-aware transitions shape where each Ran-related state accumulates."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Chattaraj_2021",
+    "title": "Chattaraj 2021",
+    "bngl_path": "Published/Chattaraj2021/Chattaraj_2021.bngl",
+    "yaml_path": "Published/Chattaraj2021/metadata.yaml",
+    "markdown_path": "data/summaries/Chattaraj2021_aigenerated.md",
+    "summary": "Multivalent Nephrin-Nck-NWASP clustering as a model of heterotypic biomolecular condensate formation.",
+    "key_events": [
+      "Nephrin recruits Nck through repeated binding modules, creating multivalent receptor-proximal assemblies.",
+      "Nck links Nephrin to NWASP, and NWASP adds more interaction sites that enlarge clusters.",
+      "Binding affinity and the number of available sites determine whether molecules remain dispersed or form larger condensate-like clusters."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Cheemalavagu_JAK_STAT",
+    "title": "Cheemalavagu 2024",
+    "bngl_path": "Published/CheemalavaguJAKSTAT/Cheemalavagu_JAK_STAT.bngl",
+    "yaml_path": "Published/CheemalavaguJAKSTAT/metadata.yaml",
+    "markdown_path": "data/summaries/CheemalavaguJAKSTAT_aigenerated.md",
+    "summary": "IL-6 and IL-10 JAK/STAT signaling with STAT activation and SOCS-mediated inhibition.",
+    "key_events": [
+      "IL-6 and IL-10 first assemble receptor complexes that can recruit JAK kinases.",
+      "JAK-associated receptor complexes phosphorylate STAT1 or STAT3, producing the activated transcription-factor signal.",
+      "SOCS proteins bind pathway components and inhibit further signaling, creating cytokine-induced negative regulation."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "ChylekFceRI_2014",
+    "title": "Chylek 2014 (FceRI)",
+    "bngl_path": "Published/ChylekFceRI2014/ChylekFceRI_2014.bngl",
+    "yaml_path": "Published/ChylekFceRI2014/metadata.yaml",
+    "markdown_path": "data/summaries/ChylekFceRI2014_aigenerated.md",
+    "summary": "Detailed early FcεRI signaling from antigen crosslinking to Lyn, Fyn, Syk, PAG, Csk, and phosphatase regulation.",
+    "key_events": [
+      "DNP-BSA crosslinks IgE-FcεRI through exposed hapten sites, initiating receptor aggregation.",
+      "Lyn and Fyn phosphorylate receptor ITAMs and regulate their own activity through activating and inhibitory phosphorylation.",
+      "Syk recruitment amplifies signaling, while PAG/Csk, SHP1, and SHIP1 create counteracting inhibitory control."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "ChylekTCR_2014",
+    "title": "Chylek 2014 (TCR)",
+    "bngl_path": "Published/ChylekTCR2014/ChylekTCR_2014.bngl",
+    "yaml_path": "Published/ChylekTCR2014/metadata.yaml",
+    "markdown_path": "data/summaries/ChylekTCR2014_aigenerated.md",
+    "summary": "Early T-cell receptor phosphorylation-site dynamics and adaptor assembly.",
+    "key_events": [
+      "LCK phosphorylates TCR/CD3 sites, creating docking sites for ZAP70.",
+      "Activated ZAP70 phosphorylates adaptor proteins such as LAT and LCP2, enabling larger signaling assemblies.",
+      "Phosphatases and inhibitory kinases oppose activation, so the model can show how site-specific phosphorylation patterns are shaped by competing enzymes."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Dembo_1978",
+    "title": "Dembo 1978",
+    "bngl_path": "Published/Dembo1978/blbr_dembo1978.bngl",
+    "yaml_path": "Published/Dembo1978/metadata.yaml",
+    "markdown_path": "data/summaries/Dembo1978_aigenerated.md",
+    "summary": "Symmetric bivalent hapten-receptor crosslinking without ring formation.",
+    "key_events": [
+      "A free bivalent hapten arm binds one receptor site, creating a singly bound intermediate.",
+      "The second hapten arm can bind a receptor on another complex, forming a linear crosslink between receptors.",
+      "At very high ligand abundance, receptors become occupied without being efficiently bridged, producing the prozone drop in crosslinking."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "lac_operon_dreisigmeyer2008",
+    "title": "Dreisigmeyer 2008",
+    "bngl_path": "Published/Dreisigmeyer2008/lac_operon_dreisigmeyer2008.bngl",
+    "yaml_path": "Published/Dreisigmeyer2008/metadata.yaml",
+    "markdown_path": "data/summaries/Dreisigmeyer2008_aigenerated.md",
+    "summary": "Lactose induction of the E. coli lac operon through transport, metabolism, allolactose, and beta-galactosidase expression.",
+    "key_events": [
+      "Lactose import increases intracellular lactose, with transport asymmetry affecting how strongly extracellular lactose drives the system.",
+      "Lactose metabolism creates allolactose, which induces beta-galactosidase expression through cooperative regulation.",
+      "Beta-galactosidase both rises as an output and consumes lactose/allolactose, creating a coupled induction-and-metabolism loop."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Dushek_2011",
+    "title": "Dushek 2011",
+    "bngl_path": "Published/Dushek2011/Dushek_2011.bngl",
+    "yaml_path": "Published/Dushek2011/metadata.yaml",
+    "markdown_path": "data/summaries/Dushek2011_aigenerated.md",
+    "summary": "Encounter-complex control of a kinase/phosphatase modifying a substrate with many sites.",
+    "key_events": [
+      "Kinase or phosphatase first enters an encounter complex with the multisite substrate before productive catalysis occurs.",
+      "A catalytic event changes the substrate modification count and temporarily inactivates the enzyme.",
+      "Repeated encounter, modification, release, and reactivation events shape the distribution of substrate molecules across phosphorylation levels."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Dushek_2014",
+    "title": "Dushek 2014",
+    "bngl_path": "Published/Dushek2014/Dushek_2014.bngl",
+    "yaml_path": "Published/Dushek2014/metadata.yaml",
+    "markdown_path": "data/summaries/Dushek2014_aigenerated.md",
+    "summary": "Kinase/phosphatase control of a biosensor with intra- and intermolecular signaling states.",
+    "key_events": [
+      "Kinase activity pushes the biosensor toward a modified state, while phosphatase activity reverses that state.",
+      "The modified biosensor can adopt distinct intramolecular or intermolecular configurations, creating multiple sensor outputs.",
+      "Sequestration limits available signaling protein and changes how much biosensor can enter signaling-competent states."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Erdem_2021",
+    "title": "Erdem 2021",
+    "bngl_path": "Published/Erdem2021/Erdem_2021.bngl",
+    "yaml_path": "Published/Erdem2021/metadata.yaml",
+    "markdown_path": "data/summaries/Erdem2021_aigenerated.md",
+    "summary": "Early insulin and IGF1 receptor signaling in MCF7 cells fit to RPPA-style signaling data.",
+    "key_events": [
+      "Insulin and IGF1 bind their matching receptors, producing receptor phosphorylation rather than a generic growth-factor signal.",
+      "Phosphorylated receptors drive downstream signaling outputs through adaptor-like steps calibrated to MCF7 signaling measurements.",
+      "Feedback, resensitization, and receptor recycling allow signaling to decline and receptor responsiveness to recover."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "genetic_switch_gardner2000",
+    "title": "Gardner 2000",
+    "bngl_path": "Published/Gardner2000/genetic_switch_gardner2000.bngl",
+    "yaml_path": "Published/Gardner2000/metadata.yaml",
+    "markdown_path": "data/summaries/Gardner2000_aigenerated.md",
+    "summary": "A bistable genetic toggle switch made from two mutually repressing gene products.",
+    "key_events": [
+      "Each gene product represses production of the other, creating mutual antagonism.",
+      "Cooperative repression makes intermediate states unstable, so the system tends to commit to one dominant gene-expression state.",
+      "Protein degradation prevents unlimited accumulation and helps set the time scale for switching or maintenance."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "blbr_heterogeneity_goldstein1980",
+    "title": "Goldstein 1980",
+    "bngl_path": "Published/Goldstein1980/blbr_heterogeneity_goldstein1980.bngl",
+    "yaml_path": "Published/Goldstein1980/metadata.yaml",
+    "markdown_path": "data/summaries/Goldstein1980_aigenerated.md",
+    "summary": "Bivalent hapten crosslinking of a heterogeneous antibody-receptor population.",
+    "key_events": [
+      "Bivalent hapten binds either high-affinity or low-affinity receptor populations.",
+      "A receptor-bound hapten can bridge to another receptor complex, producing polymers across a mixed receptor population.",
+      "Different receptor affinities distort the crosslinking dose-response compared with a homogeneous receptor system."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "antigen_pulses_harmon2017",
+    "title": "Harmon 2017",
+    "bngl_path": "Published/Harmon2017/antigen_pulses_harmon2017.bngl",
+    "yaml_path": "Published/Harmon2017/metadata.yaml",
+    "markdown_path": "data/summaries/Harmon2017_aigenerated.md",
+    "summary": "History-dependent FcεRI mast-cell responses to pulsed antigen stimulation.",
+    "key_events": [
+      "Antigen pulses rapidly create a Syk-positive FcεRI activation signal.",
+      "A slower Ship1/X negative branch changes PIP3 signaling and stores information about recent stimulation.",
+      "Short pulse intervals can yield desensitization, while longer intervals can permit priming and stronger degranulation."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Hat_2016",
+    "title": "Hat 2016",
+    "bngl_path": "Published/Hat2016/Hat_2016.bngl",
+    "yaml_path": "Published/Hat2016/metadata.yaml",
+    "markdown_path": "data/summaries/Hat2016_aigenerated.md",
+    "summary": "p53 feedback, bifurcation, and cell-fate decision behavior after DNA damage.",
+    "key_events": [
+      "DNA damage activates upstream signaling that stabilizes and elevates p53.",
+      "p53 induces regulators such as Mdm2 and other target genes, creating both negative feedback and fate-related outputs.",
+      "Feedback and threshold effects allow the same pathway to support low-p53, oscillatory, or high-p53 response regimes."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "steric_effects_hlavacek1999",
+    "title": "Hlavacek 1999",
+    "bngl_path": "Published/Hlavacek1999/steric_effects_hlavacek1999.bngl",
+    "yaml_path": "Published/Hlavacek1999/metadata.yaml",
+    "markdown_path": "data/summaries/Hlavacek1999_aigenerated.md",
+    "summary": "Steric hindrance in multivalent ligand binding to cell-surface receptors.",
+    "key_events": [
+      "A multivalent ligand gains receptors one at a time as receptor sites bind to available ligand surface.",
+      "Each bound receptor covers physical space, reducing the chance that another nearby receptor can attach.",
+      "The model therefore predicts less high-occupancy binding than would be expected from independent identical sites."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "kinetic_proofreading_hlavacek2001",
+    "title": "Hlavacek 2001",
+    "bngl_path": "Published/Hlavacek2001/kinetic_proofreading_hlavacek2001.bngl",
+    "yaml_path": "Published/Hlavacek2001/metadata.yaml",
+    "markdown_path": "data/summaries/Hlavacek2001_aigenerated.md",
+    "summary": "Kinetic proofreading by receptor dimers that must survive sequential modification steps.",
+    "key_events": [
+      "A bivalent ligand forms a receptor dimer that can begin a sequence of signaling modifications.",
+      "The dimer must remain intact through multiple steps to reach the terminal signaling state.",
+      "If either receptor bond breaks too early, accumulated progress is reset, allowing long-lived ligand complexes to signal disproportionately well."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Hlavacek2018Egg_egg",
+    "title": "Hlavacek2018Egg",
+    "bngl_path": "Published/Hlavacek2018Egg/egg.bngl",
+    "yaml_path": "Published/Hlavacek2018Egg/metadata.yaml",
+    "markdown_path": "data/summaries/Hlavacek2018Egg_aigenerated.md",
+    "summary": "A small parameterized example model used to demonstrate fitted or transformed rate expressions.",
+    "key_events": [
+      "Abstract species change according to fitted or transformed numerical relationships.",
+      "The model demonstrates how a compact rule-based system can encode a sequence of parameter-dependent changes.",
+      "Because the species are not biologically named, the useful behavior is the example dynamics rather than a specific pathway claim."
+    ],
+    "summary_type": "simple",
+    "audience": "biologists"
+  },
+  {
+    "model_id": "Hlavacek2018Egg_egg",
+    "title": "Hlavacek2018Egg",
+    "bngl_path": "Published/Hlavacek2018Egg/egg.bngl",
+    "yaml_path": "Published/Hlavacek2018Egg/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Hlavacek2018Egg_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "Coder-facing explanation of a compact ODE model that advances an abstract species t and prints two fitted Fourier-like functions over one period.",
+    "molecule_type_count": 1,
+    "reaction_rule_count": 1,
+    "observable_count": 1,
+    "key_constructs": [
+      "abstract zero-site species",
+      "printed functions",
+      "constant source rule",
+      "ODE action"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Barua_2009",
+    "title": "Barua 2009",
+    "bngl_path": "Published/Barua2009/Barua_2009.bngl",
+    "yaml_path": "Published/Barua2009/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Barua2009_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "Coder-facing explanation of SH2B dimerization and SH2-mediated recruitment that scaffold two JAK2 molecules for slow then fast JAK2 phosphorylation.",
+    "molecule_type_count": 2,
+    "reaction_rule_count": 4,
+    "observable_count": 6,
+    "key_constructs": [
+      "SH2-domain binding",
+      "SH2B dimerization",
+      "scaffolded JAK2 phosphorylation",
+      "ODE network generation"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Gardner_2000",
+    "title": "Gardner 2000",
+    "bngl_path": "Published/Gardner2000/genetic_switch_gardner2000.bngl",
+    "yaml_path": "Published/Gardner2000/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Gardner2000_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "Coder-facing explanation of a dimensionless genetic toggle switch implemented with two zero-site repressors, Hill-repressed synthesis functions, degradation rules, and ODE/scan actions.",
+    "molecule_type_count": 2,
+    "reaction_rule_count": 4,
+    "observable_count": 2,
+    "key_constructs": [
+      "Hill functions",
+      "mutual repression",
+      "dimensionless ODE model",
+      "parameter scan"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Dembo_1978",
+    "title": "Dembo 1978",
+    "bngl_path": "Published/Dembo1978/blbr_dembo1978.bngl",
+    "yaml_path": "Published/Dembo1978/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Dembo1978_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "Coder-facing explanation of bivalent hapten and bivalent receptor cross-linking with capture, inter-complex chain extension, and bond dissociation under NFsim.",
+    "molecule_type_count": 2,
+    "reaction_rule_count": 3,
+    "observable_count": 5,
+    "key_constructs": [
+      "repeated symmetric sites",
+      "bivalent cross-linking",
+      "NFsim same-complex binding block",
+      "unbounded chains"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Blinov_ran",
+    "title": "Blinov ran",
+    "bngl_path": "Published/Blinovran/Blinov_ran.bngl",
+    "yaml_path": "Published/Blinovran/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Blinovran_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "Coder-facing explanation of a compartmental Ran-cargo-RCC1 transport model with nuclear export, cargo phosphorylation, Ran-cargo binding, and RCC1 binding rules.",
+    "molecule_type_count": 3,
+    "reaction_rule_count": 7,
+    "observable_count": 7,
+    "key_constructs": [
+      "compartments",
+      "anchors",
+      "transport rule",
+      "cytoplasmic phosphorylation",
+      "NFsim action"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Dolan_2015",
+    "title": "Dolan 2015",
+    "bngl_path": "Published/Dolan2015/Dolan_2015.bngl",
+    "yaml_path": "Published/Dolan2015/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Dolan2015_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A combined DNA-damage, p53/MDM2/p21 stress-response, oxidative damage, non-homologous end joining (NHEJ), PARP/Ligase repair, ATM/H2AX focus, and senescence-switching model.",
+    "molecule_type_count": 74,
+    "reaction_rule_count": 2339,
+    "observable_count": 176,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "functions",
+      "large explicit rule families",
+      "observables"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Zhang_2023",
+    "title": "Zhang 2023",
+    "bngl_path": "Published/Zhang2023/Zhang_2023.bngl",
+    "yaml_path": "Published/Zhang2023/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Zhang2023_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A large VEGF signaling model centered on VEGF165a, VEGFR2, VEGFR1, NRP1, CD47/TSP1, PI3K/AKT, PLCγ/IP3/DAG/calcium, eNOS, PKC/CIB1/SphK/S1P, Ras/Raf/MEK/ERK, and Axl/Src cross-talk.",
+    "molecule_type_count": 38,
+    "reaction_rule_count": 232,
+    "observable_count": 129,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "large explicit rule families",
+      "observables"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Dreisigmeyer_2008",
+    "title": "Dreisigmeyer 2008",
+    "bngl_path": "Published/Dreisigmeyer2008/lac_operon_dreisigmeyer2008.bngl",
+    "yaml_path": "Published/Dreisigmeyer2008/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Dreisigmeyer2008_lac_operon_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A concentration-based lac operon ODE model with three explicit dynamic species: intracellular lactose, allolactose, and beta-galactosidase.",
+    "molecule_type_count": 3,
+    "reaction_rule_count": 8,
+    "observable_count": 3,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "functions"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Hlavacek_2001",
+    "title": "Hlavacek 2001",
+    "bngl_path": "Published/Hlavacek2001/kinetic_proofreading_hlavacek2001.bngl",
+    "yaml_path": "Published/Hlavacek2001/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Hlavacek2001_kinetic_proofreading_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A compact kinetic-proofreading receptor signaling model: bivalent ligand captures receptors, forms receptor dimers, advances through five ligand-centered modification states, and resets modification to zero when ligand-receptor bonds dissociate.",
+    "molecule_type_count": 2,
+    "reaction_rule_count": 13,
+    "observable_count": 10,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "functions"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "McMillan_2021",
+    "title": "McMillan 2021",
+    "bngl_path": "Published/McMillan2021/McMillan_2021.bngl",
+    "yaml_path": "Published/McMillan2021/metadata.yaml",
+    "markdown_path": "data/summaries_coders/McMillan2021_TNF_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A small TNF-receptor binding model in which trivalent TNF has three binding sites and recruits up to three receptor molecules through the receptor a site.",
+    "molecule_type_count": 2,
+    "reaction_rule_count": 12,
+    "observable_count": 5,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "direct rule rates"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Jaruszewicz-Blonska_2023",
+    "title": "Jaruszewicz 2023",
+    "bngl_path": "Published/JaruszewiczBlonska2023/Jaruszewicz-Blonska_2023.bngl",
+    "yaml_path": "Published/JaruszewiczBlonska2023/metadata.yaml",
+    "markdown_path": "data/summaries_coders/JaruszewiczBlonska2023_NFkB_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A canonical NF-kappaB signaling ODE model with active/neutral IKK, IkBa mRNA/protein, A20, and nuclear NFkB.",
+    "molecule_type_count": 5,
+    "reaction_rule_count": 14,
+    "observable_count": 6,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "functions"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Jung_2017",
+    "title": "Jung 2017",
+    "bngl_path": "Published/Jung2017/Jung_2017.bngl",
+    "yaml_path": "Published/Jung2017/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Jung2017_M1R_signaling_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A compartmental M1 muscarinic receptor signaling model in which extracellular oxotremorine binds plasma-membrane M1R, receptor phosphorylation controls arrestin recruitment, arrestin scaffolds MEK/ERK/PP2A, and ERK phosphorylation is tracked through pERK and probe readouts.",
+    "molecule_type_count": 13,
+    "reaction_rule_count": 19,
+    "observable_count": 20,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "functions"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Kocieniewski_2012",
+    "title": "Kocieniewski 2012",
+    "bngl_path": "Published/Kocieniewski2012/Kocieniewski_2012.bngl",
+    "yaml_path": "Published/Kocieniewski2012/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Kocieniewski2012_MAPK_scaffold_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A scaffolded MAPK cascade model where MAP3K activation, scaffold binding, scaffold-localized phosphorylation of MAP2K and MAPK, and global dephosphorylation determine how signaling complexes form on Scaff.",
+    "molecule_type_count": 4,
+    "reaction_rule_count": 20,
+    "observable_count": 2,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "direct rule rates"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Chattaraj_2021",
+    "title": "Chattaraj 2021",
+    "bngl_path": "Published/Chattaraj2021/Chattaraj_2021.bngl",
+    "yaml_path": "Published/Chattaraj2021/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Chattaraj2021_condensate_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A multivalent binding/condensation model for Nephrin, Nck, and NWASP: three Nephrin phosphotyrosines bind Nck SH2, while three Nck SH3 sites bind six NWASP proline-rich motifs to generate heterotypic clusters.",
+    "molecule_type_count": 3,
+    "reaction_rule_count": 21,
+    "observable_count": 11,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "direct rule rates"
+    ],
+    "rule_inventory_in_markdown": true
+  },
+  {
+    "model_id": "Ligon_2014",
+    "title": "Ligon 2014",
+    "bngl_path": "Published/Ligon2014/Ligon_2014.bngl",
+    "yaml_path": "Published/Ligon2014/metadata.yaml",
+    "markdown_path": "data/summaries_coders/Ligon2014_lipoplex_delivery_coder.md",
+    "summary_type": "advanced",
+    "audience": "coders",
+    "summary": "A lipoplex delivery model that tracks external lipoplex attachment to pits, conversion of pits to endosomes, lysis/unpacking into internal lipoplex cargo, mRNA production, GFP translation, washout, degradation, and a timer species for wash control.",
+    "molecule_type_count": 8,
+    "reaction_rule_count": 33,
+    "observable_count": 7,
+    "uses_anchors": false,
+    "anchor_count": 0,
+    "key_constructs": [
+      "complete rule inventory",
+      "small published model",
+      "functions"
+    ],
+    "rule_inventory_in_markdown": true
+  }
+]

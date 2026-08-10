@@ -1,0 +1,59 @@
+id: "sonic-hedgehog-gradient"
+name: "sonic hedgehog gradient"
+description: "BioNetGen model: smad tgf beta signaling"
+
+contributors:
+  - name: "Achyudhan"
+  - name: "Nabil Mardhy"
+
+tags: ["sonic", "hedgehog", "gradient", "shh", "ptc1", "v_prod"]
+date:
+  last_tested: 2026-07-13
+
+category: "signaling"
+biol_categories: ["gradient"]
+comp_categories: ["other"]
+
+compatibility:
+  rr_compatible: true
+  bnglviz_compatible: true
+  bng2_compatible: true
+  vcell_compatible: false
+  vcell_errors: "Encountered -> at line 50"
+  simulation_methods: ["ode", "ssa"]
+  uses_energy: false
+  uses_functions: true
+  uses_compartments: false
+  nfsim_compatible: false
+  molclustpy_compatible: false
+  comments: "MCP cannot access local variable stdout_str where it is not associated with a value   nfsim ERROR!  You created a reaction (_R4) that deletes a molecule, but you did not use the DeleteMolecules keyword"
+
+features:
+  uses_generate_network: true
+  default_sim_command: "ode"
+  uses_totalrate: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: false
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_functions: true
+  uses_compartments: false
+  uses_energy: false
+  
+
+source:
+  origin: "ai-generated"
+  original_format: "bngl"
+  original_repository: "bionetgen-web-simulator"
+  source_path: "example-models/smad-tgf-beta-signaling.bngl"
+ 
+playground:
+  visible: false
+  gallery_categories: ["developmental","test-models"]
+  featured: false
+  difficulty: "advanced"
+ 
+
+

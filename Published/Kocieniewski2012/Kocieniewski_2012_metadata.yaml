@@ -1,0 +1,65 @@
+id: "Kocieniewski_2012"
+name: "Kocieniewski 2012"
+description: "Actin dynamics"
+contributors:
+  - name: "Nabil Mardhy"
+
+citation:
+  year: "2012"
+  pmid: "22123371"  
+  reference: "Kocieniewski et al., 2012"
+
+tags: ["published", "kocieniewski", "2012", "map3k", "map2k", "mapk", "scaff"]
+date:
+  last_tested: 2026-07-16
+
+category: "regulation"
+biol_categories: ["regulation"]
+comp_categories: ["other"]
+
+compatibility:
+  rr_compatible: true
+  bnglviz_compatible: true
+  bng2_compatible: true
+  bngp_compatible: true
+  vcell_compatible: true
+  vcell_errors: 
+  simulation_methods: ["ode", "ssa","nf"]
+  uses_energy: false
+  uses_functions: false
+  uses_compartments: false
+  nfsim_compatible: true
+  molclustpy_compatible: false
+  mpd_compatible: true
+  comments: "nfsim runs after lowering numbers of molecules     MCP cannot access local variable stdout_str where it is not associated with a value"
+
+features:
+  uses_generate_network: true
+  default_sim_command: "ode" 
+  uses_totalrate: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: false
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_functions: false
+  uses_compartments: false
+  uses_energy: false
+  
+
+source:
+  origin: "published"
+  original_format: "bngl"
+  original_repository: "bionetgen-web-simulator"
+  source_path: "published-models/cell-regulation/Kocieniewski_2012.bngl"
+
+playground:
+  visible: false
+  gallery_category: "regulation"
+  featured: false
+  difficulty: "advanced"
+
+
+
+
