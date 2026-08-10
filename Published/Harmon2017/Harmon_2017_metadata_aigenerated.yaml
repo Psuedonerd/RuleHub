@@ -1,0 +1,52 @@
+id: "Harmon_2017"
+name: "Harmon 2017"
+description: "Antigen pulses"
+
+citation:
+  year: "2017"
+  pmid: "29138425"
+  reference: "Harmon et al., 2017"
+tags: ["published", "immunology", "harmon", "2017"]
+category: "immunology"
+compatibility:
+  bng2_compatible: true
+  simulation_methods: ["ode"]
+  uses_compartments: false
+  nfsim_compatible: false
+  uses_cbngl_compartments: false
+  uses_vcell_compartments: false
+  uses_energy: false
+  uses_functions: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: false
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_generate_network: true
+  default_sim_command: simulate
+source:
+  origin: "published"
+  original_format: "bngl"
+  original_repository: "bionetgen/BNGL-Models"
+playground:
+  visible: true
+  gallery_category: "immunology"
+  featured: false
+  difficulty: "intermediate"
+contributors:
+  - name: Vishnu Mukku
+  - name: Codex
+features:
+  uses_cbngl_compartments: false
+  uses_vcell_compartments: false
+  uses_energy: false
+  uses_functions: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: false
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_generate_network: true
+  default_sim_command: ode

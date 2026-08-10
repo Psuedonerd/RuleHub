@@ -1,0 +1,58 @@
+id: "Massole_2023"
+name: "Massole 2023"
+description: "Epo receptor signaling"
+contributors:
+  - name: "Nabil Mardhy"
+  - name: Vishnu Mukku
+  - name: Codex
+citation:
+  year: "2023"
+  reference: "Massole et al., 2023"
+  url: https://chemrxiv.org/engage/chemrxiv/article-details/653a018348dad231205e586a
+tags: ["published", "massole", "2023"]
+date:
+  last_tested: 2026-07-18
+
+category: "signaling"
+biol_categories: ["signaling"]
+comp_categories: ["other"]
+compatibility:
+  rr_compatible: true
+  bnglviz_compatible: true
+  bng2_compatible: false
+  bngp_compatible: false
+  vcell_compatible: false
+  vcell_errors: "Site oh already exists in Molecule _EG_! Multiple identical Sites not supported witin a Molecule. "
+  simulation_methods: ["ode", "ssa"]
+  uses_energy: false
+  uses_functions: false
+  uses_compartments: false
+  nfsim_compatible: true
+  molclustpy_compatible: true
+  mpd_compatible: false
+  comments: "nf does not run with bngp Model incompatible with nfsim but runs with MCP and bng2"
+features:
+  uses_generate_network: false
+  uses_totalrate: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: true
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_functions: false
+  uses_compartments: false
+  uses_energy: false
+
+  uses_cbngl_compartments: false
+  uses_vcell_compartments: false
+source:
+  origin: "published"
+  original_format: "bngl"
+  original_repository: "bionetgen-web-simulator"
+  source_path: "published-models/complex-models/Massole_2023.bngl"
+playground:
+  visible: false
+  gallery_categories: ["developmental"]
+  featured: false
+  difficulty: "advanced"

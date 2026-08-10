@@ -1,0 +1,43 @@
+id: "ChylekTCR_2014"
+name: "Chylek 2014 (TCR)"
+description: "TCR signaling"
+
+citation:
+  year: "2014"
+  pmid: "25147952"
+  reference: "Chylek et al., 2014"
+
+tags: ["published", "immunology", "chylektcr", "2014", "lig1", "lig2", "lig3", "tcr", "cd28", "lck", "itk", "zap70"]
+category: "immunology"
+compatibility:
+  bng2_compatible: true
+  simulation_methods: ["ode"]
+  uses_compartments: false
+  uses_energy: false
+  uses_functions: false
+  nfsim_compatible: true
+source:
+  origin: "published"
+  original_format: "bngl"
+  original_repository: "bionetgen-web-simulator"
+  source_path: "published-models/immune-signaling/ChylekTCR_2014.bngl"
+playground:
+  visible: false
+  gallery_categories: ["immunology"]
+  featured: false
+  difficulty: "advanced"
+contributors:
+  - name: Vishnu Mukku
+  - name: Codex
+features:
+  uses_cbngl_compartments: false
+  uses_vcell_compartments: false
+  uses_energy: false
+  uses_functions: false
+  uses_moveconnected: false
+  uses_trash_molecules: false
+  uses_anchors: false
+  uses_multiple_identical_sites: true
+  uses_deletes_molecules: false
+  uses_exclude_include_reactants: false
+  uses_generate_network: false
