@@ -18,10 +18,11 @@ biol_categories: ["immunology"]
 comp_categories: ["other"]
 
 compatibility:
+  database_visible: true
   rr_compatible: true
   bnglviz_compatible: true
   bng2_compatible: true
-  bngp_compatible: false
+  bngp_compatible: true
   vcell_compatible: false
   vcell_errors: "model won't open on VCell with no error message"
   simulation_methods: ["ode", "ssa"]

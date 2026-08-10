@@ -6,6 +6,7 @@ contributors:
 tags: ["feature", "symmetry", "factors", "cyclic", "x", "generate_network", "simulate"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

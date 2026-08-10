@@ -4,6 +4,7 @@ description: "Runtime-only BNGL model migrated from public/models: polymer_fixed
 tags: ["polymer", "fixed"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: true

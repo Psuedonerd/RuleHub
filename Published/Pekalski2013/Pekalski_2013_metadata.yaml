@@ -18,10 +18,11 @@ biol_categories: ["regulation"]
 comp_categories: ["other"]
 
 compatibility:
+  database_visible: true
   rr_compatible: true
   bnglviz_compatible: true
   bng2_compatible: true
-  bngp_compatible: false
+  bngp_compatible: true
   vcell_compatible: false
   vcell_errors: "Encountered c_sec at line 187"
   simulation_methods: ["ode", "ssa"]

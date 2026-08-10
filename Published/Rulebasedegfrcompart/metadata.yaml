@@ -4,6 +4,7 @@ description: "Compartmental EGFR model"
 tags: ["published", "rule", "based", "egfr", "compart", "egf", "grb2", "shc", "generate_network"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: true

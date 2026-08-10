@@ -6,6 +6,7 @@ contributors:
 tags: ["cs", "huffman", "char", "hnode", "generate_network", "simulate"]
 category: "computer-science"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

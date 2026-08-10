@@ -6,6 +6,7 @@ contributors:
 tags: ["meta", "formal", "molecular", "clock", "fasta", "fastb", "slowc", "slowd"]
 category: "computer-science"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

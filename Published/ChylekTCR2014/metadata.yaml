@@ -4,6 +4,7 @@ description: "TCR signaling"
 tags: ["published", "immunology", "chylektcr", "2014", "lig1", "lig2", "lig3", "tcr", "cd28", "lck", "itk", "zap70"]
 category: "immunology"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

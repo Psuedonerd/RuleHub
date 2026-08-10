@@ -4,6 +4,8 @@ description: "G2/Mitosis transition"
 tags: ["published", "kesseler", "2013", "mpf", "cdc25", "wee1", "myt1", "pin1", "pp2a", "prox", "e33"]
 category: "signaling"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

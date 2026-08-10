@@ -6,6 +6,7 @@ contributors:
 tags: ["dna", "methylation", "dynamics", "cpg", "dnmt1", "tet", "v_maint", "v_erase"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -4,6 +4,7 @@ description: "Simple binding model"
 tags: ["published", "tutorials", "simple", "s", "t", "dnat", "trash"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

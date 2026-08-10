@@ -6,6 +6,7 @@ contributors:
 tags: ["nfsim", "coarse", "graining", "droplet"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["nf"]
   uses_compartments: false

@@ -4,6 +4,8 @@ description: Toy model of a 3-step signaling cascade
 tags: ["k1", "k2", "k3", "ainit", "molecules"]
 category: other
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   nfsim_compatible: false
   simulation_methods: ["ode"]

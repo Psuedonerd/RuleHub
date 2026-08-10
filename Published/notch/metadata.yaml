@@ -4,6 +4,7 @@ description: "Notch signaling"
 tags: ["published", "notch", "icn", "ofut1", "fringe", "furin", "dsl", "csl", "maml"]
 category: "regulation"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

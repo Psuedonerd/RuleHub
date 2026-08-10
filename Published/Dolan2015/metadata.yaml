@@ -4,6 +4,7 @@ description: "Insulin signaling"
 tags: ["published", "literature", "signaling", "dolan", "2015", "time", "t", "p", "e", "ir", "d", "p53_mrna", "p53"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

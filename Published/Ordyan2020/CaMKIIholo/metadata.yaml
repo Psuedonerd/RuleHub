@@ -4,6 +4,7 @@ description: "CaMKII holo"
 tags: ["published", "neuroscience", "camkii", "holo", "ca", "cam", "ng", "pp1", "time_counter"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["nf"]
   uses_compartments: false

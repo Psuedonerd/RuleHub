@@ -4,6 +4,7 @@ description: A simple model of ligand/receptor binding and receptor phosphorylat
 tags: ["molecules", "species"]
 category: other
 compatibility:
+  database_visible: true
   bng2_compatible: true
   nfsim_compatible: true
   simulation_methods: ["nf"]

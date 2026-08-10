@@ -4,6 +4,7 @@ description: EGFR model
 tags: ["signaling"]
 category: signaling
 compatibility:
+  database_visible: true
   bng2_compatible: true
   nfsim_compatible: false
   simulation_methods: ["ode"]

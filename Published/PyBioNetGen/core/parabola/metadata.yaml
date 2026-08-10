@@ -4,6 +4,7 @@ description: "Implementation of the parabola from the Mitra constrained optimiza
 tags: ["parabola", "counter", "par", "line", "generate_network", "simulate"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

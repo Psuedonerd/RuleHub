@@ -4,6 +4,7 @@ description: Modification of Mukhopadhyay/Dushek 2013 model for the Manz/Groves 
 tags: ["immunology"]
 category: immunology
 compatibility:
+  database_visible: true
   bng2_compatible: true
   nfsim_compatible: true
   simulation_methods: ["ode"]

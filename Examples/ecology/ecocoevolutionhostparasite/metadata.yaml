@@ -6,6 +6,7 @@ contributors:
 tags: ["eco", "coevolution", "host", "parasite"]
 category: "ecology"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

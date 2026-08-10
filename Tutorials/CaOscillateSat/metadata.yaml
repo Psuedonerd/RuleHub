@@ -4,6 +4,7 @@ description: "Calcium oscillations (sat)"
 tags: ["validation", "caoscillate", "sat", "null", "ga", "plc", "ca"]
 category: "validation"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode", "ssa"]
   uses_compartments: false

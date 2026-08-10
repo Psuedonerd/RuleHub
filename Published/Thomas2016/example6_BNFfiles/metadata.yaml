@@ -4,6 +4,7 @@ description: A simple model
 tags: ["molecules", "species"]
 category: other
 compatibility:
+  database_visible: true
   bng2_compatible: true
   nfsim_compatible: true
   simulation_methods: ["ode"]

@@ -6,6 +6,7 @@ contributors:
 tags: ["sp", "kalman", "filter", "truex", "obs", "estx", "estv", "variance", "innovation"]
 category: "computer-science"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

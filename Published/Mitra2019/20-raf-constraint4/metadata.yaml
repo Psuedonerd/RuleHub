@@ -4,6 +4,7 @@ description: BNGL model: RAFi
 tags: ["k1", "k2", "k3", "k5", "kf1", "kf2", "kf3", "kf4", "kf5", "kf6", "rtot", "ifree", "species"]
 category: other
 compatibility:
+  database_visible: true
   bng2_compatible: true
   nfsim_compatible: false
   simulation_methods: ["ode"]

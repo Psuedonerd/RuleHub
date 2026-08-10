@@ -4,6 +4,7 @@ description: "EGFR oligomerization"
 tags: ["published", "kozer", "2013", "egf", "egfr"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

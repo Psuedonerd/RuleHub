@@ -6,6 +6,7 @@ contributors:
 tags: ["kir", "channel", "regulation", "pip2", "gbg", "v_opening", "v_gbg_factor"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

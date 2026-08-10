@@ -6,6 +6,7 @@ contributors:
 tags: ["il1b", "signaling", "il1ri", "myd88", "irak", "nfkb"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

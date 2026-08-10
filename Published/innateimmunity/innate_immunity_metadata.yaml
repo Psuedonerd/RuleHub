@@ -4,6 +4,8 @@ description: "Immune response"
 tags: ["published", "immunology", "innate", "immunity", "polyic", "rigi", "mavs", "pkr", "oas3", "rnasel", "eif2a", "rigi_mrna"]
 category: "immunology"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

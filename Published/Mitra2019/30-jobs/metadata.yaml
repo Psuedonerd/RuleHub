@@ -4,6 +4,8 @@ description: NFsim simulation of the job market
 tags: ["other"]
 category: other
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   nfsim_compatible: true
   simulation_methods: ["ode"]

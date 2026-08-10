@@ -4,6 +4,7 @@ description: "FcÃƒÅ½Ã‚ÂµRI (viz)"
 tags: ["published", "tutorial", "native", "fceri", "viz", "fcr", "ige", "lat", "lyn", "syk", "pb", "pg", "sykp"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

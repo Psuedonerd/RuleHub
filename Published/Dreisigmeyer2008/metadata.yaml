@@ -4,6 +4,7 @@ description: "Lac operon"
 tags: ["published", "gene-expression", "dreisigmeyer", "2008"]
 category: "gene-expression"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

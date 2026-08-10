@@ -4,6 +4,7 @@ description: "title: LV_comp.bgl"
 tags: ["lv", "comp", "k2", "s", "w"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode", "ssa"]
   uses_compartments: true

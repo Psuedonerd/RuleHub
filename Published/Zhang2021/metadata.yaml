@@ -4,6 +4,7 @@ description: "CAR-T signaling"
 tags: ["published", "zhang", "2021", "tie2", "tie1", "ang1_4", "ang2_2", "ang2_3", "ang2_4", "veptp", "pten"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

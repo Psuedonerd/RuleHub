@@ -6,6 +6,7 @@ contributors:
 tags: ["blood", "coagulation", "thrombin", "tf", "factorx", "factorv", "prothrombin", "fibrinogen", "at"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

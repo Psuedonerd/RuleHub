@@ -9,6 +9,8 @@ citation:
 tags: ["published", "immunology", "chylekfceri", "2014", "lig", "rec", "lyn", "fyn", "syk", "pag1", "csk", "lat"]
 category: "immunology"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

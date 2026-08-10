@@ -6,6 +6,7 @@ contributors:
 tags: ["eco", "rock", "paper", "scissors", "spatial", "s", "generate_network"]
 category: "ecology"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

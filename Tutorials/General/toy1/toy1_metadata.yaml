@@ -16,6 +16,8 @@ biol_categories: ["tutorial"]
 comp_categories: ["other"]
 
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   rr_compatible: true
   bnglviz_compatible: true
   bng2_compatible: true #False in original metadata.yaml, have to change "molecules" to "molecule types" in toy1.bngl to make it compatible with bng2

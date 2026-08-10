@@ -4,6 +4,8 @@ description: "Ligand binding"
 tags: ["published", "immunology", "tlbr", "l", "r", "simulate_rm"]
 category: "immunology"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

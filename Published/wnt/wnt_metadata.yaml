@@ -4,6 +4,8 @@ description: "Wnt signaling"
 tags: ["published", "wnt", "dsh", "axc", "frz", "lrp5", "bcat"]
 category: "regulation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

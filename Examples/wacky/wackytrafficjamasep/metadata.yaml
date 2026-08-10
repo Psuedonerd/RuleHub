@@ -6,6 +6,7 @@ contributors:
 tags: ["wacky", "traffic", "jam", "asep", "site", "car", "generate_network", "simulate"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

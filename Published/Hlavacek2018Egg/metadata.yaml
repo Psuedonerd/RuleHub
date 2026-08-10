@@ -4,6 +4,7 @@ description: End of permute change log
 tags: ["a0__free", "a1__free", "a2__free", "b1__free", "b2__free", "c0__free", "c1__free", "c2__free", "d1__free", "d2__free", "a0", "a1", "a2", "b1", "b2", "c0", "c1", "c2", "d1", "d2", "period", "t", "species"]
 category: other
 compatibility:
+  database_visible: true
   bng2_compatible: true
   nfsim_compatible: false
   simulation_methods: ["ode"]

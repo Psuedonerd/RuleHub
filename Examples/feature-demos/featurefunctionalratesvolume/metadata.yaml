@@ -6,6 +6,7 @@ contributors:
 tags: ["feature", "functional", "rates", "volume", "a", "b", "c"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: true

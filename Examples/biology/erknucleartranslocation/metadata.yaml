@@ -6,6 +6,7 @@ contributors:
 tags: ["erk", "nuclear", "translocation", "mek", "elk1", "dusp", "transcription_signal"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false
