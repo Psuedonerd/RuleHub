@@ -4,6 +4,7 @@ description: "InsR/IGF1R signaling"
 tags: ["published", "erdem", "2021", "igf1", "ins", "igf1r", "insr", "irs", "sos", "ras", "raf"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

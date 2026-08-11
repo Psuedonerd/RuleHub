@@ -4,6 +4,7 @@ description: "Spontaneous signaling"
 tags: ["published", "pekalski", "2013", "tnfr", "ikk", "ikkk", "ikba", "ikba_mrna", "a20", "a20_mrna", "nfkb"]
 category: "regulation"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

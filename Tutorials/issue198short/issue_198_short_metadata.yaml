@@ -4,6 +4,8 @@ description: "No description available"
 tags: ["validation", "issue", "198", "short", "a", "b", "c", "generate_network", "simulate"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

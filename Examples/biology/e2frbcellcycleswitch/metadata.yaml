@@ -6,6 +6,7 @@ contributors:
 tags: ["e2f", "rb", "cell", "cycle", "switch", "mitogen", "cycd", "cyce", "p27"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -4,6 +4,7 @@ description: "Basic signaling toy"
 tags: ["published", "tutorials", "toy1", "l", "r", "a", "generate_network", "writesbml", "simulate_ode"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

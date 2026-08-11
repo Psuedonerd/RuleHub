@@ -4,6 +4,7 @@ description: "Test trajectory continuation"
 tags: ["validation", "continue", "a", "b", "c", "trash"]
 category: "validation"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

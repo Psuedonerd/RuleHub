@@ -6,6 +6,8 @@ contributors:
 tags: ["il6", "jak", "stat", "pathway", "gp130", "stat3", "socs"]
 category: "signaling"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

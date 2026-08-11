@@ -4,6 +4,8 @@ description: BNGL model: example3
 tags: ["alpha", "molecules", "species"]
 category: other
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   nfsim_compatible: true
   simulation_methods: ["nf"]

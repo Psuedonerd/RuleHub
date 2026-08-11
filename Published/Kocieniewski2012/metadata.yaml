@@ -4,6 +4,7 @@ description: "Actin dynamics"
 tags: ["published", "kocieniewski", "2012", "map3k", "map2k", "mapk", "scaff"]
 category: "regulation"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

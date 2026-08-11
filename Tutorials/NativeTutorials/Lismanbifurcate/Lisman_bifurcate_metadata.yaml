@@ -4,6 +4,8 @@ description: "title: Lisman_bifurcate.bngl"
 tags: ["lisman", "bifurcate", "k1", "p"]
 category: "tutorial"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

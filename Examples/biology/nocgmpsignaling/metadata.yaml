@@ -6,6 +6,7 @@ contributors:
 tags: ["no", "cgmp", "signaling", "sgc", "pkg"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

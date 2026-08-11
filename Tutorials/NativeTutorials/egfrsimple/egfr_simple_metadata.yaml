@@ -4,6 +4,8 @@ description: "This is a demo model of EGFR signaling."
 tags: ["egfr", "simple", "egf", "grb2", "sos1"]
 category: "tutorial"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

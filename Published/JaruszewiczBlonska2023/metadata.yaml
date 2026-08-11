@@ -4,6 +4,7 @@ description: "T-cell discrimination"
 tags: ["published", "immunology", "jaruszewicz", "blonska", "2023", "ikk", "ikba", "ikba_mrna", "a20", "nfkb"]
 category: "immunology"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

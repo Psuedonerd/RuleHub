@@ -4,6 +4,7 @@ description: "title: FceRI_ji.bngl"
 tags: ["fceri", "ji", "lig", "lyn", "syk", "rec"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

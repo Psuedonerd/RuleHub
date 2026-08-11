@@ -4,6 +4,7 @@ description: "RTK-PLCgamma1 signaling"
 tags: ["published", "nosbisch", "2022", "rtk", "plcgamma1", "generate_network"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: true

@@ -4,6 +4,8 @@ description: "Base model of Shp2 regulation"
 tags: ["validation", "shp2", "base", "model", "r", "s", "exclude_reactants"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -4,6 +4,7 @@ description: "mCaMKII Ca Spike model"
 tags: ["published", "neuroscience", "mcamkii", "ca", "spike", "cam", "ng", "camkii", "pp1", "time_counter"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

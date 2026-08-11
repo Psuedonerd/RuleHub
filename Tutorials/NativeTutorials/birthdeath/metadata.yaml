@@ -4,6 +4,7 @@ description: "Stochastic process"
 tags: ["published", "tutorial", "native", "birth", "death", "a", "generate_network", "saveconcentrations", "simulate"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode", "ssa"]
   uses_compartments: false

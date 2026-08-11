@@ -6,6 +6,7 @@ contributors:
 tags: ["ras", "gef", "gap", "cycle", "sos", "rasgap", "v_gef", "v_gap"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

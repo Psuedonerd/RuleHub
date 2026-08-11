@@ -4,6 +4,8 @@ description: "Reduced state-space version of EGFR_NET.BNGL with equivalent ODE d
 tags: ["validation", "egfr", "net", "red", "egf", "egfr_1", "egfr_2", "egfr_3", "grb2", "shc", "sos"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -4,6 +4,7 @@ description: "Filename: example2_starting_point.bngl"
 tags: ["egfr", "nf", "egf", "clusters", "pre1_dose", "pre2_time"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["nf"]
   uses_compartments: false

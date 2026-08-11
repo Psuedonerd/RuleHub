@@ -6,6 +6,7 @@ contributors:
 tags: ["cs", "diffie", "hellman", "agent", "target", "dshareda_dt", "dsharedb_dt"]
 category: "computer-science"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

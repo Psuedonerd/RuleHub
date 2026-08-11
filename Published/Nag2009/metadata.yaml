@@ -4,6 +4,7 @@ description: "LAT-Grb2-SOS1 signaling"
 tags: ["published", "nag", "2009", "lig", "lyn", "syk", "rec", "lat", "grb", "sos"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

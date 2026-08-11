@@ -6,6 +6,7 @@ contributors:
 tags: ["ml", "hopfield", "neuron", "net1", "net2", "net3", "target1"]
 category: "computer-science"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

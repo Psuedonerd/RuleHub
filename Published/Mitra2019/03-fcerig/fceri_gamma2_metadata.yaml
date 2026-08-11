@@ -4,6 +4,8 @@ description: Added molecule type definition block so that the
 tags: ["immunology"]
 category: immunology
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   nfsim_compatible: false
   simulation_methods: ["ode"]

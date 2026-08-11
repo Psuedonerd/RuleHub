@@ -4,6 +4,7 @@ description: "BLBR rings"
 tags: ["published", "physics", "posner", "1995"]
 category: "physics"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

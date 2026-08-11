@@ -4,6 +4,8 @@ description: "BioNetGen model: ABC"
 tags: ["abc", "a", "simulate"]
 category: "tutorial"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

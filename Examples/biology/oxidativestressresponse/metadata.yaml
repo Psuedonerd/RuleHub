@@ -6,6 +6,7 @@ contributors:
 tags: ["oxidative", "stress", "response", "ros", "keap1", "nrf2", "antioxidant"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -4,6 +4,8 @@ description: "R(KD,Y1~U,Y2~U) 1.00"
 tags: ["validation", "haugh2b", "r", "s1", "s2", "exclude_reactants", "include_reactants"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

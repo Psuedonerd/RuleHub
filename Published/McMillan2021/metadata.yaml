@@ -4,6 +4,7 @@ description: "TNF signaling"
 tags: ["published", "nfsim", "mcmillan", "2021", "r0_tot", "t0_tot", "r", "t", "generate_network", "simulate_ode"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["nf"]
   uses_compartments: false

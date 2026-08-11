@@ -6,6 +6,7 @@ contributors:
 tags: ["p53", "mdm2", "oscillator", "generate_network"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

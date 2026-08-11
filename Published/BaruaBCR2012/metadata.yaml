@@ -4,6 +4,7 @@ description: "BCR signaling"
 tags: ["published", "immunology", "baruabcr", "2012", "bcr", "lyn", "fyn", "csk", "pag", "syk"]
 category: "immunology"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

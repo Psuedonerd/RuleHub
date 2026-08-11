@@ -4,6 +4,8 @@ description: "Parameter-fit COVID-19 epidemiological models for major US cities.
 tags: ["covid-19", "epidemiology", "parameter-estimation", "pybionetgen"]
 category: "epidemiology"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

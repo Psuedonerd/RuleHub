@@ -6,6 +6,7 @@ contributors:
 tags: ["complement", "activation", "cascade", "c3", "fb", "c5", "mac", "surf"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

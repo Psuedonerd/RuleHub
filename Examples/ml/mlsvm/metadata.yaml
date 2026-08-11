@@ -6,6 +6,7 @@ contributors:
 tags: ["ml", "svm", "w1", "w2", "b", "db_dt", "dw1_dt"]
 category: "computer-science"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

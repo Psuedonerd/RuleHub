@@ -4,6 +4,8 @@ description: "Extra CaMKII holo (supplement)"
 tags: ["published", "neuroscience", "extra", "camkii", "holo", "t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"]
 category: "signaling"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

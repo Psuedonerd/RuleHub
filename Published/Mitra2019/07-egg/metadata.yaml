@@ -4,6 +4,7 @@ description: BNGL model: egg
 tags: ["a0", "a1", "a2", "b1", "b2", "c0", "c1", "c2", "d1", "d2", "period", "t", "species"]
 category: other
 compatibility:
+  database_visible: true
   bng2_compatible: true
   nfsim_compatible: false
   simulation_methods: ["ode"]

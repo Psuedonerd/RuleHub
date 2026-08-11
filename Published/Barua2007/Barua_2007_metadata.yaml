@@ -19,6 +19,8 @@ biol_categories: ["signaling"]
 comp_categories: ["other"]
 
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   rr_compatible: true
   bnglviz_compatible: true
   bng2_compatible: true

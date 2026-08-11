@@ -6,6 +6,7 @@ contributors:
 tags: ["neurotransmitter", "release", "calcium", "snare", "vesicle", "postsynaptic"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

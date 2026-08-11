@@ -6,6 +6,7 @@ contributors:
 tags: ["eco", "mutualism", "obligate", "a", "b"]
 category: "ecology"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ssa"]
   uses_compartments: false

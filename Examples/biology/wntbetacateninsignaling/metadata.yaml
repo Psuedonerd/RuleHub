@@ -6,6 +6,7 @@ contributors:
 tags: ["wnt", "beta", "catenin", "signaling", "frizzled", "dvl", "dest_complex", "betacatenin", "tcf"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

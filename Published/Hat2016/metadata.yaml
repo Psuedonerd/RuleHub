@@ -4,6 +4,7 @@ description: "Nuclear transport"
 tags: ["published", "hat", "2016", "dna_dsb", "atm", "siah1", "hipk2", "wip1", "gene_wip1", "mrna_wip1", "p53"]
 category: "regulation"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode", "ssa"]
   uses_compartments: false

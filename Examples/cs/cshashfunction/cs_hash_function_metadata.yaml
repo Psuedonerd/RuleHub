@@ -6,6 +6,8 @@ contributors:
 tags: ["cs", "hash", "function", "b0", "b1", "b2", "b3", "h0", "h1", "h2", "h3"]
 category: "computer-science"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -4,6 +4,8 @@ description: "A model of IgE receptor signaling"
 tags: ["model", "tofit", "ag", "r", "syk", "ship1", "x", "pip3", "h"]
 category: "other"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

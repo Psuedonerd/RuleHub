@@ -6,6 +6,8 @@ contributors:
 tags: ["ph", "lorenz", "attractor", "lx", "ly", "lz", "x", "y"]
 category: "physics"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

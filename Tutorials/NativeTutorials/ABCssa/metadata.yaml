@@ -4,6 +4,7 @@ description: "BioNetGen model: ABC ssa"
 tags: ["abc", "ssa", "a", "simulate"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ssa"]
   uses_compartments: false

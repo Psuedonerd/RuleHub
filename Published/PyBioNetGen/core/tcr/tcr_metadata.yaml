@@ -4,6 +4,8 @@ description: "A model of T cell receptor signaling"
 tags: ["tcr", "lig1", "lig2", "lig3", "cd28", "lck", "itk", "zap70"]
 category: "other"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["nf"]
   uses_compartments: false

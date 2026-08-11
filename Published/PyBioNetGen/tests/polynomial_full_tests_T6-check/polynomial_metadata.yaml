@@ -4,6 +4,8 @@ description: "Implementation of the parabola from the Mitra constrained optimiza
 tags: ["polynomial", "counter", "y1", "y2", "generate_network", "simulate", "setparameter", "resetconcentrations"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

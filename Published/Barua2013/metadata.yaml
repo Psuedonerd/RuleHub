@@ -4,6 +4,7 @@ description: "Beta-catenin destruction"
 tags: ["published", "barua", "2013", "axin", "gsk3b", "apc", "bcat", "ck1a"]
 category: "regulation"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

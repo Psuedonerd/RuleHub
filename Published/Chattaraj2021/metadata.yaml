@@ -4,6 +4,7 @@ description: "NFkB oscillations"
 tags: ["published", "chattaraj", "2021", "nephrin", "nck", "nwasp", "writexml"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

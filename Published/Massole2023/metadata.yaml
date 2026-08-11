@@ -4,6 +4,7 @@ description: "Epo receptor signaling"
 tags: ["published", "massole", "2023"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

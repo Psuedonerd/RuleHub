@@ -4,6 +4,7 @@ description: "Grb2-EGFR recruitment"
 tags: ["published", "kozer", "2014", "egf", "egfr", "grb2"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

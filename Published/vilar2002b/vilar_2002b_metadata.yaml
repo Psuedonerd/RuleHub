@@ -4,6 +4,8 @@ description: "Gene oscillator"
 tags: ["published", "vilar", "2002b", "dna", "a", "r"]
 category: "regulation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

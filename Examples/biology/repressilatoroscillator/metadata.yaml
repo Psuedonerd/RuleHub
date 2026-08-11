@@ -6,6 +6,7 @@ contributors:
 tags: ["repressilator", "oscillator", "genea", "geneb", "genec", "mrna_a", "mrna_b", "mrna_c", "proteina", "proteinb"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

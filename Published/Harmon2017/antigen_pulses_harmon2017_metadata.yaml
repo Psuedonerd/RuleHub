@@ -4,6 +4,8 @@ description: "Antigen pulses"
 tags: ["published", "immunology", "harmon", "2017"]
 category: "immunology"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

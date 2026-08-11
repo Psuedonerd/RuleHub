@@ -6,6 +6,7 @@ contributors:
 tags: ["feature", "global", "functions", "scan", "signal", "response", "stimulus"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

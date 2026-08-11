@@ -4,6 +4,7 @@ description: "BLBR dembo 1978"
 tags: ["published", "physics", "dembo", "1978"]
 category: "physics"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

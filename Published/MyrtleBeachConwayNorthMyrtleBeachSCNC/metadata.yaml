@@ -4,6 +4,7 @@ description: "Runtime-only BNGL model migrated from public/models: Myrtle_Beach-
 tags: ["myrtle", "beach", "conway", "north", "sc", "nc"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

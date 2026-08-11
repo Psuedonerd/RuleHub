@@ -6,6 +6,7 @@ contributors:
 tags: ["vegf", "angiogenesis", "vegfr2", "vegfr1", "erk", "endothelial"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

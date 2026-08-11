@@ -4,6 +4,7 @@ description: "BioNetGen model: simple nf seed"
 tags: ["simple", "nf", "seed", "a", "b", "function1", "simulate"]
 category: "validation"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["nf"]
   uses_compartments: false

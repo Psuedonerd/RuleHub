@@ -55,6 +55,8 @@ tags:
   - 0
 category: other
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   nfsim_compatible: false
   simulation_methods:

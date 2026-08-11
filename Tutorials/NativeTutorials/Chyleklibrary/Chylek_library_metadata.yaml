@@ -4,6 +4,8 @@ description: "Created by BioNetGen 2.2.6"
 tags: ["chylek", "library", "kflatplcg", "kfgrb2gab2", "kflcp2plcg1", "kd1", "kd2", "sink", "pre", "pag1"]
 category: "tutorial"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

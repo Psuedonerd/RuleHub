@@ -4,6 +4,7 @@ description: "BioNetGen model: NFmodel"
 tags: ["nfmodel", "ag", "ab", "simulate"]
 category: "validation"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["nf"]
   uses_compartments: false

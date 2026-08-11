@@ -4,6 +4,8 @@ description: "fceri model with network generation"
 tags: ["validation", "test", "network", "gen", "lig", "lyn", "syk", "rec"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

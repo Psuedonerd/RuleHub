@@ -6,6 +6,7 @@ contributors:
 tags: ["platelet", "activation", "adp", "p2y12", "integrin", "thromboxane"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

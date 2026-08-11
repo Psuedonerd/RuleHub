@@ -4,6 +4,7 @@ description: "BioNetGen model: ABC scan"
 tags: ["abc", "scan", "a", "generate_network", "parameter_scan"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -4,6 +4,7 @@ description: "Allow molar units to be used for bimolecular rate constants"
 tags: ["validation", "kiefhaber", "emodel", "setoption", "l", "p", "s", "a"]
 category: "validation"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: true

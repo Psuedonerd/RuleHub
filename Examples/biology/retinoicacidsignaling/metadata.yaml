@@ -6,6 +6,7 @@ contributors:
 tags: ["retinoic", "acid", "signaling", "ra", "rarrxr", "corepressor", "targetgene"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

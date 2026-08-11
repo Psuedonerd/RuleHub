@@ -4,6 +4,7 @@ description: "TCR signaling"
 tags: ["published", "literature", "immune", "lin", "tcr", "2019", "pmhc", "lck", "shp", "zap", "mek", "erk"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode", "ssa"]
   uses_compartments: false

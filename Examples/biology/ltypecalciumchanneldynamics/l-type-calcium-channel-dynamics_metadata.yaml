@@ -6,6 +6,8 @@ contributors:
 tags: ["l", "type", "calcium", "channel", "dynamics", "ltcc", "voltage", "v_open", "v_inact"]
 category: "signaling"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

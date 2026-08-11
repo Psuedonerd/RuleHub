@@ -4,6 +4,7 @@ description: "JAK2-SH2B signaling"
 tags: ["published", "barua", "2009", "s", "j"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

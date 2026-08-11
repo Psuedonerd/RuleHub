@@ -4,6 +4,7 @@ description: "Lipoplex delivery"
 tags: ["published", "nfsim", "ligon", "2014", "lext", "pit", "lint"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["nf"]
   uses_compartments: false

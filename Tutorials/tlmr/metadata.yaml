@@ -4,6 +4,7 @@ description: "Trivalent ligand monovalent receptor"
 tags: ["validation", "tlmr", "l", "r", "generate_network", "simulate_ode"]
 category: "validation"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

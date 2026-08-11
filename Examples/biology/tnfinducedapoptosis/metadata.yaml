@@ -6,6 +6,7 @@ contributors:
 tags: ["tnf", "induced", "apoptosis", "tnfr", "caspase8", "bid", "caspase3"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -6,6 +6,7 @@ contributors:
 tags: ["sir", "epidemic", "model", "human", "generate_network", "simulate"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

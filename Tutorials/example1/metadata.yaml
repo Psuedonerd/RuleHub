@@ -4,6 +4,7 @@ description: "Example file for BNG2 tutorial."
 tags: ["validation", "example1", "version", "generate_network", "simulate_ode"]
 category: "validation"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

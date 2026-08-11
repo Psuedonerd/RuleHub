@@ -4,6 +4,8 @@ description: "Test local function expansion"
 tags: ["validation", "localfunc", "a", "b", "c", "trash", "f_synth"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false
