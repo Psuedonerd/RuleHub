@@ -4,6 +4,7 @@ description: "TLR4 signaling"
 tags: ["published", "immunology", "an", "2009", "cd14", "md2", "tlr4", "tram", "trif", "sarm", "traf4", "irak1"]
 category: "immunology"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

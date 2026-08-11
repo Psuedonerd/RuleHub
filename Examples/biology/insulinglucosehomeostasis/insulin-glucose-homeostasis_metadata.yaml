@@ -6,6 +6,8 @@ contributors:
 tags: ["insulin", "glucose", "homeostasis", "ir", "glut4", "pancreas"]
 category: "signaling"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: true

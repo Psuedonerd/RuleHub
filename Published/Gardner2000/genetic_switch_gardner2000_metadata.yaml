@@ -4,6 +4,8 @@ description: "Genetic toggle switch"
 tags: ["published", "synthetic-biology", "gardner", "2000"]
 category: "synthetic-biology"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

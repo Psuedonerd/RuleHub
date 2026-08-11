@@ -6,6 +6,7 @@ contributors:
 tags: ["calcium", "spike", "signaling", "plc", "ip3", "ca", "stim1"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: true

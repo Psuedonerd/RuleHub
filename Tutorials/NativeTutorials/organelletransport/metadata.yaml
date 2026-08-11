@@ -4,6 +4,7 @@ description: "title: organelle_transport.bngl"
 tags: ["organelle", "transport", "a", "b", "c", "d", "t1", "at1", "ct1", "t2"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: true

@@ -6,6 +6,7 @@ contributors:
 tags: ["eif2a", "stress", "response", "eif2b", "perk", "gadd34"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

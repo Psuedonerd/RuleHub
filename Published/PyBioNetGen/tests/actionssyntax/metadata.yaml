@@ -4,6 +4,7 @@ description: "Original values used to generate parabola.exp"
 tags: ["actions", "syntax", "counter", "y", "generate_network", "simulate"]
 category: "validation"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -4,6 +4,7 @@ description: "# actions ##"
 tags: ["validation", "test", "fixed", "a", "b", "generate_network", "simulate"]
 category: "validation"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

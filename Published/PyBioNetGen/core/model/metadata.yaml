@@ -4,6 +4,7 @@ description: "filename: model.bngl"
 tags: ["model", "ag", "r", "syk", "ship1", "x", "pip3", "h"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

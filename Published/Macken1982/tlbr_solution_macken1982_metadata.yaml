@@ -4,6 +4,8 @@ description: "TLBR solution macken 1982"
 tags: ["published", "physics", "macken", "1982"]
 category: "physics"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

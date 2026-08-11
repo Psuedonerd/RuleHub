@@ -4,6 +4,7 @@ description: "Model from Haugh (2006)"
 tags: ["published", "barua", "2007", "version", "r", "s"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

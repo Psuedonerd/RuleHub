@@ -4,6 +4,7 @@ description: "DNA damage response"
 tags: ["published", "mertins", "2023", "dnadsb", "p53", "mrna_bax", "bax", "bclxl", "bad", "fourteen_3_3", "caspase"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

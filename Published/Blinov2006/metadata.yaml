@@ -4,6 +4,7 @@ description: "Phosphotyrosine signaling"
 tags: ["published", "blinov", "2006", "egf", "egfr", "shc", "grb2", "sos"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

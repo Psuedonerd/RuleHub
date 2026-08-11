@@ -6,6 +6,7 @@ contributors:
 tags: ["wacky", "zombie", "infection", "human"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

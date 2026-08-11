@@ -6,6 +6,8 @@ contributors:
 tags: ["wound", "healing", "pdgf", "signaling", "pdgfr", "stat3", "fibroblast"]
 category: "signaling"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

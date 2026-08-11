@@ -4,6 +4,7 @@ description: "FceRI signaling"
 tags: ["published", "immunology", "fceri", "fyn", "lig", "lyn", "syk", "rec"]
 category: "immunology"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

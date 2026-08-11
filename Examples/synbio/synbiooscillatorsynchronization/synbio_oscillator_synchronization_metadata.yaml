@@ -6,6 +6,8 @@ contributors:
 tags: ["synbio", "oscillator", "synchronization", "osc1", "osc2", "signal"]
 category: "synthetic-biology"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

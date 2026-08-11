@@ -4,6 +4,8 @@ description: "Initial values"
 tags: ["creamer", "2012", "egf", "hrg", "egfr", "erbb2", "erbb3", "erbb4", "p52shc1", "grb2"]
 category: "tutorial"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

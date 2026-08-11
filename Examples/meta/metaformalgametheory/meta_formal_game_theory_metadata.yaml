@@ -6,6 +6,8 @@ contributors:
 tags: ["meta", "formal", "game", "theory", "hawk", "dove", "pop", "payoffh", "payoffd"]
 category: "computer-science"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

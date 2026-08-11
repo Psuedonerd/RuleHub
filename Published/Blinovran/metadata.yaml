@@ -4,6 +4,7 @@ description: "Ran GTPase cycle"
 tags: ["published", "nfsim", "blinov", "ran", "c", "rcc1", "simulate_nf"]
 category: "regulation"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["nf"]
   uses_compartments: true

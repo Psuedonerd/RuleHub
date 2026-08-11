@@ -4,6 +4,7 @@ description: "example of universal synthesis"
 tags: ["validation", "univ", "synth", "a", "b", "c", "generate_network", "simulate_ode"]
 category: "validation"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: true

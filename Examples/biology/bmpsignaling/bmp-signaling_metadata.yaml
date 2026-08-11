@@ -6,6 +6,8 @@ contributors:
 tags: ["bmp", "signaling", "noggin", "receptor1", "receptor2", "smad1", "smad4", "smad6"]
 category: "signaling"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

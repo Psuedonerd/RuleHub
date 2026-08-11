@@ -4,6 +4,8 @@ description: "MAPK dimerization"
 tags: ["published", "mapk", "dimers", "ste5", "ste11", "ste7", "fus3"]
 category: "signaling"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

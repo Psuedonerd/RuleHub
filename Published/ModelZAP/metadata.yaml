@@ -4,6 +4,7 @@ description: "ZAP-70 recruitment"
 tags: ["published", "immunology", "nfsim", "model", "zap", "kon", "a", "cbl", "cd16", "lck", "ligand", "zeta", "dead"]
 category: "immunology"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["nf"]
   uses_compartments: false

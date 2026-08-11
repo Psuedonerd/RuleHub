@@ -4,6 +4,8 @@ description: "BioNetGen model: RAFi"
 tags: ["rafi", "r", "i", "ybar", "activity"]
 category: "other"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -4,6 +4,7 @@ description: "Repressilator circuit"
 tags: ["published", "tutorial", "native", "repressilator", "gtetr", "gci", "glaci", "mtetr", "mci", "mlaci", "ptetr", "pci"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

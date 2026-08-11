@@ -4,6 +4,8 @@ description: A simple model
 tags: ["ligand_ispresent", "molecules", "species"]
 category: other
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   nfsim_compatible: false
   simulation_methods: ["ode"]

@@ -4,6 +4,8 @@ description: "Michaelis Menten Continue"
 tags: ["validation", "michment", "cont", "readfile", "setconcentration", "simulate_ode", "addconcentration"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

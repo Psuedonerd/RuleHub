@@ -4,6 +4,8 @@ description: "MEK isoform variant models curated for PyBioNetGen."
 tags: ["mek", "isoforms", "signaling", "pybionetgen"]
 category: "signaling"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

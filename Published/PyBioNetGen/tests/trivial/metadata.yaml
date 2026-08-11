@@ -4,6 +4,7 @@ description: "A trivial model file for testing MCMC distributions."
 tags: ["trivial", "q", "r", "output", "generate_network", "simulate"]
 category: "validation"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

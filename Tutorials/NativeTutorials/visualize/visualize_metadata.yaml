@@ -4,6 +4,8 @@ description: "Visualization toy"
 tags: ["published", "tutorial", "native", "visualize", "x", "a1", "a2", "b"]
 category: "tutorial"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

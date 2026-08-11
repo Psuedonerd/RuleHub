@@ -6,6 +6,8 @@ contributors:
 tags: ["process", "cell", "adhesion", "strength", "c1", "c2", "generate_network", "simulate"]
 category: "other"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

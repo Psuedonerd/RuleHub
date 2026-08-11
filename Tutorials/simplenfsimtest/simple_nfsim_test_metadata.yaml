@@ -4,6 +4,8 @@ description: "Runtime-only BNGL model migrated from public/models: simple_nfsim_
 tags: ["simple", "nfsim", "test"]
 category: "other"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["nf"]
   uses_compartments: true

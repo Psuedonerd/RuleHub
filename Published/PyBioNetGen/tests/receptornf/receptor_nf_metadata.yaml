@@ -4,6 +4,8 @@ description: "A simple model of ligand/receptor binding and receptor phosphoryla
 tags: ["receptor", "nf", "l", "r"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["nf"]
   uses_compartments: false

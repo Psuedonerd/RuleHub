@@ -4,6 +4,8 @@ description: "BLBR cooperativity"
 tags: ["published", "physics", "posner", "2004"]
 category: "physics"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

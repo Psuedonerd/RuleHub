@@ -6,6 +6,7 @@ contributors:
 tags: ["synbio", "logic", "gates", "enzymatic", "i1", "i2", "gateand", "gateor", "outand", "outor"]
 category: "synthetic-biology"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

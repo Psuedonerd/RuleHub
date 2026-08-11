@@ -4,6 +4,8 @@ description: "Prion replication"
 tags: ["published", "literature", "prion", "lin", "2019", "prp", "scaledupspecies1", "scaledupspecies2", "scaledupspecies15", "scaledupspecies30"]
 category: "other"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode", "ssa"]
   uses_compartments: false

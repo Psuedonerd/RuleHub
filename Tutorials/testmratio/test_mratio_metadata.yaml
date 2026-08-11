@@ -4,6 +4,8 @@ description: "Reaction ratio test"
 tags: ["validation", "test", "mratio", "a", "b", "c_theory", "c_upper", "c_lower"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

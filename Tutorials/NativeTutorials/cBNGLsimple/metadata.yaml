@@ -4,6 +4,7 @@ description: "A simplified signal transduction model including the following pro
 tags: ["cbngl", "simple", "l", "r", "tf", "dna", "mrna", "p"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: true

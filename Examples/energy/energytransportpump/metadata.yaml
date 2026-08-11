@@ -6,6 +6,7 @@ contributors:
 tags: ["energy", "transport", "pump", "a", "atp", "adp", "pi", "t"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

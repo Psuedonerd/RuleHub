@@ -6,6 +6,8 @@ contributors:
 tags: ["wacky", "black", "hole", "m", "bh", "k_accrete", "k_evap"]
 category: "other"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

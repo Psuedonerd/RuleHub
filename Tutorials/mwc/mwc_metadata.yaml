@@ -4,6 +4,8 @@ description: "Monod-Wyman-Changeux model"
 tags: ["validation", "mwc", "setoption", "h", "ox", "b"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: true

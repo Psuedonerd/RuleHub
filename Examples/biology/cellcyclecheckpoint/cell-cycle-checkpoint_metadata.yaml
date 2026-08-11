@@ -16,6 +16,7 @@ biol_categories: ["cell cycle"]
 comp_categories: ["other"]
 
 compatibility:
+  database_visible: true
   rr_compatible: true
   bnglviz_compatible: true
   bng2_compatible: true 

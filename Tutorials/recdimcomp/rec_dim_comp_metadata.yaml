@@ -4,6 +4,8 @@ description: "name dimension volume contained_by"
 tags: ["validation", "rec", "dim", "comp", "kp1", "kp2", "lig", "writemdl", "generate_network", "simulate"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: true

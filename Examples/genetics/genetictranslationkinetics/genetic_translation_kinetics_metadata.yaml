@@ -6,6 +6,8 @@ contributors:
 tags: ["genetic", "translation", "kinetics", "mrna", "rib", "protein"]
 category: "gene-expression"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

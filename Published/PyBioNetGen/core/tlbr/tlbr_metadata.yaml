@@ -4,6 +4,8 @@ description: "A model of trivalent ligand, bivalent receptor"
 tags: ["tlbr", "l", "r", "lambda", "fl"]
 category: "other"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

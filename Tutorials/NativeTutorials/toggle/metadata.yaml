@@ -4,6 +4,7 @@ description: "Toggle switch"
 tags: ["published", "tutorial", "native", "toggle", "x", "y", "generate_network", "writemfile", "setconcentration"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ssa"]
   uses_compartments: false

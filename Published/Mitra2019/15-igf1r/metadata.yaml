@@ -4,6 +4,7 @@ description: Author: William S. Hlavacek
 tags: ["dilution", "a1_permpers", "a2_permpers", "molecules"]
 category: other
 compatibility:
+  database_visible: true
   bng2_compatible: true
   nfsim_compatible: false
   simulation_methods: ["ode"]

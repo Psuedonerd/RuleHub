@@ -6,6 +6,7 @@ contributors:
 tags: ["checkpoint", "kinase", "signaling", "dna", "atm", "atr", "chk1", "chk2", "p53", "cdc25"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

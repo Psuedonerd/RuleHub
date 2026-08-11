@@ -4,6 +4,7 @@ description: "Validate state inheritance in a symmetric context"
 tags: ["validation", "heise", "a", "b", "generate_network", "simulate_ode", "setparameter"]
 category: "validation"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

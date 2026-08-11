@@ -4,6 +4,7 @@ description: "VEGF signaling"
 tags: ["published", "zhang", "2023", "vegf", "vegfr2", "vegfr1", "nrp1", "pi", "plcgamma", "dag", "ip3_cyto"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

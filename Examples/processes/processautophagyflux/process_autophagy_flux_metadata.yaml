@@ -6,6 +6,8 @@ contributors:
 tags: ["process", "autophagy", "flux", "phagophore", "autophagosome", "lysosome", "autolysosome", "cargo"]
 category: "other"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -6,6 +6,8 @@ contributors:
 tags: ["mt", "pascal", "triangle", "node"]
 category: "computer-science"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

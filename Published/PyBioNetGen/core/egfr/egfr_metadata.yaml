@@ -4,6 +4,8 @@ description: "Blinov et al. 2006. Biosystems, 83:136"
 tags: ["egfr", "egf", "grb2", "shc", "sos"]
 category: "other"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

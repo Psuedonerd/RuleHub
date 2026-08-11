@@ -6,6 +6,7 @@ contributors:
 tags: ["mt", "bngl", "interpreter", "rule", "species", "exec_s1_s2", "generate_network", "simulate"]
 category: "computer-science"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -50,6 +50,7 @@ tags:
   - molecules
 category: other
 compatibility:
+  database_visible: true
   bng2_compatible: true
   nfsim_compatible: false
   simulation_methods:

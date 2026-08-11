@@ -4,6 +4,7 @@ description: "BLBR heterogeneity"
 tags: ["published", "physics", "goldstein", "1980"]
 category: "physics"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

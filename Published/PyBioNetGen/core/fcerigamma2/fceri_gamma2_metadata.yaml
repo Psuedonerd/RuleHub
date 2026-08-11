@@ -4,6 +4,8 @@ description: "BioNetGen model: fceri gamma2"
 tags: ["fceri", "gamma2", "lig", "lyn", "syk", "rec"]
 category: "other"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ssa"]
   uses_compartments: false

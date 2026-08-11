@@ -4,6 +4,8 @@ description: A model of T cell receptor signaling
 tags: ["immunology"]
 category: immunology
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   nfsim_compatible: true
   simulation_methods: ["nf"]

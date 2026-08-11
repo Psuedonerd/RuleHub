@@ -4,6 +4,7 @@ description: "Basic chemical reactions"
 tags: ["published", "tutorials", "chemistry", "a", "b", "c", "d", "e"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

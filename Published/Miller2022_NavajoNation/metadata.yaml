@@ -4,6 +4,8 @@ description: "COVID-19 epidemiological models fit to Navajo Nation regional data
 tags: ["covid-19", "epidemiology", "pybionetgen"]
 category: "epidemiology"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -6,6 +6,7 @@ contributors:
 tags: ["sp", "fourier", "synthesizer", "s1", "s3", "s5", "s7", "s9", "wave", "c1"]
 category: "computer-science"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

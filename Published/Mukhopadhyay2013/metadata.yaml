@@ -4,6 +4,7 @@ description: "FceRI signaling"
 tags: ["published", "immunology", "mukhopadhyay", "2013", "s", "e", "f", "z"]
 category: "immunology"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

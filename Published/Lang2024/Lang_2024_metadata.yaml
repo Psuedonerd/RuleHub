@@ -4,6 +4,8 @@ description: "Cell cycle regulation"
 tags: ["published", "lang", "2024", "e2f", "rb1", "ppp2r2b", "ccnb_promoter", "ccna", "ccna_promoter", "foxm1_promoter", "ensa_arpp19"]
 category: "signaling"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: true

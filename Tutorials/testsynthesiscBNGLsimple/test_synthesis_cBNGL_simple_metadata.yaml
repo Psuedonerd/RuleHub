@@ -4,6 +4,8 @@ description: "Compartmental synthesis"
 tags: ["validation", "test", "synthesis", "cbngl", "simple", "a", "a2", "b", "c", "source", "source2"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: true

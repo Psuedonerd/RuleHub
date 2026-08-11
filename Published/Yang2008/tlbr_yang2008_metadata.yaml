@@ -4,6 +4,8 @@ description: "TLBR yang 2008"
 tags: ["published", "physics", "yang", "2008"]
 category: "physics"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

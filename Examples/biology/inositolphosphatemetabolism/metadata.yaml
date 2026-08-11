@@ -6,6 +6,7 @@ contributors:
 tags: ["inositol", "phosphate", "metabolism", "pip2", "ip3", "ip4", "calcium", "agonist"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

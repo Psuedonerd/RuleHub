@@ -4,6 +4,8 @@ description: "Author: William S. Hlavacek"
 tags: ["igf1r", "model", "receptor", "activation", "bnf", "igf1"]
 category: "other"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

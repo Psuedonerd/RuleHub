@@ -4,6 +4,7 @@ description: "title: translateSBML.bngl"
 tags: ["translatesbml", "generate_network", "simulate"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -4,6 +4,8 @@ description: "SBML import test"
 tags: ["validation", "simple", "sbml", "import", "readfile", "generate_network", "simulate"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -6,6 +6,7 @@ contributors:
 tags: ["apoptosis", "cascade", "deathligand", "caspase8", "bid", "mito", "apaf1", "caspase3", "xiap", "smac"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

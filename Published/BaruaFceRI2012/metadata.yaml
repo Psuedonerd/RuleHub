@@ -4,6 +4,7 @@ description: "FcÃƒÅ½Ã‚ÂµRI signaling"
 tags: ["published", "immunology", "baruafceri", "2012", "r_o", "rdimer_o", "l_o", "t_o", "l", "fcr", "lyn", "syk"]
 category: "immunology"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

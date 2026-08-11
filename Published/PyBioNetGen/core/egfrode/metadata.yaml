@@ -4,6 +4,7 @@ description: "Filename: example1.bngl"
 tags: ["egfr", "ode", "egf", "pre1_dose", "pre2_time", "pre3_dose"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -4,6 +4,7 @@ description: Supplementary File A in File S1
 tags: ["other"]
 category: other
 compatibility:
+  database_visible: true
   bng2_compatible: true
   nfsim_compatible: true
   simulation_methods: ["nf"]

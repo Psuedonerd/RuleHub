@@ -4,6 +4,7 @@ description: "reporting period (1 d)"
 tags: ["alabama", "fdcs", "counter", "s", "e1", "e2", "e3", "e4", "e5"]
 category: "epidemiology"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -4,6 +4,8 @@ description: "ERK signaling"
 tags: ["published", "literature", "signaling", "lin", "erk", "2019", "egfr", "sos", "ras", "rasgap", "raf", "mek", "ekar3"]
 category: "other"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode", "ssa"]
   uses_compartments: false

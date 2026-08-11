@@ -4,6 +4,8 @@ description: "- This model is intended to be consistent with the compartmental m
 tags: ["nyc", "counter", "fdcs", "s", "sv", "e", "a", "i", "v"]
 category: "epidemiology"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

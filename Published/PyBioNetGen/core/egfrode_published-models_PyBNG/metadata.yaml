@@ -4,6 +4,7 @@ description: "EGFR ODE"
 tags: ["published", "pybng", "egfr", "ode", "egf", "pre1_dose", "pre2_time", "pre3_dose"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -4,6 +4,8 @@ description: "BioNetGen model: SIR"
 tags: ["sir", "saveconcentrations", "simulate"]
 category: "tutorial"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode", "ssa"]
   uses_compartments: false

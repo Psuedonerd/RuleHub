@@ -6,6 +6,7 @@ contributors:
 tags: ["cs", "regex", "nfa", "state", "char", "generate_network", "simulate", "setparameter"]
 category: "computer-science"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ssa"]
   uses_compartments: false

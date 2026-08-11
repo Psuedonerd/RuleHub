@@ -6,6 +6,7 @@ contributors:
 tags: ["energy", "linear", "chain", "m", "generate_network"]
 category: "other"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

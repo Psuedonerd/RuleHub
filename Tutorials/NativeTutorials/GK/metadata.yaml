@@ -4,6 +4,7 @@ description: "title: GK.bngl"
 tags: ["gk", "b", "simulate"]
 category: "tutorial"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -6,6 +6,7 @@ contributors:
 tags: ["mtor", "signaling", "rheb", "mtorc1", "s6k", "ampk"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

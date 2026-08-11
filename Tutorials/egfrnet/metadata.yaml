@@ -4,6 +4,7 @@ description: "check detailed balanced"
 tags: ["validation", "egfr", "net", "egf", "shc", "grb2", "sos"]
 category: "validation"
 compatibility:
+  database_visible: true
   bng2_compatible: false
   simulation_methods: ["ode"]
   uses_compartments: false

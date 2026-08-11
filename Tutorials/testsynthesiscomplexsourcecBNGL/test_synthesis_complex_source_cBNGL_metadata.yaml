@@ -4,6 +4,8 @@ description: "volume-surface"
 tags: ["validation", "test", "synthesis", "complex", "source", "cbngl", "volume_molecule1", "volume_molecule2", "surface_molecule1", "surface_molecule2", "volume_molecule3", "volume_molecule4", "volume_receptor", "surface_receptor"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: true

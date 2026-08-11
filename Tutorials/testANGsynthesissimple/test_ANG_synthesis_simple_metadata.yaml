@@ -4,6 +4,8 @@ description: "Synthesis network test"
 tags: ["validation", "test", "ang", "synthesis", "simple", "a", "b", "c", "source", "source2", "generate_network"]
 category: "validation"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

@@ -6,6 +6,8 @@ contributors:
 tags: ["ml", "gradient", "descent", "posx", "posy", "velx", "vely", "loss"]
 category: "computer-science"
 compatibility:
+  database_visible: true
+  bngp_compatible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

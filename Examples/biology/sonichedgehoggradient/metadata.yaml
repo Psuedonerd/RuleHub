@@ -6,6 +6,7 @@ contributors:
 tags: ["sonic", "hedgehog", "gradient", "shh", "ptc1", "v_prod"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false

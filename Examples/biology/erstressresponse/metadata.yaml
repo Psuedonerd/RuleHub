@@ -6,6 +6,7 @@ contributors:
 tags: ["er", "stress", "response", "unfoldedprotein", "perk", "eif2a", "chaperone"]
 category: "signaling"
 compatibility:
+  database_visible: true
   bng2_compatible: true
   simulation_methods: ["ode"]
   uses_compartments: false
