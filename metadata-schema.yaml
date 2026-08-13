@@ -33,6 +33,8 @@ comp_categories:
   - enum(tutorial, validation, showcase, computer-science, other, compartments, energy, feature-demos, nfsim, processes, wacky, cs, ml, other)
 
 compatibility:
+  database_visible: boolean
+  bngp_compatible: boolean
   bng2_compatible: boolean
   min_bng_version: string
   rr_compatible: boolean     
